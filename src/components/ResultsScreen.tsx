@@ -1,0 +1,78 @@
+import type { UserAnswer } from "../types";
+
+interface ResultsScreenProps {
+  answers: UserAnswer[];
+  onRestart: () => void;
+}
+
+export default function ResultsScreen({
+  answers,
+  onRestart,
+}: ResultsScreenProps) {
+  const correctAnswers = answers.filter((a) => a.isCorrect).length;
+  const totalQuestions = answers.length;
+  const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+  const wrongAnswers = answers.filter((a) => !a.isCorrect);
+
+  const getScoreMessage = () => {
+    if (percentage >= 90) return "🎉 Excellent! You really know your stuff!";
+    if (percentage >= 70) return "👍 Great job! Solid knowledge!";
+    if (percentage >= 50) return "👌 Good effort! Keep learning!";
+    return "📚 Keep studying! Practice makes perfect!";
+  };
+
+  return (
+    <div className="results-screen">
+      <div className="results-summary">
+        <h1>Quiz Complete!</h1>
+        <div className="score-circle">
+          <div className="percentage">{percentage}%</div>
+          <div className="score-text">
+            {correctAnswers} / {totalQuestions} correct
+          </div>
+        </div>
+        <p className="score-message">{getScoreMessage()}</p>
+      </div>
+
+      {wrongAnswers.length > 0 && (
+        <div className="wrong-answers-section">
+          <h2>Review Incorrect Answers ({wrongAnswers.length})</h2>
+          <div className="wrong-answers-list">
+            {wrongAnswers.map((answer, index) => (
+              <div key={answer.questionId} className="wrong-answer-item">
+                <div className="wrong-answer-header">
+                  <span className="wrong-answer-number">
+                    Question #{index + 1}
+                  </span>
+                </div>
+                <p className="wrong-answer-question">{answer.question}</p>
+                <div className="answer-comparison">
+                  <div className="your-answer incorrect">
+                    <strong>Your Answer ({answer.selectedAnswer}):</strong> {answer.options[answer.selectedAnswer]}
+                  </div>
+                  <div className="correct-answer">
+                    <strong>Correct Answer ({answer.correctAnswer}):</strong> {answer.options[answer.correctAnswer]}
+                  </div>
+                </div>
+                <div className="explanation">
+                  <strong>Explanation:</strong> {answer.explanation}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {wrongAnswers.length === 0 && (
+        <div className="perfect-score">
+          <h2>🌟 Perfect Score! 🌟</h2>
+          <p>You answered all questions correctly!</p>
+        </div>
+      )}
+
+      <button className="restart-button" onClick={onRestart}>
+        Start New Quiz
+      </button>
+    </div>
+  );
+}

@@ -1,0 +1,2874 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": "When updating state that depends on the previous value, what should you use?",
+      "options": {
+        "A": "Direct state update: setState(value + 1)",
+        "B": "Functional update: setState(prev => prev + 1)",
+        "C": "Class component: this.setState()",
+        "D": "External variable to track previous value"
+      },
+      "correctAnswer": "B",
+      "explanation": "Functional updates ensure you're working with the most recent state value, especially important when multiple state updates happen in quick succession. React batches state updates, so using the functional form guarantees you get the actual previous value, not a stale closure value.",
+      "topic": "React Hooks - useState",
+      "difficulty": "medium"
+    },
+    {
+      "id": 2,
+      "question": "What happens when useState receives a function as initial value?",
+      "options": {
+        "A": "Function runs on every render",
+        "B": "Function runs only on initial render",
+        "C": "Function reference is stored as state",
+        "D": "React throws an initialization error"
+      },
+      "correctAnswer": "B",
+      "explanation": "This is called lazy initialization. When you pass a function to useState, React calls it only once during the initial render to compute the initial state. This is useful for expensive computations that you don't want to repeat on every render.",
+      "topic": "React Hooks - useState",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "How does useState differ from class setState for objects?",
+      "options": {
+        "A": "useState auto-merges object properties",
+        "B": "useState replaces state, needs manual spread",
+        "C": "useState only works with primitives",
+        "D": "No difference, both merge automatically"
+      },
+      "correctAnswer": "B",
+      "explanation": "Unlike class components where setState merges the object automatically, useState completely replaces the state. You must manually spread the previous state to preserve other properties: setState({...prev, newProp: value}). This gives you more control but requires explicit merging.",
+      "topic": "React Hooks - useState",
+      "difficulty": "medium"
+    },
+    {
+      "id": 4,
+      "question": "When does a useEffect cleanup function execute?",
+      "options": {
+        "A": "Only when component unmounts completely",
+        "B": "Before re-run and on unmount",
+        "C": "After every single render cycle",
+        "D": "Only when dependencies array changes"
+      },
+      "correctAnswer": "B",
+      "explanation": "The cleanup function runs before the effect runs again (when dependencies change) and when the component unmounts. This prevents memory leaks from subscriptions, timers, or event listeners by cleaning up the previous effect before running the new one.",
+      "topic": "React Hooks - useEffect",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "What does useEffect with empty dependency array [] do?",
+      "options": {
+        "A": "Runs on every single render",
+        "B": "Runs once after initial render",
+        "C": "Never runs, equivalent to disabled",
+        "D": "Runs when any state changes"
+      },
+      "correctAnswer": "B",
+      "explanation": "An empty dependency array tells React that the effect doesn't depend on any props or state, so it only needs to run once after the component mounts. This is equivalent to componentDidMount in class components and is commonly used for initial data fetching or subscriptions.",
+      "topic": "React Hooks - useEffect",
+      "difficulty": "medium"
+    },
+    {
+      "id": 6,
+      "question": "What is the primary purpose of useCallback?",
+      "options": {
+        "A": "Memoize function return values",
+        "B": "Memoize function reference itself",
+        "C": "Prevent all component re-renders",
+        "D": "Cache API responses automatically"
+      },
+      "correctAnswer": "B",
+      "explanation": "useCallback returns a memoized version of the callback function that only changes if dependencies change. This is useful when passing callbacks to optimized child components that rely on reference equality (like React.memo) to prevent unnecessary re-renders.",
+      "topic": "React Hooks - useCallback",
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "How does useCallback differ from useMemo?",
+      "options": {
+        "A": "They are exactly the same hook",
+        "B": "useCallback for functions, useMemo for values",
+        "C": "useCallback for arrays, useMemo for objects",
+        "D": "useCallback is deprecated version of useMemo"
+      },
+      "correctAnswer": "B",
+      "explanation": "useCallback memoizes the function itself and returns the same function reference, while useMemo memoizes the result of calling a function. useCallback(fn, deps) is equivalent to useMemo(() => fn, deps) - one returns the function, the other returns the function's return value.",
+      "topic": "React Hooks - useCallback vs useMemo",
+      "difficulty": "medium"
+    },
+    {
+      "id": 8,
+      "question": "When should you use useMemo in your component?",
+      "options": {
+        "A": "For every calculation in component",
+        "B": "For expensive calculations or referential equality",
+        "C": "Only for API calls and fetching",
+        "D": "Never, recalculation is always better"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use useMemo for expensive computations that you want to avoid recalculating on every render, or when you need referential equality for objects/arrays passed to dependencies or child components. Overusing it can actually harm performance due to memoization overhead.",
+      "topic": "React Hooks - useMemo",
+      "difficulty": "medium"
+    },
+    {
+      "id": 9,
+      "question": "What's the key difference between useRef and useState?",
+      "options": {
+        "A": "useRef can only store numbers",
+        "B": "useRef updates don't trigger re-renders",
+        "C": "useState doesn't persist across renders",
+        "D": "They work identically in practice"
+      },
+      "correctAnswer": "B",
+      "explanation": "Changing a ref's .current property doesn't trigger a re-render, while setState does. This makes useRef perfect for storing mutable values that don't affect the visual output, like timers, previous values, or DOM references. Both persist across renders.",
+      "topic": "React Hooks - useRef",
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "What is the most common use case for useRef?",
+      "options": {
+        "A": "Managing global application state",
+        "B": "Accessing DOM elements directly",
+        "C": "Fetching data from APIs",
+        "D": "Creating CSS animations"
+      },
+      "correctAnswer": "B",
+      "explanation": "useRef is most commonly used to store a reference to a DOM element, allowing you to imperatively manipulate it (focus, scroll, measure) without triggering re-renders. You attach it via the ref attribute: <input ref={myRef} />.",
+      "topic": "React Hooks - useRef",
+      "difficulty": "medium"
+    },
+    {
+      "id": 11,
+      "question": "What problem does useContext solve in React?",
+      "options": {
+        "A": "Slow component rendering performance",
+        "B": "Prop drilling through component layers",
+        "C": "Memory leaks in applications",
+        "D": "TypeScript type safety issues"
+      },
+      "correctAnswer": "B",
+      "explanation": "useContext eliminates prop drilling - the need to pass props through many intermediate components that don't use them. It allows deeply nested components to access values directly from a context provider, making code cleaner and more maintainable.",
+      "topic": "React Hooks - useContext",
+      "difficulty": "medium"
+    },
+    {
+      "id": 12,
+      "question": "What is the purpose of dispatch in useReducer?",
+      "options": {
+        "A": "Directly modify the state object",
+        "B": "Send action to reducer function",
+        "C": "Fetch data from external APIs",
+        "D": "Create new reducer dynamically"
+      },
+      "correctAnswer": "B",
+      "explanation": "dispatch sends an action object (typically with a 'type' and optional payload) to the reducer function. The reducer then determines how to update state based on the action type. This pattern is inspired by Redux and provides predictable state transitions.",
+      "topic": "React Hooks - useReducer",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "When should you prefer useReducer over useState?",
+      "options": {
+        "A": "For simple boolean or string values",
+        "B": "For complex state with multiple sub-values",
+        "C": "Only when using Redux library",
+        "D": "Never, useState is always better"
+      },
+      "correctAnswer": "B",
+      "explanation": "useReducer excels when you have complex state logic involving multiple sub-values, or when the next state depends on the previous one in complex ways. It also helps when state updates need to be testable in isolation or when you want to centralize state update logic.",
+      "topic": "React Hooks - useReducer",
+      "difficulty": "medium"
+    },
+    {
+      "id": 14,
+      "question": "How does useLayoutEffect differ from useEffect?",
+      "options": {
+        "A": "useLayoutEffect runs before paint, synchronously",
+        "B": "useLayoutEffect is faster than useEffect",
+        "C": "useEffect is deprecated in React 18",
+        "D": "They are identical, just naming difference"
+      },
+      "correctAnswer": "A",
+      "explanation": "useLayoutEffect fires synchronously after DOM mutations but before the browser paints. This allows you to read layout and synchronously re-render before the user sees anything. useEffect runs asynchronously after paint, which is usually what you want for performance.",
+      "topic": "React Hooks - useLayoutEffect",
+      "difficulty": "medium"
+    },
+    {
+      "id": 15,
+      "question": "When should you use useLayoutEffect instead of useEffect?",
+      "options": {
+        "A": "For all effects to improve performance",
+        "B": "For DOM measurements before browser paint",
+        "C": "For fetching data from APIs",
+        "D": "For cleanup of event subscriptions"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use useLayoutEffect when you need to measure DOM elements (getBoundingClientRect, scroll position) or make visual changes based on those measurements before the browser paints. This prevents visual flickering. For most other effects, useEffect is preferred for better performance.",
+      "topic": "React Hooks - useLayoutEffect",
+      "difficulty": "medium"
+    },
+    {
+      "id": 16,
+      "question": "What is the purpose of useTransition in React 18?",
+      "options": {
+        "A": "Add CSS transitions to components",
+        "B": "Mark state updates as non-urgent",
+        "C": "Handle routing page transitions",
+        "D": "Animate component mount/unmount"
+      },
+      "correctAnswer": "B",
+      "explanation": "useTransition lets you mark certain state updates as transitions (non-urgent), allowing React to keep the interface responsive during expensive updates. Urgent updates (like typing) can interrupt transition updates (like filtering a large list), preventing UI lag.",
+      "topic": "React Hooks - useTransition",
+      "difficulty": "medium"
+    },
+    {
+      "id": 17,
+      "question": "What does isPending indicate in useTransition?",
+      "options": {
+        "A": "Component is currently loading",
+        "B": "Low-priority transition is processing",
+        "C": "API call is pending response",
+        "D": "Component will unmount soon"
+      },
+      "correctAnswer": "B",
+      "explanation": "isPending is a boolean that's true while the transition is in progress. You can use it to show loading indicators or disable UI elements during the transition, giving users feedback that their action is being processed without blocking urgent updates.",
+      "topic": "React Hooks - useTransition",
+      "difficulty": "medium"
+    },
+    {
+      "id": 18,
+      "question": "How does useTransition differ from useDeferredValue?",
+      "options": {
+        "A": "No difference, same functionality",
+        "B": "useTransition wraps update, useDeferredValue wraps value",
+        "C": "useTransition for CSS, useDeferredValue for JS",
+        "D": "useDeferredValue is deprecated in React 18"
+      },
+      "correctAnswer": "B",
+      "explanation": "useTransition wraps the state update function (startTransition(() => setState(...))), while useDeferredValue wraps the value itself (const deferredValue = useDeferredValue(value)). Use useTransition when you control the state update, useDeferredValue when you receive the value as a prop.",
+      "topic": "React Hooks - useTransition vs useDeferredValue",
+      "difficulty": "medium"
+    },
+    {
+      "id": 19,
+      "question": "What is a Promise in JavaScript?",
+      "options": {
+        "A": "Synchronous operation returning immediately",
+        "B": "Object representing eventual async completion",
+        "C": "Function executing after delay",
+        "D": "Deprecated feature replaced by callbacks"
+      },
+      "correctAnswer": "B",
+      "explanation": "A Promise is an object representing the eventual completion (or failure) of an asynchronous operation. It's in one of three states: pending, fulfilled, or rejected. Promises provide a cleaner alternative to callback hell and allow chaining with .then() and .catch().",
+      "topic": "JavaScript - Promises",
+      "difficulty": "medium"
+    },
+    {
+      "id": 20,
+      "question": "What are the three states of a Promise?",
+      "options": {
+        "A": "Started, Running, Completed",
+        "B": "Pending, Fulfilled, Rejected",
+        "C": "Loading, Success, Error",
+        "D": "Initialized, Processing, Done"
+      },
+      "correctAnswer": "B",
+      "explanation": "Pending means the operation hasn't completed yet. Fulfilled means it completed successfully with a value. Rejected means it failed with an error. Once a Promise settles (fulfilled or rejected), it becomes immutable - its state and value can't change.",
+      "topic": "JavaScript - Promises",
+      "difficulty": "medium"
+    },
+    {
+      "id": 21,
+      "question": "What happens if one Promise in Promise.all() rejects?",
+      "options": {
+        "A": "Waits for all, returns all results",
+        "B": "Immediately rejects with first rejection",
+        "C": "Ignores rejection and continues",
+        "D": "Automatically retries rejected promise"
+      },
+      "correctAnswer": "B",
+      "explanation": "Promise.all() fails fast - it immediately rejects as soon as any Promise rejects, returning that rejection reason. The other promises may still settle, but their results are ignored. For handling partial failures, use Promise.allSettled() instead.",
+      "topic": "JavaScript - Promises",
+      "difficulty": "medium"
+    },
+    {
+      "id": 22,
+      "question": "What is the relationship between async/await and Promises?",
+      "options": {
+        "A": "Completely unrelated JavaScript features",
+        "B": "async/await is syntactic sugar for Promises",
+        "C": "Promises are syntactic sugar for async/await",
+        "D": "async/await completely replaces Promises"
+      },
+      "correctAnswer": "B",
+      "explanation": "async/await is syntactic sugar built on top of Promises. An async function always returns a Promise, and await pauses execution until a Promise resolves. It makes asynchronous code look synchronous, improving readability while using Promises under the hood.",
+      "topic": "JavaScript - async/await",
+      "difficulty": "medium"
+    },
+    {
+      "id": 23,
+      "question": "What does an async function always return?",
+      "options": {
+        "A": "Value specified in return statement",
+        "B": "A Promise wrapping the value",
+        "C": "Undefined in all cases",
+        "D": "Callback function for chaining"
+      },
+      "correctAnswer": "B",
+      "explanation": "An async function always returns a Promise, even if you return a plain value. If you return 'hello', it's automatically wrapped in Promise.resolve('hello'). If you throw an error, it becomes Promise.reject(error). This allows consistent handling of async functions.",
+      "topic": "JavaScript - async/await",
+      "difficulty": "medium"
+    },
+    {
+      "id": 24,
+      "question": "How do you handle errors in async/await functions?",
+      "options": {
+        "A": "Using .catch() method only",
+        "B": "Using try...catch blocks",
+        "C": "Errors cannot be caught",
+        "D": "Using if...else statements"
+      },
+      "correctAnswer": "B",
+      "explanation": "With async/await, you use standard try...catch blocks to handle errors, making error handling look synchronous and more intuitive. The catch block will catch both synchronous errors (thrown) and asynchronous rejections (from awaited Promises).",
+      "topic": "JavaScript - async/await",
+      "difficulty": "medium"
+    },
+    {
+      "id": 25,
+      "question": "Which queue has higher priority in Event Loop?",
+      "options": {
+        "A": "Task Queue (MacroTask)",
+        "B": "MicroTask Queue",
+        "C": "Both have equal priority",
+        "D": "Call Stack has priority"
+      },
+      "correctAnswer": "B",
+      "explanation": "The MicroTask Queue (Promise callbacks, queueMicrotask) has higher priority than the Task Queue (setTimeout, setInterval). After each task from the Task Queue, the Event Loop processes ALL microtasks before moving to the next task, ensuring Promises resolve quickly.",
+      "topic": "JavaScript - Event Loop",
+      "difficulty": "medium"
+    },
+    {
+      "id": 26,
+      "question": "Where do Promise .then() callbacks go in Event Loop?",
+      "options": {
+        "A": "Directly to Call Stack",
+        "B": "MicroTask Queue",
+        "C": "Task Queue (MacroTask)",
+        "D": "Web APIs container"
+      },
+      "correctAnswer": "B",
+      "explanation": "Promise .then(), .catch(), and .finally() callbacks are added to the MicroTask Queue. This gives them higher priority than setTimeout/setInterval (Task Queue), ensuring Promises resolve before the next macrotask, providing more predictable async behavior.",
+      "topic": "JavaScript - Event Loop",
+      "difficulty": "medium"
+    },
+    {
+      "id": 27,
+      "question": "Why doesn't setTimeout(fn, 0) execute immediately?",
+      "options": {
+        "A": "Minimum browser delay is 4ms",
+        "B": "Goes to Task Queue, waits for stack/microtasks",
+        "C": "It's a bug in JavaScript",
+        "D": "It actually does execute immediately"
+      },
+      "correctAnswer": "B",
+      "explanation": "setTimeout(fn, 0) adds the callback to the Task Queue (macrotask), not the Call Stack. It must wait for the current Call Stack to empty AND all MicroTasks to complete before executing. This means it runs after all synchronous code and Promise callbacks.",
+      "topic": "JavaScript - Event Loop",
+      "difficulty": "medium"
+    },
+    {
+      "id": 28,
+      "question": "What is a closure in JavaScript?",
+      "options": {
+        "A": "Function that returns another function",
+        "B": "Function remembering its lexical environment",
+        "C": "Method to close browser windows",
+        "D": "Technique to prevent memory leaks"
+      },
+      "correctAnswer": "B",
+      "explanation": "A closure is a function that has access to variables from its outer (enclosing) lexical scope, even after the outer function has returned. This happens because functions in JavaScript form closures - they 'remember' the environment in which they were created.",
+      "topic": "JavaScript - Closures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 29,
+      "question": "What value does a closure reference?",
+      "options": {
+        "A": "Value when closure was created",
+        "B": "Current value from lexical environment",
+        "C": "Always returns undefined",
+        "D": "Copy of the original value"
+      },
+      "correctAnswer": "B",
+      "explanation": "Closures reference the live binding, not a snapshot. If the variable changes after the closure is created, the closure sees the updated value. This is why loops with var and closures can have unexpected behavior - all closures reference the same, final value of the loop variable.",
+      "topic": "JavaScript - Closures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 30,
+      "question": "What is hoisting in JavaScript?",
+      "options": {
+        "A": "Moving variables to global scope",
+        "B": "Declarations moved to scope top",
+        "C": "Optimizing code execution speed",
+        "D": "Deprecated ES5 feature"
+      },
+      "correctAnswer": "B",
+      "explanation": "Hoisting is JavaScript's behavior of moving declarations to the top of their scope during compilation. This means you can use variables and functions before they appear in the code. However, only declarations are hoisted, not initializations - let/const remain in temporal dead zone until declaration.",
+      "topic": "JavaScript - Hoisting",
+      "difficulty": "medium"
+    },
+    {
+      "id": 31,
+      "question": "How are function declarations hoisted?",
+      "options": {
+        "A": "Only declaration, not definition",
+        "B": "Both declaration and definition hoisted",
+        "C": "Function declarations aren't hoisted",
+        "D": "Only in strict mode"
+      },
+      "correctAnswer": "B",
+      "explanation": "Function declarations are fully hoisted - both the name and the function body are moved to the top of the scope. This means you can call a function before it appears in code. Function expressions (const fn = function() {}) are not fully hoisted - only the variable is.",
+      "topic": "JavaScript - Hoisting",
+      "difficulty": "medium"
+    },
+    {
+      "id": 32,
+      "question": "What is the Temporal Dead Zone (TDZ)?",
+      "options": {
+        "A": "Time zone for scheduling tasks",
+        "B": "Period before let/const declaration",
+        "C": "Built-in debugging feature",
+        "D": "When garbage collection occurs"
+      },
+      "correctAnswer": "B",
+      "explanation": "The TDZ is the period between entering a scope where a let/const variable is declared and the actual declaration line. During this time, accessing the variable throws a ReferenceError. This prevents using variables before they're properly initialized, catching bugs that var hoisting would hide.",
+      "topic": "JavaScript - Hoisting",
+      "difficulty": "medium"
+    },
+    {
+      "id": 33,
+      "question": "What type of scope does var have?",
+      "options": {
+        "A": "Block scope like let",
+        "B": "Function or global scope",
+        "C": "Module scope only",
+        "D": "No scope at all"
+      },
+      "correctAnswer": "B",
+      "explanation": "var is function-scoped (or globally scoped if not in a function). It ignores block scopes like if statements and loops. This can lead to bugs where variables 'leak' out of blocks. let and const fix this with block scoping, which is why they're preferred in modern JavaScript.",
+      "topic": "JavaScript - var/let/const",
+      "difficulty": "medium"
+    },
+    {
+      "id": 34,
+      "question": "What's the main difference between let and const?",
+      "options": {
+        "A": "const has function scope",
+        "B": "const cannot be reassigned",
+        "C": "let is faster than const",
+        "D": "No difference at all"
+      },
+      "correctAnswer": "B",
+      "explanation": "const prevents reassignment of the variable binding - you can't point the variable to a different value. However, if the value is an object or array, you can still modify its properties. let allows reassignment. Both are block-scoped and can't be redeclared in the same scope.",
+      "topic": "JavaScript - var/let/const",
+      "difficulty": "medium"
+    },
+    {
+      "id": 35,
+      "question": "Can you modify properties of a const object?",
+      "options": {
+        "A": "No, const makes everything immutable",
+        "B": "Yes, const only prevents reassignment",
+        "C": "Only with Object.freeze()",
+        "D": "Only in strict mode"
+      },
+      "correctAnswer": "B",
+      "explanation": "const prevents reassigning the variable to a new value, but it doesn't make the value immutable. For objects and arrays, you can still modify properties, add/remove items, etc. To make an object truly immutable, you need Object.freeze() or immutable data structures.",
+      "topic": "JavaScript - var/let/const",
+      "difficulty": "medium"
+    },
+    {
+      "id": 36,
+      "question": "What is a generator function in JavaScript?",
+      "options": {
+        "A": "Function generating random numbers",
+        "B": "Function that can pause/resume with yield",
+        "C": "Function creating other functions",
+        "D": "Deprecated ES5 feature"
+      },
+      "correctAnswer": "B",
+      "explanation": "Generators are functions that can be paused and resumed using the yield keyword. They return an iterator object and maintain state between yields. This enables lazy evaluation, custom iterators, and handling asynchronous flows in a synchronous-looking way.",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 37,
+      "question": "What does calling a generator function return?",
+      "options": {
+        "A": "First yielded value immediately",
+        "B": "Generator object (iterator)",
+        "C": "Undefined value",
+        "D": "Promise object"
+      },
+      "correctAnswer": "B",
+      "explanation": "Calling a generator function doesn't execute its code - it returns a generator object (an iterator). You call .next() on this object to start execution and advance through each yield point. Each .next() returns {value, done} until the generator completes.",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 38,
+      "question": "What does TypeScript's Partial<T> utility type do?",
+      "options": {
+        "A": "Makes all properties required",
+        "B": "Makes all properties optional",
+        "C": "Removes properties from T",
+        "D": "Creates a union type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Partial<T> constructs a type with all properties of T set to optional. This is useful for update functions where you only want to pass changed fields: updateUser(id, { name: 'John' }) instead of requiring all user properties.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 39,
+      "question": "What does Pick<T, K> utility type do?",
+      "options": {
+        "A": "Removes specified keys from T",
+        "B": "Creates type by selecting keys K",
+        "C": "Makes properties optional",
+        "D": "Creates an array type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Pick<T, K> constructs a type by selecting the set of properties K from T. For example, Pick<User, 'id' | 'name'> creates a type with only id and name properties from User. This is useful for creating subsets of larger types.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 40,
+      "question": "What's the difference between Pick and Omit?",
+      "options": {
+        "A": "No difference, same functionality",
+        "B": "Pick selects properties, Omit removes them",
+        "C": "Pick for arrays, Omit for objects",
+        "D": "Omit is deprecated utility type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Pick<T, K> includes only the specified keys, while Omit<T, K> excludes them. They're opposites: Pick<User, 'id' | 'name'> keeps only id and name, while Omit<User, 'password'> keeps everything except password. Choose based on whether it's easier to list what you want or don't want.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 41,
+      "question": "What does ReturnType<T> extract from function type?",
+      "options": {
+        "A": "Function parameter types",
+        "B": "Function return type",
+        "C": "Function name string",
+        "D": "Function body code"
+      },
+      "correctAnswer": "B",
+      "explanation": "ReturnType<T> extracts the return type from a function type T. This is useful when you need to type a variable based on what a function returns, especially when the function's return type is complex or inferred: type Result = ReturnType<typeof myFunction>.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 42,
+      "question": "What does Array.map() method return?",
+      "options": {
+        "A": "Modified original array",
+        "B": "New array with transformed elements",
+        "C": "Single aggregated value",
+        "D": "Filtered array subset"
+      },
+      "correctAnswer": "B",
+      "explanation": "Array.map() creates and returns a new array by applying a transformation function to each element of the original array. The original array remains unchanged (it doesn't mutate). The new array has the same length but potentially different values.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 43,
+      "question": "Does Array.map() modify the original array?",
+      "options": {
+        "A": "Yes, modifies original in-place",
+        "B": "No, returns new array",
+        "C": "Only with third parameter",
+        "D": "Only in strict mode"
+      },
+      "correctAnswer": "B",
+      "explanation": "map() is a non-mutating method - it never modifies the original array. It creates and returns a completely new array. This immutability is important in React and functional programming where you want to avoid side effects and maintain predictable state updates.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 44,
+      "question": "What does Array.filter() return if nothing matches?",
+      "options": {
+        "A": "null value",
+        "B": "Empty array []",
+        "C": "undefined value",
+        "D": "false boolean"
+      },
+      "correctAnswer": "B",
+      "explanation": "filter() always returns an array, even if no elements pass the test. This consistency makes it safe to chain array methods without null/undefined checks. An empty array is a valid result indicating nothing matched the filter criteria.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 45,
+      "question": "What should Array.filter() callback return?",
+      "options": {
+        "A": "Number for sorting",
+        "B": "Boolean or truthy/falsy value",
+        "C": "New array of items",
+        "D": "Object with properties"
+      },
+      "correctAnswer": "B",
+      "explanation": "The filter callback should return a truthy or falsy value. Elements where the callback returns truthy are included in the new array; falsy values exclude them. While you should return a boolean, JavaScript will coerce other values (0, '', null, undefined are falsy).",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 46,
+      "question": "What does Array.reduce() return?",
+      "options": {
+        "A": "Always returns an array",
+        "B": "Single value of any type",
+        "C": "Always returns a number",
+        "D": "Always returns an object"
+      },
+      "correctAnswer": "B",
+      "explanation": "reduce() can return any single value - a number, string, object, array, etc. It accumulates array elements into a single result by repeatedly calling a reducer function. The return type depends on your initial value and what you accumulate: sum, object, transformed array, etc.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 47,
+      "question": "What if Array.reduce() has no initialValue?",
+      "options": {
+        "A": "Throws an error immediately",
+        "B": "First element becomes initial accumulator",
+        "C": "Returns undefined value",
+        "D": "Uses 0 as initial"
+      },
+      "correctAnswer": "B",
+      "explanation": "Without an initialValue, reduce uses the first array element as the initial accumulator and starts iterating from the second element. This works for simple cases like summing numbers, but can cause issues with empty arrays (throws error) or when you need a specific starting value.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 48,
+      "question": "What does spread operator (...) do with arrays?",
+      "options": {
+        "A": "Deletes elements from array",
+        "B": "Expands array into individual elements",
+        "C": "Sorts array alphabetically",
+        "D": "Reverses array order"
+      },
+      "correctAnswer": "B",
+      "explanation": "The spread operator expands an array into individual elements. This is useful for combining arrays ([...arr1, ...arr2]), passing array elements as function arguments (Math.max(...numbers)), or creating shallow copies ([...original]). It 'spreads out' the array contents.",
+      "topic": "JavaScript - Spread Operator",
+      "difficulty": "medium"
+    },
+    {
+      "id": 49,
+      "question": "What does object destructuring allow you to do?",
+      "options": {
+        "A": "Delete properties from objects",
+        "B": "Unpack properties into distinct variables",
+        "C": "Merge multiple objects together",
+        "D": "Create deep copies of objects"
+      },
+      "correctAnswer": "B",
+      "explanation": "Destructuring extracts properties from objects into individual variables: const {name, age} = user creates name and age variables from user object properties. This makes code more concise and readable compared to user.name and user.age, especially when accessing many properties.",
+      "topic": "JavaScript - Destructuring",
+      "difficulty": "medium"
+    },
+    {
+      "id": 50,
+      "question": "What does { name: firstName } do in destructuring?",
+      "options": {
+        "A": "Creates variable 'name' with value 'firstName'",
+        "B": "Extracts 'name' property into 'firstName' variable",
+        "C": "Invalid syntax, throws error",
+        "D": "Renames property in original object"
+      },
+      "correctAnswer": "B",
+      "explanation": "This renames during destructuring: const {name: firstName} = user extracts user.name into a variable called firstName. The syntax is {sourceProp: targetVariable}. This is useful when the property name doesn't match what you want to call the variable, or to avoid naming conflicts.",
+      "topic": "JavaScript - Destructuring",
+      "difficulty": "medium"
+    },
+    {
+      "id": 51,
+      "question": "What's the main benefit of ES Modules?",
+      "options": {
+        "A": "Faster code execution speed",
+        "B": "Encapsulation avoiding naming collisions",
+        "C": "Smaller final file size",
+        "D": "Better browser compatibility"
+      },
+      "correctAnswer": "B",
+      "explanation": "ES Modules provide encapsulation through explicit exports/imports, creating separate scopes for each module. This prevents global namespace pollution and naming collisions. Other benefits include static analysis for tree-shaking, clear dependencies, and better tooling support, but encapsulation is the primary advantage.",
+      "topic": "JavaScript - Modules",
+      "difficulty": "medium"
+    },
+    {
+      "id": 52,
+      "question": "Can a module have multiple default exports?",
+      "options": {
+        "A": "Yes, unlimited default exports",
+        "B": "No, only one default per module",
+        "C": "Yes, but maximum two",
+        "D": "Depends on file size"
+      },
+      "correctAnswer": "B",
+      "explanation": "Each module can have only one default export, but unlimited named exports. The default export represents the 'main' thing the module exports. You can have both: export default MyComponent; export {helper1, helper2}. Default is imported without braces: import MyComponent.",
+      "topic": "JavaScript - Modules",
+      "difficulty": "medium"
+    },
+    {
+      "id": 53,
+      "question": "How does sessionStorage differ from localStorage?",
+      "options": {
+        "A": "sessionStorage has more capacity",
+        "B": "sessionStorage clears when tab closes",
+        "C": "sessionStorage is faster",
+        "D": "sessionStorage is deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "sessionStorage data persists only for the session (as long as the browser tab is open) and is deleted when the tab closes. localStorage persists indefinitely until explicitly cleared. Both have the same capacity (~10MB) and API, but sessionStorage is useful for temporary data that shouldn't survive page sessions.",
+      "topic": "Browser Storage",
+      "difficulty": "medium"
+    },
+    {
+      "id": 54,
+      "question": "What is localStorage's approximate storage capacity?",
+      "options": {
+        "A": "4 KB maximum",
+        "B": "10 MB typical",
+        "C": "100 MB standard",
+        "D": "Unlimited storage"
+      },
+      "correctAnswer": "B",
+      "explanation": "Most browsers provide about 10MB of localStorage per origin (some allow 5-10MB). This is significantly more than cookies (4KB) but much less than IndexedDB (often 50MB+ or unlimited). The exact limit varies by browser and can be checked, but 10MB is a safe assumption.",
+      "topic": "Browser Storage",
+      "difficulty": "medium"
+    },
+    {
+      "id": 55,
+      "question": "What's the main disadvantage of cookies vs localStorage?",
+      "options": {
+        "A": "Cookies expire too quickly",
+        "B": "Cookies sent with every request, smaller capacity",
+        "C": "Cookies don't work in browsers",
+        "D": "Cookies are slower to access"
+      },
+      "correctAnswer": "B",
+      "explanation": "Cookies are automatically sent with every HTTP request to the domain, adding overhead to each request. They're also limited to ~4KB per cookie. localStorage stores ~10MB, stays client-side (not sent with requests), making it better for storing larger amounts of data that doesn't need server access.",
+      "topic": "Browser Storage",
+      "difficulty": "medium"
+    },
+    {
+      "id": 56,
+      "question": "When should you use Redux over Context API?",
+      "options": {
+        "A": "Always use Redux for state",
+        "B": "Complex state, frequent updates, DevTools needed",
+        "C": "Only for small applications",
+        "D": "Never, Context is always better"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use Redux when you have complex state logic, need powerful debugging with Redux DevTools, want middleware for side effects, or have many components accessing/updating state frequently. Context is simpler for sharing values down the tree without frequent updates. Many apps use both for different purposes.",
+      "topic": "React - Redux vs Context API",
+      "difficulty": "medium"
+    },
+    {
+      "id": 57,
+      "question": "What's the main performance issue with Context API?",
+      "options": {
+        "A": "Too slow to initialize",
+        "B": "All consumers re-render on any change",
+        "C": "Uses too much memory",
+        "D": "No performance issues"
+      },
+      "correctAnswer": "B",
+      "explanation": "When Context value changes, all components that useContext re-render, even if they only use a small part of the value. This can cause performance issues with frequent updates. Solutions include splitting contexts, memoization, or using state management libraries with selector patterns like Redux or Zustand.",
+      "topic": "React - Redux vs Context API",
+      "difficulty": "medium"
+    },
+    {
+      "id": 58,
+      "question": "What does SSR (Server-Side Rendering) mean?",
+      "options": {
+        "A": "Client renders everything",
+        "B": "Server generates HTML for each request",
+        "C": "Static files from CDN",
+        "D": "Pages built at compile time"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSR means the server generates the full HTML for each page request, sending ready-to-display content to the browser. This improves initial load time and SEO since crawlers receive complete HTML. After load, React hydrates the page to make it interactive. Next.js and Remix enable SSR.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 59,
+      "question": "What's the main advantage of SSG?",
+      "options": {
+        "A": "Always fresh content",
+        "B": "Fastest performance, instant loads from CDN",
+        "C": "Best for dynamic content",
+        "D": "Lowest server costs for dynamic apps"
+      },
+      "correctAnswer": "B",
+      "explanation": "Static Site Generation (SSG) pre-builds all pages at build time, generating static HTML files that can be served from a CDN. This provides the fastest possible load times since there's no server rendering or data fetching on request. Perfect for content that doesn't change often, like blogs or documentation.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 60,
+      "question": "What is ISR (Incremental Static Regeneration)?",
+      "options": {
+        "A": "Deprecated rendering method",
+        "B": "Update static pages without full rebuild",
+        "C": "Same as CSR",
+        "D": "Database caching strategy"
+      },
+      "correctAnswer": "B",
+      "explanation": "ISR (Next.js feature) allows you to update static pages after build without rebuilding the entire site. You set a revalidation time - after this period, the next request triggers a background regeneration. This combines SSG speed with the ability to keep content fresh, perfect for e-commerce or news sites.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 61,
+      "question": "What's CSR's main disadvantage for SEO?",
+      "options": {
+        "A": "Too fast for crawlers",
+        "B": "Search engines struggle with JS-rendered content",
+        "C": "Requires a database",
+        "D": "Only works in Chrome"
+      },
+      "correctAnswer": "B",
+      "explanation": "With Client-Side Rendering, the initial HTML is nearly empty - content is rendered by JavaScript. While modern search engines can execute JS, it's slower and less reliable than serving complete HTML. This can hurt SEO and initial load performance, which is why SSR/SSG are often preferred for public-facing sites.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 62,
+      "question": "What is the scope chain in JavaScript?",
+      "options": {
+        "A": "Method for chaining promises",
+        "B": "Process of looking up variables through scopes",
+        "C": "Way to organize CSS",
+        "D": "Debugging technique"
+      },
+      "correctAnswer": "B",
+      "explanation": "The scope chain is how JavaScript looks up variables. When you reference a variable, JS first checks the current scope, then the outer scope, continuing up the chain until it finds the variable or reaches global scope. This creates the lexical scoping that enables closures and determines variable accessibility.",
+      "topic": "JavaScript - Scopes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 63,
+      "question": "Can outer scope access inner scope variables?",
+      "options": {
+        "A": "Yes, always accessible",
+        "B": "No, inner variables are hidden",
+        "C": "Only with var keyword",
+        "D": "Only in strict mode"
+      },
+      "correctAnswer": "B",
+      "explanation": "Scope works one-way: inner scopes can access outer scope variables, but outer scopes cannot access inner scope variables. This encapsulation protects inner variables from external interference and prevents naming conflicts, making code more modular and predictable.",
+      "topic": "JavaScript - Scopes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 64,
+      "question": "What is variable shadowing?",
+      "options": {
+        "A": "Hiding variables from debugger",
+        "B": "Inner variable hides outer with same name",
+        "C": "Security feature",
+        "D": "Type of memory leak"
+      },
+      "correctAnswer": "B",
+      "explanation": "Shadowing occurs when an inner scope declares a variable with the same name as an outer scope variable. The inner variable 'shadows' (hides) the outer one within that scope. The outer variable is inaccessible in the inner scope unless you use different scoping mechanisms or rename the variable.",
+      "topic": "JavaScript - Scopes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 65,
+      "question": "Why do setTimeout callbacks with var show unexpected values?",
+      "options": {
+        "A": "setTimeout is broken",
+        "B": "var is function-scoped, all callbacks share reference",
+        "C": "It's a browser bug",
+        "D": "setTimeout doesn't work with loops"
+      },
+      "correctAnswer": "B",
+      "explanation": "In a loop, var is function-scoped so only one variable exists, shared by all iterations. setTimeout callbacks (which run later) all reference the same variable, which by then holds the final loop value. Using let (block-scoped) creates a new variable per iteration, or you can use an IIFE to capture the value.",
+      "topic": "JavaScript - Closures and var",
+      "difficulty": "medium"
+    },
+    {
+      "id": 66,
+      "question": "What does rest operator (...rest) do in destructuring?",
+      "options": {
+        "A": "Deletes remaining elements",
+        "B": "Collects remaining elements into array",
+        "C": "Reverses the array",
+        "D": "Sorts the array"
+      },
+      "correctAnswer": "B",
+      "explanation": "The rest operator in destructuring collects all remaining elements into a new array. For example, const [first, ...rest] = [1,2,3,4] gives first=1 and rest=[2,3,4]. In objects: const {name, ...others} = user extracts name and puts remaining properties in others. It's the opposite of spread.",
+      "topic": "JavaScript - Destructuring",
+      "difficulty": "medium"
+    },
+    {
+      "id": 67,
+      "question": "Can you use default values in destructuring?",
+      "options": {
+        "A": "No, not supported",
+        "B": "Yes, for undefined properties/elements",
+        "C": "Only for objects",
+        "D": "Only in TypeScript"
+      },
+      "correctAnswer": "B",
+      "explanation": "You can provide default values that are used when the destructured value is undefined: const {name = 'Anonymous'} = user or const [x = 0] = arr. The default is only used for undefined, not for null or other falsy values. This prevents errors and provides fallback values.",
+      "topic": "JavaScript - Destructuring",
+      "difficulty": "medium"
+    },
+    {
+      "id": 68,
+      "question": "What is tree-shaking in ES Modules context?",
+      "options": {
+        "A": "Debugging technique",
+        "B": "Removing unused code during build",
+        "C": "Way to organize files",
+        "D": "Testing framework"
+      },
+      "correctAnswer": "B",
+      "explanation": "Tree-shaking is dead code elimination - bundlers analyze your ES Module imports/exports to remove unused code from the final bundle. It works because ES Modules have static structure (imports/exports don't change at runtime), allowing tools like Webpack and Rollup to determine what's actually used.",
+      "topic": "JavaScript - Modules",
+      "difficulty": "medium"
+    },
+    {
+      "id": 69,
+      "question": "How do named and default exports differ?",
+      "options": {
+        "A": "No difference at all",
+        "B": "Named: multiple/exact names, default: one/any name",
+        "C": "Named exports are faster",
+        "D": "Default exports deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "Named exports let you export multiple values, and importers must use the exact name: export const x; import {x}. Default export is singular and importers choose the name: export default MyComponent; import AnyName. Named exports are better for tree-shaking and refactoring; default for main component/function.",
+      "topic": "JavaScript - Modules",
+      "difficulty": "medium"
+    },
+    {
+      "id": 70,
+      "question": "How do you import all named exports?",
+      "options": {
+        "A": "import all from './module'",
+        "B": "import * as myModule from './module'",
+        "C": "import { * } from './module'",
+        "D": "Cannot import all at once"
+      },
+      "correctAnswer": "B",
+      "explanation": "import * as myModule creates a namespace object containing all named exports. You access them as myModule.exportName. This is useful when a module has many exports, but importing specific names is often better for tree-shaking and clarity about what your code uses.",
+      "topic": "JavaScript - Modules",
+      "difficulty": "medium"
+    },
+    {
+      "id": 71,
+      "question": "What does Required<T> utility type do?",
+      "options": {
+        "A": "Makes all properties optional",
+        "B": "Makes all properties required",
+        "C": "Removes properties",
+        "D": "Creates union type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Required<T> is the opposite of Partial - it removes the optional modifier from all properties, making them required. This is useful when you have a type with optional fields but need a version where all fields must be provided, like converting a partial update type to a full object type.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 72,
+      "question": "What does Awaited<T> utility type do?",
+      "options": {
+        "A": "Adds async to function",
+        "B": "Unwraps Promise to get resolved type",
+        "C": "Creates a delay",
+        "D": "Makes type nullable"
+      },
+      "correctAnswer": "B",
+      "explanation": "Awaited<T> recursively unwraps Promise types to get the type of the resolved value. For Promise<string> it returns string. For Promise<Promise<number>> it returns number. This is useful for typing the result of await expressions or working with Promise return types.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 73,
+      "question": "How do Exclude and Extract differ?",
+      "options": {
+        "A": "They are the same",
+        "B": "Exclude removes types, Extract keeps types",
+        "C": "Exclude for objects, Extract for arrays",
+        "D": "Extract is deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "Both work on union types. Exclude<T, U> removes types from T that are assignable to U. Extract<T, U> keeps only types from T that are assignable to U. They're opposites: Exclude<'a'|'b'|'c', 'a'> = 'b'|'c', Extract<'a'|'b'|'c', 'a'|'b'> = 'a'|'b'.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 74,
+      "question": "What does Record<K, T> utility type create?",
+      "options": {
+        "A": "An array type",
+        "B": "Object type with keys K, values T",
+        "C": "A function type",
+        "D": "A union type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Record<K, T> constructs an object type with keys of type K and values of type T. For example, Record<string, number> is like {[key: string]: number}. Record<'a'|'b', number> creates {a: number, b: number}. It's cleaner than index signatures for specific key sets.",
+      "topic": "TypeScript - Utility Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 75,
+      "question": "What does yield keyword do in generators?",
+      "options": {
+        "A": "Throws an error",
+        "B": "Pauses execution and returns value",
+        "C": "Terminates the function",
+        "D": "Calls another function"
+      },
+      "correctAnswer": "B",
+      "explanation": "yield pauses generator execution and returns a value to the caller. When .next() is called again, execution resumes right after the yield. You can also pass values back in via .next(value). This bidirectional communication enables powerful patterns like custom iterators and async coordination.",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 76,
+      "question": "How do you declare a generator function?",
+      "options": {
+        "A": "function generatorName() {}",
+        "B": "function* generatorName() {}",
+        "C": "generator function generatorName() {}",
+        "D": "async function generatorName() {}"
+      },
+      "correctAnswer": "B",
+      "explanation": "The asterisk (*) after the function keyword marks it as a generator. You can also use function *name() or function*name() - all are valid. The asterisk is required so JavaScript knows to create a generator object instead of executing the function body immediately.",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 77,
+      "question": "How do you get next value from generator?",
+      "options": {
+        "A": "getValue() method",
+        "B": "next() method",
+        "C": "getNext() method",
+        "D": "continue() method"
+      },
+      "correctAnswer": "B",
+      "explanation": "Call .next() on the generator object to resume execution until the next yield (or return/end). It returns {value, done} where value is the yielded value and done is false. When the generator completes, done becomes true. You can also pass a value: gen.next(val) sends it to the yield expression.",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 78,
+      "question": "What does Promise.race() return?",
+      "options": {
+        "A": "Array of all results",
+        "B": "Result of first settled promise",
+        "C": "Only successful promises",
+        "D": "The slowest promise"
+      },
+      "correctAnswer": "B",
+      "explanation": "Promise.race() resolves or rejects as soon as the first Promise settles (either fulfills or rejects), returning that Promise's result. It's useful for timeouts (race between data fetch and timeout), taking the fastest of multiple sources, or implementing request cancellation patterns.",
+      "topic": "JavaScript - Promises",
+      "difficulty": "medium"
+    },
+    {
+      "id": 79,
+      "question": "When do Promise .then() callbacks execute?",
+      "options": {
+        "A": "Before all synchronous code",
+        "B": "After synchronous code completes",
+        "C": "At random unpredictable times",
+        "D": "Never executes callbacks"
+      },
+      "correctAnswer": "B",
+      "explanation": "Promise callbacks (.then, .catch, .finally) always execute asynchronously in the microtask queue, even for already-resolved Promises. They run after the current synchronous code completes but before setTimeout callbacks. This ensures predictable execution order and prevents blocking the main thread.",
+      "topic": "JavaScript - Promises and Event Loop",
+      "difficulty": "medium"
+    },
+    {
+      "id": 80,
+      "question": "Why use const as default variable declaration?",
+      "options": {
+        "A": "It's faster than let",
+        "B": "Promotes immutability, prevents reassignment",
+        "C": "Uses less memory",
+        "D": "Required in React"
+      },
+      "correctAnswer": "B",
+      "explanation": "Using const by default prevents accidental reassignment, making code more predictable and easier to reason about. It signals intent that the binding won't change. When you need to reassign, using let becomes a meaningful signal. This 'const-first' approach is a best practice that catches bugs early.",
+      "topic": "JavaScript - var/let/const",
+      "difficulty": "medium"
+    },
+    {
+      "id": 81,
+      "question": "What characterizes synchronous code execution?",
+      "options": {
+        "A": "Code executes in parallel",
+        "B": "Code executes line-by-line, blocking",
+        "C": "Never blocks main thread",
+        "D": "Always faster execution"
+      },
+      "correctAnswer": "B",
+      "explanation": "Synchronous code executes sequentially, one line at a time. Each operation must complete before the next begins, blocking further execution. This is simple to reason about but can freeze the UI during long operations. Most JavaScript code is synchronous, but long-running tasks should use async patterns.",
+      "topic": "JavaScript - Async vs Sync",
+      "difficulty": "medium"
+    },
+    {
+      "id": 82,
+      "question": "Why is asynchronous code important for UI?",
+      "options": {
+        "A": "Makes code run faster",
+        "B": "Prevents UI freezing during long operations",
+        "C": "Uses less memory",
+        "D": "Required by browsers"
+      },
+      "correctAnswer": "B",
+      "explanation": "JavaScript is single-threaded - long synchronous operations block the UI, making it unresponsive. Async code (Promises, async/await, callbacks) allows long operations (API calls, file reading) to run without blocking, keeping the UI responsive. The Event Loop manages this by processing tasks when the stack is clear.",
+      "topic": "JavaScript - Async vs Sync",
+      "difficulty": "medium"
+    },
+    {
+      "id": 83,
+      "question": "Which is NOT an example of asynchronous code?",
+      "options": {
+        "A": "setTimeout() function",
+        "B": "for loop",
+        "C": "fetch() API",
+        "D": "addEventListener() method"
+      },
+      "correctAnswer": "B",
+      "explanation": "A for loop is synchronous - it blocks execution until complete. setTimeout, fetch, and addEventListener are all asynchronous: setTimeout schedules future execution, fetch returns a Promise, and event listeners trigger callbacks when events occur. All three allow the main thread to continue while waiting.",
+      "topic": "JavaScript - Async vs Sync",
+      "difficulty": "medium"
+    },
+    {
+      "id": 84,
+      "question": "What are event propagation's two phases?",
+      "options": {
+        "A": "Start and End",
+        "B": "Capturing and Bubbling",
+        "C": "Rising and Falling",
+        "D": "Forward and Backward"
+      },
+      "correctAnswer": "B",
+      "explanation": "When an event occurs, it propagates in two phases: Capturing (from window down to target element) and Bubbling (from target back up to window). Most listeners use bubbling (default). You can intercept during capturing with addEventListener(event, handler, true), useful for event delegation or preventing events.",
+      "topic": "JavaScript - Event Listeners",
+      "difficulty": "medium"
+    },
+    {
+      "id": 85,
+      "question": "What does event.stopPropagation() do?",
+      "options": {
+        "A": "Prevents browser's default action",
+        "B": "Prevents further event propagation",
+        "C": "Removes the event listener",
+        "D": "Stops all JavaScript execution"
+      },
+      "correctAnswer": "B",
+      "explanation": "stopPropagation() prevents the event from bubbling up to parent elements (or capturing down to children). It only affects propagation, not the default action - a link still navigates unless you also call preventDefault(). Use it when child elements need to handle events differently than parents.",
+      "topic": "JavaScript - Event Listeners",
+      "difficulty": "medium"
+    },
+    {
+      "id": 86,
+      "question": "What is event delegation pattern?",
+      "options": {
+        "A": "Passing events to components",
+        "B": "Parent listener handles dynamic children events",
+        "C": "Delegating events to browser",
+        "D": "Deprecated event pattern"
+      },
+      "correctAnswer": "B",
+      "explanation": "Event delegation attaches one listener to a parent element instead of individual listeners on each child. Due to bubbling, the parent catches events from children. You check event.target to determine which child triggered it. This is efficient for many elements or dynamically added/removed elements.",
+      "topic": "JavaScript - Event Listeners",
+      "difficulty": "medium"
+    },
+    {
+      "id": 87,
+      "question": "What does { once: true } do in addEventListener?",
+      "options": {
+        "A": "Fires on first element only",
+        "B": "Listener invoked once then auto-removed",
+        "C": "Prevents event bubbling",
+        "D": "Makes event synchronous"
+      },
+      "correctAnswer": "B",
+      "explanation": "The {once: true} option automatically removes the listener after it fires once. This is equivalent to calling removeEventListener inside the handler but cleaner. It's useful for one-time events like initialization, animation ends, or ensuring a modal can only be opened once.",
+      "topic": "JavaScript - Event Listeners",
+      "difficulty": "medium"
+    },
+    {
+      "id": 88,
+      "question": "How do event.target and event.currentTarget differ?",
+      "options": {
+        "A": "They are identical",
+        "B": "target is origin, currentTarget is listener location",
+        "C": "event.target is deprecated",
+        "D": "currentTarget only for bubbling"
+      },
+      "correctAnswer": "B",
+      "explanation": "event.target is the element that triggered the event (where click happened). event.currentTarget is the element the listener is attached to. In event delegation, target is the clicked child while currentTarget is the parent with the listener. They're the same only when the event fires directly on the listening element.",
+      "topic": "JavaScript - Event Listeners",
+      "difficulty": "medium"
+    },
+    {
+      "id": 89,
+      "question": "What does Object.freeze() do?",
+      "options": {
+        "A": "Creates deep copy of object",
+        "B": "Prevents add/delete/change properties (shallow)",
+        "C": "Converts object to string",
+        "D": "Makes object undefined"
+      },
+      "correctAnswer": "B",
+      "explanation": "Object.freeze() makes an object immutable at the first level - you can't add, delete, or modify properties. However, it's shallow: nested objects aren't frozen. For deep immutability, you need to recursively freeze nested objects or use immutable data structures. Frozen objects are useful for constants and Redux state.",
+      "topic": "JavaScript - Immutability",
+      "difficulty": "medium"
+    },
+    {
+      "id": 90,
+      "question": "How do shallow and deep copy differ?",
+      "options": {
+        "A": "No difference at all",
+        "B": "Shallow copies first level, deep copies all",
+        "C": "Shallow faster but less accurate",
+        "D": "Deep only works with arrays"
+      },
+      "correctAnswer": "B",
+      "explanation": "Shallow copy (spread, Object.assign) copies the first level but nested objects are still referenced. Deep copy recursively copies all levels, creating completely independent objects. Shallow is faster and usually sufficient; deep is needed when modifying nested objects shouldn't affect the original.",
+      "topic": "JavaScript - Immutability",
+      "difficulty": "medium"
+    },
+    {
+      "id": 91,
+      "question": "Which creates proper deep copy in modern JS?",
+      "options": {
+        "A": "Object.assign() method",
+        "B": "structuredClone() function",
+        "C": "Spread operator {...obj}",
+        "D": "Array.slice() method"
+      },
+      "correctAnswer": "B",
+      "explanation": "structuredClone() is the modern way to deep copy objects, handling nested objects, arrays, dates, maps, sets, and more. Spread and Object.assign() are shallow. JSON.parse(JSON.stringify()) works but loses functions, dates become strings, and fails on circular references. structuredClone handles these cases properly.",
+      "topic": "JavaScript - Immutability",
+      "difficulty": "medium"
+    },
+    {
+      "id": 92,
+      "question": "Why is immutability important in React?",
+      "options": {
+        "A": "Makes components load faster",
+        "B": "React detects changes via reference comparison",
+        "C": "Required by JSX syntax",
+        "D": "Reduces bundle size"
+      },
+      "correctAnswer": "B",
+      "explanation": "React uses shallow reference comparison to detect changes. If you mutate an object directly, the reference stays the same, so React doesn't see the change and won't re-render. Creating new objects/arrays (immutable updates) changes the reference, triggering re-renders. This also enables time-travel debugging and optimization.",
+      "topic": "JavaScript - Immutability",
+      "difficulty": "medium"
+    },
+    {
+      "id": 93,
+      "question": "What's IndexedDB's main advantage over localStorage?",
+      "options": {
+        "A": "Simpler API to use",
+        "B": "Much larger capacity (1GB+), async, complex data",
+        "C": "Better browser support",
+        "D": "Faster for small data"
+      },
+      "correctAnswer": "B",
+      "explanation": "IndexedDB can store much more data (often unlimited or 1GB+), works asynchronously (doesn't block UI), handles complex data types (objects, blobs), supports indexes and transactions. localStorage is simpler but limited to ~10MB, synchronous (can block), and only stores strings. Use IndexedDB for large datasets or offline apps.",
+      "topic": "Browser Storage - IndexedDB",
+      "difficulty": "medium"
+    },
+    {
+      "id": 94,
+      "question": "How do localStorage and IndexedDB APIs differ?",
+      "options": {
+        "A": "localStorage uses JSON only",
+        "B": "IndexedDB async, localStorage sync",
+        "C": "IndexedDB is faster",
+        "D": "localStorage more secure"
+      },
+      "correctAnswer": "B",
+      "explanation": "IndexedDB uses asynchronous APIs (events, promises), preventing UI blocking during large operations. localStorage is synchronous - reading/writing blocks the thread. This makes localStorage simpler for small data but IndexedDB necessary for large datasets or operations in the main thread without freezing the UI.",
+      "topic": "Browser Storage - IndexedDB",
+      "difficulty": "medium"
+    },
+    {
+      "id": 95,
+      "question": "What feature does IndexedDB have vs localStorage?",
+      "options": {
+        "A": "String storage capability",
+        "B": "Indexes and transactions",
+        "C": "Better browser support",
+        "D": "Session persistence"
+      },
+      "correctAnswer": "B",
+      "explanation": "IndexedDB supports indexes for fast queries, transactions for atomic operations, and is a proper database. localStorage is just key-value storage. IndexedDB can efficiently query by indexed fields, ensure data consistency with transactions, and handle concurrent access. It's like a browser-based NoSQL database.",
+      "topic": "Browser Storage - IndexedDB",
+      "difficulty": "medium"
+    },
+    {
+      "id": 96,
+      "question": "What does Array.find() return if nothing matches?",
+      "options": {
+        "A": "null value",
+        "B": "undefined value",
+        "C": "Empty array []",
+        "D": "false boolean"
+      },
+      "correctAnswer": "B",
+      "explanation": "find() returns the first element that passes the test, or undefined if none match. This differs from filter() (returns empty array) and some()/every() (return boolean). Check the result before using: const user = users.find(...); if (user) { ... } to avoid errors.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 97,
+      "question": "How do Array.forEach() and Array.map() differ?",
+      "options": {
+        "A": "forEach is faster",
+        "B": "forEach returns nothing, map returns array",
+        "C": "map is deprecated",
+        "D": "They are identical"
+      },
+      "correctAnswer": "B",
+      "explanation": "forEach executes a function for each element but returns undefined - it's for side effects. map creates and returns a new transformed array. Use forEach when you want to do something with each element (logging, updating external state), map when transforming data. Map is preferred in functional programming.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 98,
+      "question": "What does Array.some() return?",
+      "options": {
+        "A": "First element passing test",
+        "B": "true if any element passes",
+        "C": "New array with some elements",
+        "D": "Number representing count"
+      },
+      "correctAnswer": "B",
+      "explanation": "some() returns a boolean: true if at least one element passes the test, false otherwise. It short-circuits - stops checking once it finds a match. Use it for existence checks: hasAdmin = users.some(u => u.role === 'admin'). It's like || for arrays.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 99,
+      "question": "How do Array.some() and Array.every() differ?",
+      "options": {
+        "A": "They are identical",
+        "B": "some needs ANY, every needs ALL",
+        "C": "some for numbers, every for strings",
+        "D": "every is deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "some() returns true if ANY element passes (like ||), every() returns true only if ALL elements pass (like &&). both short-circuit: some() stops at first true, every() stops at first false. Use some for 'does this exist?', every for 'are all items valid?'.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 100,
+      "question": "What does Array.includes() method do?",
+      "options": {
+        "A": "Adds elements to array",
+        "B": "Checks if array contains value",
+        "C": "Filters array elements",
+        "D": "Maps over elements"
+      },
+      "correctAnswer": "B",
+      "explanation": "includes() returns true/false indicating whether the array contains a value: [1,2,3].includes(2) => true. It uses === comparison (with special NaN handling). It's simpler than indexOf() !== -1 for existence checks and more readable than find() when you only need a boolean result.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 101,
+      "question": "What is React Query's primary purpose?",
+      "options": {
+        "A": "Replace Redux entirely",
+        "B": "Simplify server data fetching/caching/sync",
+        "C": "Manage local component state",
+        "D": "Handle routing logic"
+      },
+      "correctAnswer": "B",
+      "explanation": "React Query (TanStack Query) specializes in server state - fetching, caching, synchronizing, and updating server data. It handles loading states, errors, refetching, pagination, and cache invalidation automatically. It doesn't replace Redux for client state but often eliminates the need for Redux when most state is server data.",
+      "topic": "React - React Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 102,
+      "question": "When should you use useQuery hook?",
+      "options": {
+        "A": "For POST, PUT, DELETE requests",
+        "B": "For fetching data (GET requests)",
+        "C": "For managing local state",
+        "D": "For routing navigation"
+      },
+      "correctAnswer": "B",
+      "explanation": "useQuery is for reading/fetching data (GET requests). It automatically handles caching, background updates, and stale data. For data mutations (POST, PUT, DELETE), use useMutation instead. The separation keeps concerns clear: useQuery for reads, useMutation for writes.",
+      "topic": "React - React Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 103,
+      "question": "When should you use useMutation hook?",
+      "options": {
+        "A": "For fetching data (GET requests)",
+        "B": "For modifying server data (POST/PUT/DELETE)",
+        "C": "For reading localStorage",
+        "D": "For managing component state"
+      },
+      "correctAnswer": "B",
+      "explanation": "useMutation handles creating, updating, or deleting data on the server. Unlike useQuery (which runs automatically), mutations are triggered manually via mutate(). They provide callbacks (onSuccess, onError) for handling results and can automatically invalidate related queries to refetch fresh data.",
+      "topic": "React - React Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 104,
+      "question": "What is query invalidation in React Query?",
+      "options": {
+        "A": "Deleting cached data permanently",
+        "B": "Marking query stale to trigger refetch",
+        "C": "Disabling query permanently",
+        "D": "Validating query parameters"
+      },
+      "correctAnswer": "B",
+      "explanation": "Invalidating a query marks it as stale, triggering a refetch to get fresh data. This is crucial after mutations: after creating a user, invalidate the users list query so it refetches with the new user. It ensures UI stays in sync with server state without manual refetching.",
+      "topic": "React - React Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 105,
+      "question": "How many times does React Query retry failed requests?",
+      "options": {
+        "A": "0 times (no retry)",
+        "B": "3 times by default",
+        "C": "1 time only",
+        "D": "Infinite retries"
+      },
+      "correctAnswer": "B",
+      "explanation": "React Query retries failed queries 3 times by default with exponential backoff before marking them as error. This handles transient network issues automatically. You can configure retry count and delay per query. Mutations don't retry by default since they might not be idempotent (repeating could duplicate actions).",
+      "topic": "React - React Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 106,
+      "question": "What does React.memo() do to a component?",
+      "options": {
+        "A": "Memoizes component props automatically",
+        "B": "Prevents re-render if props unchanged (shallow comparison)",
+        "C": "Caches all component state",
+        "D": "Converts component to class-based"
+      },
+      "correctAnswer": "B",
+      "explanation": "React.memo() is a higher-order component that memoizes the component output. It performs a shallow comparison of props - if they haven't changed, React reuses the previous render result instead of re-rendering. You can provide a custom comparison function as the second argument for more control over when to re-render.",
+      "topic": "React - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 107,
+      "question": "When does a component wrapped with React.memo() re-render?",
+      "options": {
+        "A": "Never re-renders after first mount",
+        "B": "When props change or parent forces update",
+        "C": "Only when state changes internally",
+        "D": "Every time parent component renders"
+      },
+      "correctAnswer": "B",
+      "explanation": "React.memo() prevents re-renders when props are the same, but it still re-renders if: (1) props change (shallow comparison), (2) the component's own state or context changes, or (3) a parent component forces an update. It's an optimization, not a guarantee against all re-renders.",
+      "topic": "React - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 108,
+      "question": "What is the purpose of React.lazy()?",
+      "options": {
+        "A": "Delays component initialization permanently",
+        "B": "Enables code splitting for dynamic imports",
+        "C": "Makes components load slower",
+        "D": "Lazy loads all component props"
+      },
+      "correctAnswer": "B",
+      "explanation": "React.lazy() enables code splitting by allowing you to dynamically import components. Instead of including all component code in the initial bundle, lazy-loaded components are loaded on-demand when they're first rendered. This reduces initial bundle size and improves load time, especially for large applications.",
+      "topic": "React - Code Splitting",
+      "difficulty": "medium"
+    },
+    {
+      "id": 109,
+      "question": "What must you wrap React.lazy() components with?",
+      "options": {
+        "A": "ErrorBoundary component only",
+        "B": "Suspense component with fallback",
+        "C": "Fragment component wrapper",
+        "D": "StrictMode component wrapper"
+      },
+      "correctAnswer": "B",
+      "explanation": "React.lazy() components must be wrapped in a Suspense boundary with a fallback prop. While the component is loading, Suspense displays the fallback (usually a loading spinner). This provides a better user experience than showing nothing or errors during the load. ErrorBoundary is recommended but not required.",
+      "topic": "React - Code Splitting",
+      "difficulty": "medium"
+    },
+    {
+      "id": 110,
+      "question": "What is an Error Boundary in React?",
+      "options": {
+        "A": "Component preventing all errors",
+        "B": "Component catching JavaScript errors in children",
+        "C": "Built-in error logging service",
+        "D": "TypeScript type checking feature"
+      },
+      "correctAnswer": "B",
+      "explanation": "Error Boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the whole app. They work like a JavaScript catch {} block but for components, preventing one broken component from breaking the entire application.",
+      "topic": "React - Error Handling",
+      "difficulty": "medium"
+    },
+    {
+      "id": 111,
+      "question": "Which lifecycle method catches errors in Error Boundaries?",
+      "options": {
+        "A": "componentDidCatch() method only",
+        "B": "static getDerivedStateFromError() method",
+        "C": "Both getDerivedStateFromError and componentDidCatch",
+        "D": "useErrorBoundary() hook"
+      },
+      "correctAnswer": "C",
+      "explanation": "Both methods work together: getDerivedStateFromError() is called during the render phase to render a fallback UI (it returns the new state), while componentDidCatch() is called during the commit phase to log error information. You typically use both - getDerivedStateFromError for UI, componentDidCatch for logging.",
+      "topic": "React - Error Handling",
+      "difficulty": "medium"
+    },
+    {
+      "id": 112,
+      "question": "What is a controlled component in React?",
+      "options": {
+        "A": "Component controlled by parent only",
+        "B": "Form input where React controls value via state",
+        "C": "Component with disabled user interaction",
+        "D": "Component that never re-renders"
+      },
+      "correctAnswer": "B",
+      "explanation": "In controlled components, React state is the 'single source of truth' for the input value. You set the input's value prop from state and handle changes with onChange, updating state. This gives React full control over the input, enabling validation, formatting, and ensuring the UI always matches the state.",
+      "topic": "React - Forms",
+      "difficulty": "medium"
+    },
+    {
+      "id": 113,
+      "question": "What is an uncontrolled component in React?",
+      "options": {
+        "A": "Component without any props",
+        "B": "Form input managing its own state via DOM",
+        "C": "Component that crashes easily",
+        "D": "Component without event handlers"
+      },
+      "correctAnswer": "B",
+      "explanation": "Uncontrolled components store their own state internally in the DOM, like traditional HTML inputs. You access values using refs instead of state. They're simpler for basic forms but give less control. Use them when you don't need validation, formatting, or to track every keystroke - just the final submitted value.",
+      "topic": "React - Forms",
+      "difficulty": "medium"
+    },
+    {
+      "id": 114,
+      "question": "Why are keys important in React lists?",
+      "options": {
+        "A": "Required by TypeScript compiler",
+        "B": "Help React identify changed/added/removed items",
+        "C": "Make lists render faster always",
+        "D": "Enable CSS styling on items"
+      },
+      "correctAnswer": "B",
+      "explanation": "Keys help React identify which items have changed, been added, or removed between renders. React uses keys to match previous and current list items, preserving component state and DOM nodes. Without proper keys, React might re-render items unnecessarily or mix up their state, causing bugs.",
+      "topic": "React - Lists",
+      "difficulty": "medium"
+    },
+    {
+      "id": 115,
+      "question": "Why shouldn't you use array index as key?",
+      "options": {
+        "A": "Causes syntax errors in React",
+        "B": "Can cause issues with reordering/filtering items",
+        "C": "Indexes don't work with TypeScript",
+        "D": "Makes components render twice"
+      },
+      "correctAnswer": "B",
+      "explanation": "Index as key breaks when items are reordered, filtered, or items are added/removed from the middle of the list. The index changes, so React thinks it's a different item, losing state and potentially causing rendering bugs. Use stable, unique identifiers (like IDs from the database) instead.",
+      "topic": "React - Lists",
+      "difficulty": "medium"
+    },
+    {
+      "id": 116,
+      "question": "What is a React Portal used for?",
+      "options": {
+        "A": "Creating authentication portals",
+        "B": "Rendering children into different DOM node",
+        "C": "Loading components from CDN",
+        "D": "Creating routing portals"
+      },
+      "correctAnswer": "B",
+      "explanation": "Portals let you render children into a DOM node that exists outside the parent component's DOM hierarchy. This is useful for modals, tooltips, and dropdowns that need to break out of overflow:hidden containers or appear on top of everything. Events still bubble through the React tree, not the DOM tree.",
+      "topic": "React - Advanced Patterns",
+      "difficulty": "medium"
+    },
+    {
+      "id": 117,
+      "question": "What is forwardRef used for in React?",
+      "options": {
+        "A": "Forwarding props to children automatically",
+        "B": "Passing refs through component to child",
+        "C": "Creating forward-only data flow",
+        "D": "Forwarding events to parent"
+      },
+      "correctAnswer": "B",
+      "explanation": "forwardRef allows a component to receive a ref and pass it to a child element. This is necessary because function components don't have instances, so you can't attach refs directly to them. It's commonly used in component libraries to expose DOM elements to parent components for imperative operations.",
+      "topic": "React - Advanced Patterns",
+      "difficulty": "medium"
+    },
+    {
+      "id": 118,
+      "question": "What is the main benefit of custom hooks?",
+      "options": {
+        "A": "Faster component rendering speed",
+        "B": "Reusable stateful logic across components",
+        "C": "Automatic TypeScript type inference",
+        "D": "Better SEO optimization"
+      },
+      "correctAnswer": "B",
+      "explanation": "Custom hooks let you extract component logic into reusable functions. Instead of duplicating useState, useEffect, and other logic across components, you create a custom hook that encapsulates the logic. Multiple components can use the same hook, each getting their own isolated state and effects.",
+      "topic": "React - Custom Hooks",
+      "difficulty": "medium"
+    },
+    {
+      "id": 119,
+      "question": "What naming convention must custom hooks follow?",
+      "options": {
+        "A": "Must end with 'Hook'",
+        "B": "Must start with 'use'",
+        "C": "Must be in PascalCase",
+        "D": "No specific convention required"
+      },
+      "correctAnswer": "B",
+      "explanation": "Custom hooks must start with 'use' (like useFormValidation, useLocalStorage). This naming convention is enforced by React's linter rules. It allows the linter to check that hooks follow the Rules of Hooks (only call at top level, only from React functions) and enables automatic detection of hook-related bugs.",
+      "topic": "React - Custom Hooks",
+      "difficulty": "medium"
+    },
+    {
+      "id": 120,
+      "question": "What is prototypal inheritance in JavaScript?",
+      "options": {
+        "A": "Inheritance through ES6 classes only",
+        "B": "Objects inherit properties from prototype chain",
+        "C": "Functions inherit from parent functions",
+        "D": "Variables inherit from outer scopes"
+      },
+      "correctAnswer": "B",
+      "explanation": "JavaScript uses prototypal inheritance where objects can inherit properties and methods from other objects through the prototype chain. Every object has an internal [[Prototype]] link to another object. When you access a property, JavaScript searches the object, then its prototype, continuing up the chain until found or reaching null.",
+      "topic": "JavaScript - OOP",
+      "difficulty": "medium"
+    },
+    {
+      "id": 121,
+      "question": "How do you access an object's prototype?",
+      "options": {
+        "A": "object.prototype property",
+        "B": "Object.getPrototypeOf(object) method",
+        "C": "object.__proto__ only",
+        "D": "prototype(object) function"
+      },
+      "correctAnswer": "B",
+      "explanation": "Object.getPrototypeOf(object) is the standard way to access an object's prototype. While __proto__ also works, it's non-standard and deprecated. Note: object.prototype doesn't work for instances - .prototype is only on constructor functions, pointing to what will become the prototype of instances created by that constructor.",
+      "topic": "JavaScript - OOP",
+      "difficulty": "medium"
+    },
+    {
+      "id": 122,
+      "question": "What does 'this' refer to in regular functions?",
+      "options": {
+        "A": "Always refers to global object",
+        "B": "Depends on how function is called",
+        "C": "Always refers to undefined",
+        "D": "Always refers to parent scope"
+      },
+      "correctAnswer": "B",
+      "explanation": "In regular functions, 'this' is determined by how the function is called (runtime binding), not where it's defined. As a method: obj.method() - this is obj. As a function: func() - this is global/undefined (strict mode). With new: new Func() - this is the new instance. With call/apply/bind: you explicitly set this.",
+      "topic": "JavaScript - this keyword",
+      "difficulty": "medium"
+    },
+    {
+      "id": 123,
+      "question": "How does 'this' behave in arrow functions?",
+      "options": {
+        "A": "Same as regular functions",
+        "B": "Lexically bound from enclosing scope",
+        "C": "Always refers to window object",
+        "D": "Always refers to undefined"
+      },
+      "correctAnswer": "B",
+      "explanation": "Arrow functions don't have their own 'this' - they inherit it from the enclosing lexical scope (where they're defined, not called). This is called lexical binding. This makes arrow functions perfect for callbacks and methods where you want to maintain the outer 'this' context, avoiding the need for .bind() or var self = this.",
+      "topic": "JavaScript - this keyword",
+      "difficulty": "medium"
+    },
+    {
+      "id": 124,
+      "question": "What does the call() method do?",
+      "options": {
+        "A": "Calls function multiple times",
+        "B": "Calls function with specified 'this' value",
+        "C": "Creates function callback automatically",
+        "D": "Calls function asynchronously"
+      },
+      "correctAnswer": "B",
+      "explanation": "call() invokes a function with a specified 'this' value and arguments. The first argument is what 'this' should be, followed by individual arguments: func.call(thisValue, arg1, arg2). It's useful for borrowing methods from other objects or explicitly setting the context when calling a function.",
+      "topic": "JavaScript - Function Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 125,
+      "question": "How does bind() differ from call() and apply()?",
+      "options": {
+        "A": "bind() is deprecated",
+        "B": "bind() returns new function, doesn't invoke",
+        "C": "bind() only works with classes",
+        "D": "bind() is faster than others"
+      },
+      "correctAnswer": "B",
+      "explanation": "bind() creates and returns a new function with 'this' permanently bound to the specified value - it doesn't invoke the function. call() and apply() immediately invoke the function with the specified 'this'. Use bind() when you need a function with fixed context for later execution, like event handlers or callbacks.",
+      "topic": "JavaScript - Function Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 126,
+      "question": "What's the difference between call() and apply()?",
+      "options": {
+        "A": "call() is synchronous, apply() async",
+        "B": "call() takes arguments separately, apply() as array",
+        "C": "apply() is deprecated version",
+        "D": "No difference, just naming"
+      },
+      "correctAnswer": "B",
+      "explanation": "Both invoke a function with specified 'this', but differ in how they accept arguments. call() takes arguments individually: func.call(thisValue, arg1, arg2). apply() takes arguments as an array: func.apply(thisValue, [arg1, arg2]). Use apply() when you have arguments in an array; call() when you know them individually.",
+      "topic": "JavaScript - Function Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 127,
+      "question": "What is a Map in JavaScript?",
+      "options": {
+        "A": "Same as array map() method",
+        "B": "Collection of key-value pairs, any type keys",
+        "C": "Object with string keys only",
+        "D": "Function that transforms data"
+      },
+      "correctAnswer": "B",
+      "explanation": "Map is a built-in data structure for storing key-value pairs where keys can be any type (objects, functions, primitives). Unlike objects (keys are strings/symbols), Map preserves insertion order, has a size property, and is iterable. It's better than objects when you need non-string keys or frequent additions/deletions.",
+      "topic": "JavaScript - Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 128,
+      "question": "How does Map differ from regular objects?",
+      "options": {
+        "A": "No difference at all",
+        "B": "Map allows any type as key, maintains insertion order",
+        "C": "Map is faster for all operations",
+        "D": "Objects are deprecated for storage"
+      },
+      "correctAnswer": "B",
+      "explanation": "Map advantages: (1) keys can be any type, not just strings/symbols, (2) maintains insertion order, (3) has .size property and better iteration, (4) performs better for frequent additions/deletions. Objects are better for: (1) JSON compatibility, (2) property access syntax, (3) when keys are always strings. Choose based on your needs.",
+      "topic": "JavaScript - Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 129,
+      "question": "What is a Set in JavaScript?",
+      "options": {
+        "A": "Array with duplicates allowed",
+        "B": "Collection of unique values only",
+        "C": "Object with unique keys",
+        "D": "Function that sets values"
+      },
+      "correctAnswer": "B",
+      "explanation": "Set is a built-in collection that stores unique values of any type. Adding a duplicate value has no effect - it's automatically ignored. Sets are useful for removing duplicates from arrays, checking membership (has() is O(1)), or storing unique values. They maintain insertion order and are iterable.",
+      "topic": "JavaScript - Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 130,
+      "question": "What is WeakMap used for?",
+      "options": {
+        "A": "Storing primitive values only",
+        "B": "Storing objects with weak references, allows GC",
+        "C": "Creating weak API connections",
+        "D": "Storing data with low priority"
+      },
+      "correctAnswer": "B",
+      "explanation": "WeakMap stores key-value pairs where keys must be objects and are held weakly. If there are no other references to the key object, it can be garbage collected along with its value. This prevents memory leaks when storing metadata about objects. You can't iterate WeakMap or get its size because entries can disappear anytime.",
+      "topic": "JavaScript - Data Structures",
+      "difficulty": "medium"
+    },
+    {
+      "id": 131,
+      "question": "What does Object.keys() return?",
+      "options": {
+        "A": "Object with all keys",
+        "B": "Array of object's own enumerable property names",
+        "C": "Number of keys in object",
+        "D": "Object's prototype keys"
+      },
+      "correctAnswer": "B",
+      "explanation": "Object.keys() returns an array of the object's own (not inherited) enumerable property names as strings. It doesn't include Symbol properties or non-enumerable properties. The order matches the iteration order. It's useful for iterating object properties or converting objects to arrays for processing with array methods.",
+      "topic": "JavaScript - Object Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 132,
+      "question": "How do Object.keys() and Object.getOwnPropertyNames() differ?",
+      "options": {
+        "A": "They are identical methods",
+        "B": "getOwnPropertyNames includes non-enumerable properties",
+        "C": "Object.keys() is deprecated",
+        "D": "getOwnPropertyNames() is slower"
+      },
+      "correctAnswer": "B",
+      "explanation": "Object.keys() returns only enumerable properties, while Object.getOwnPropertyNames() returns all own properties including non-enumerable ones. Most properties you define are enumerable, but some built-in properties (like array.length) are not. Neither includes Symbol properties (use Object.getOwnPropertySymbols() for those).",
+      "topic": "JavaScript - Object Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 133,
+      "question": "What does Object.create() do?",
+      "options": {
+        "A": "Creates exact copy of object",
+        "B": "Creates object with specified prototype",
+        "C": "Creates empty object always",
+        "D": "Same as object literal {}"
+      },
+      "correctAnswer": "B",
+      "explanation": "Object.create(proto) creates a new object with the specified prototype object. This gives direct control over the prototype chain. Object.create(null) creates an object with no prototype - useful for pure dictionaries without inherited properties. It's more explicit than {} or new Object() for setting up inheritance.",
+      "topic": "JavaScript - Object Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 134,
+      "question": "What does Array.flat() method do?",
+      "options": {
+        "A": "Sorts array alphabetically",
+        "B": "Flattens nested arrays by depth",
+        "C": "Removes duplicate values",
+        "D": "Converts to flat object"
+      },
+      "correctAnswer": "B",
+      "explanation": "Array.flat(depth) creates a new array with all sub-array elements concatenated up to the specified depth. Default depth is 1. flat(Infinity) flattens all levels. It also removes empty slots in sparse arrays. Useful for converting nested arrays into a single-level array for easier processing.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 135,
+      "question": "What does Array.flatMap() combine?",
+      "options": {
+        "A": "filter() and reduce()",
+        "B": "map() and flat() with depth 1",
+        "C": "forEach() and map()",
+        "D": "some() and every()"
+      },
+      "correctAnswer": "B",
+      "explanation": "flatMap() is equivalent to map().flat(1) - it maps each element and flattens the result by one level. It's more efficient than calling both separately. Useful when your map function returns arrays and you want to flatten them into a single array, like splitting strings or expanding nested data structures.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 136,
+      "question": "What is TypeScript generic used for?",
+      "options": {
+        "A": "Creating general-purpose variables",
+        "B": "Creating reusable components with type flexibility",
+        "C": "Generating random types",
+        "D": "Making all types optional"
+      },
+      "correctAnswer": "B",
+      "explanation": "Generics allow you to create reusable code that works with multiple types while maintaining type safety. Instead of using 'any', generics preserve the relationship between input and output types. For example, a function identity<T>(arg: T): T works with any type but ensures input and output match, catching type errors at compile time.",
+      "topic": "TypeScript - Generics",
+      "difficulty": "medium"
+    },
+    {
+      "id": 137,
+      "question": "How do you define a generic function in TypeScript?",
+      "options": {
+        "A": "function name<Generic>() {}",
+        "B": "function name<T>() {}",
+        "C": "generic function name() {}",
+        "D": "function name(): Generic {}"
+      },
+      "correctAnswer": "B",
+      "explanation": "You use angle brackets with a type parameter after the function name: function identity<T>(arg: T): T {}. T is a common convention but you can use any name. You can have multiple type parameters: <T, U>. When calling, TypeScript often infers the type, but you can specify it explicitly: identity<string>('hello').",
+      "topic": "TypeScript - Generics",
+      "difficulty": "medium"
+    },
+    {
+      "id": 138,
+      "question": "What is a type guard in TypeScript?",
+      "options": {
+        "A": "Security feature preventing type errors",
+        "B": "Runtime check narrowing type in scope",
+        "C": "Compile-time type checker",
+        "D": "Guard against any type usage"
+      },
+      "correctAnswer": "B",
+      "explanation": "Type guards are runtime checks that narrow the type of a variable within a conditional block. TypeScript recognizes checks like typeof, instanceof, and custom predicates (x is Type), updating its understanding of the type. This lets you safely access type-specific properties after confirming the type, catching errors at compile time.",
+      "topic": "TypeScript - Type Guards",
+      "difficulty": "medium"
+    },
+    {
+      "id": 139,
+      "question": "Which operator is commonly used for type guards?",
+      "options": {
+        "A": "instanceof operator",
+        "B": "typeof and instanceof operators",
+        "C": "only in operator",
+        "D": "guard operator"
+      },
+      "correctAnswer": "B",
+      "explanation": "typeof checks primitive types (typeof x === 'string'), instanceof checks class instances (x instanceof Date), 'in' operator checks properties ('prop' in obj), and Array.isArray() checks arrays. You can also create custom type guards with functions returning 'x is Type'. Use the appropriate operator based on what you're checking.",
+      "topic": "TypeScript - Type Guards",
+      "difficulty": "medium"
+    },
+    {
+      "id": 140,
+      "question": "What does 'as' keyword do in TypeScript?",
+      "options": {
+        "A": "Creates type alias automatically",
+        "B": "Type assertion, tells compiler type",
+        "C": "Compares two types",
+        "D": "Assigns default type"
+      },
+      "correctAnswer": "B",
+      "explanation": "Type assertion (as Type or <Type>) tells TypeScript to treat a value as a specific type, overriding its type inference. Use it when you know more about the type than TypeScript does, like after checking the DOM: const input = document.getElementById('id') as HTMLInputElement. Be careful - assertions don't perform runtime checks or conversions.",
+      "topic": "TypeScript - Type Assertions",
+      "difficulty": "medium"
+    },
+    {
+      "id": 141,
+      "question": "What is the 'unknown' type in TypeScript?",
+      "options": {
+        "A": "Same as any type",
+        "B": "Type-safe alternative to any, requires checks",
+        "C": "Type for undefined values",
+        "D": "Type for null values"
+      },
+      "correctAnswer": "B",
+      "explanation": "unknown is the type-safe counterpart to any. Like any, it can hold any value, but unlike any, you must perform type checking before using it. You can't access properties or call methods on unknown without narrowing the type first. This forces you to validate data, making code safer than using any.",
+      "topic": "TypeScript - Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 142,
+      "question": "What is the 'never' type used for?",
+      "options": {
+        "A": "Variables that never exist",
+        "B": "Functions that never return (throw/infinite loop)",
+        "C": "Values that are never used",
+        "D": "Deprecated type from old versions"
+      },
+      "correctAnswer": "B",
+      "explanation": "never represents values that never occur. Functions that always throw errors or have infinite loops return never. It's also used for exhaustive checks in switch statements - if all cases are handled, the default should be never, catching unhandled cases at compile time. never is the bottom type - nothing is assignable to it except never itself.",
+      "topic": "TypeScript - Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 143,
+      "question": "How do interfaces and types differ in TypeScript?",
+      "options": {
+        "A": "No practical difference",
+        "B": "Interfaces extendable, types use intersections",
+        "C": "Types are deprecated",
+        "D": "Interfaces only for objects"
+      },
+      "correctAnswer": "B",
+      "explanation": "Key differences: (1) Interfaces can be extended and merged (declaration merging), types use intersections (&). (2) Types can represent primitives, unions, and tuples; interfaces are primarily for object shapes. (3) Interfaces show better error messages. Use interfaces for object shapes and public APIs; types for unions, tuples, and complex type manipulations.",
+      "topic": "TypeScript - Interfaces vs Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 144,
+      "question": "Can you merge interfaces in TypeScript?",
+      "options": {
+        "A": "No, interfaces are immutable",
+        "B": "Yes, declaration merging automatically combines them",
+        "C": "Only with extend keyword",
+        "D": "Only in strict mode"
+      },
+      "correctAnswer": "B",
+      "explanation": "Declaration merging automatically combines multiple interface declarations with the same name into a single interface. This is useful for extending third-party types or adding methods to existing interfaces. Types don't support declaration merging - redeclaring a type is an error. This is one key advantage of interfaces for public APIs.",
+      "topic": "TypeScript - Interfaces",
+      "difficulty": "medium"
+    },
+    {
+      "id": 145,
+      "question": "What is a mapped type in TypeScript?",
+      "options": {
+        "A": "Type for Map data structure",
+        "B": "Type created by transforming existing type properties",
+        "C": "Type imported from another file",
+        "D": "Type for array.map() results"
+      },
+      "correctAnswer": "B",
+      "explanation": "Mapped types create new types by transforming properties of existing types. They iterate over keys and apply transformations: type Readonly<T> = { readonly [P in keyof T]: T[P] }. Utility types like Partial, Required, and Readonly are built with mapped types. They're powerful for creating variations of types without duplication.",
+      "topic": "TypeScript - Advanced Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 146,
+      "question": "What is debounce used for?",
+      "options": {
+        "A": "Removing bugs from code",
+        "B": "Delaying function until pause in events",
+        "C": "Speeding up function execution",
+        "D": "Debugging event handlers"
+      },
+      "correctAnswer": "B",
+      "explanation": "Debounce delays function execution until a pause in events. If events keep firing, the timer resets. It only executes after the events stop for the specified delay. Perfect for search inputs - wait until the user stops typing before making an API call, avoiding unnecessary requests on every keystroke.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 147,
+      "question": "What is throttle used for?",
+      "options": {
+        "A": "Slowing down entire application",
+        "B": "Limiting function calls to once per interval",
+        "C": "Increasing function execution speed",
+        "D": "Throttling network requests"
+      },
+      "correctAnswer": "B",
+      "explanation": "Throttle ensures a function executes at most once per specified time interval. Even if events fire continuously, the function runs at regular intervals. Ideal for scroll handlers - execute on scroll but maximum once per 100ms. This maintains responsiveness while preventing performance issues from excessive function calls.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 148,
+      "question": "When should you use debounce vs throttle?",
+      "options": {
+        "A": "Always use debounce",
+        "B": "Debounce for search, throttle for scroll",
+        "C": "Throttle for search, debounce for scroll",
+        "D": "Both do the same thing"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use debounce when you only care about the final state after activity stops (search autocomplete, form validation, window resize). Use throttle when you want regular updates during continuous events (scroll position, mouse movement, analytics tracking). Debounce waits for silence; throttle ensures regular execution.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 149,
+      "question": "What is LCP in Web Vitals?",
+      "options": {
+        "A": "Load Complete Progress",
+        "B": "Largest Contentful Paint",
+        "C": "Loading Content Performance",
+        "D": "Last Content Painted"
+      },
+      "correctAnswer": "B",
+      "explanation": "Largest Contentful Paint measures when the largest visible content element (image, text block) finishes rendering. It indicates perceived load speed from the user's perspective. Good LCP is under 2.5 seconds. Improve it by optimizing images, reducing server response time, eliminating render-blocking resources, and using CDNs.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 150,
+      "question": "What does CLS measure in Web Vitals?",
+      "options": {
+        "A": "Code Loading Speed",
+        "B": "Cumulative Layout Shift, visual stability",
+        "C": "Cache Loading System",
+        "D": "Component Load State"
+      },
+      "correctAnswer": "B",
+      "explanation": "Cumulative Layout Shift measures visual stability by quantifying unexpected layout shifts during page load. Elements shouldn't move around as the page loads. Good CLS is under 0.1. Prevent it by: setting size attributes on images/videos, not inserting content above existing content (except in response to user interaction), using transform animations instead of layout properties.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 151,
+      "question": "What is FID in Web Vitals?",
+      "options": {
+        "A": "Fast Interactive Design",
+        "B": "First Input Delay, interactivity measure",
+        "C": "Full Image Download",
+        "D": "Frontend Integration Delay"
+      },
+      "correctAnswer": "B",
+      "explanation": "First Input Delay measures the time from when a user first interacts with your page (clicks, taps) to when the browser can actually respond. It reflects how long the main thread is blocked. Good FID is under 100ms. Improve by reducing JavaScript execution time, breaking up long tasks, and using web workers for heavy computations.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 152,
+      "question": "What is Intersection Observer used for?",
+      "options": {
+        "A": "Observing variable intersections",
+        "B": "Detecting element visibility in viewport",
+        "C": "Monitoring network intersections",
+        "D": "Observing function intersections"
+      },
+      "correctAnswer": "B",
+      "explanation": "Intersection Observer asynchronously detects when elements enter or exit the viewport (or another element). It's more performant than scroll listeners because it runs off the main thread. Common uses: lazy loading images/content, infinite scroll, tracking ad visibility, triggering animations when elements come into view.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 153,
+      "question": "What is a common use case for Intersection Observer?",
+      "options": {
+        "A": "Form validation",
+        "B": "Lazy loading images when visible",
+        "C": "API request management",
+        "D": "State management"
+      },
+      "correctAnswer": "B",
+      "explanation": "Lazy loading images is a perfect use case: observe images, and when they're about to enter the viewport, load them. This improves initial page load by only loading visible images, reducing bandwidth and improving LCP. You can unobserve after loading to clean up. Other uses include infinite scroll and analytics tracking.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 154,
+      "question": "What are Web Workers used for?",
+      "options": {
+        "A": "Managing website employees",
+        "B": "Running JavaScript in background threads",
+        "C": "Service worker replacement",
+        "D": "DOM manipulation optimization"
+      },
+      "correctAnswer": "B",
+      "explanation": "Web Workers run JavaScript in background threads separate from the main thread, enabling parallel processing without blocking the UI. They're perfect for CPU-intensive tasks like data processing, encryption, or complex calculations. Workers communicate with the main thread via messages. This keeps the UI responsive during heavy computations.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 155,
+      "question": "What can't Web Workers access?",
+      "options": {
+        "A": "JavaScript variables",
+        "B": "DOM and window object",
+        "C": "Any API at all",
+        "D": "Network requests"
+      },
+      "correctAnswer": "B",
+      "explanation": "Web Workers can't access the DOM, window, document, or parent objects. They run in a separate global context with no access to UI APIs. They CAN use network requests (fetch), timers, some Web APIs, and communicate via postMessage. This isolation prevents threading issues but means all DOM updates must happen on the main thread.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 156,
+      "question": "What are Service Workers primarily used for?",
+      "options": {
+        "A": "Database management",
+        "B": "Offline functionality and caching",
+        "C": "Server-side rendering",
+        "D": "Authentication services"
+      },
+      "correctAnswer": "B",
+      "explanation": "Service Workers are programmable network proxies between your app and the network. They intercept network requests, enabling offline functionality by serving cached resources. Key features: cache assets, work offline, background sync, push notifications. They're essential for Progressive Web Apps (PWAs), providing app-like experiences in browsers.",
+      "topic": "Web APIs - PWA",
+      "difficulty": "medium"
+    },
+    {
+      "id": 157,
+      "question": "What is AbortController used for in fetch?",
+      "options": {
+        "A": "Aborting entire application",
+        "B": "Canceling in-flight network requests",
+        "C": "Controlling abort sequences",
+        "D": "Managing error aborts"
+      },
+      "correctAnswer": "B",
+      "explanation": "AbortController provides an AbortSignal that can cancel fetch requests. Create a controller, pass its signal to fetch, and call controller.abort() to cancel. This is crucial for cleaning up requests when components unmount, implementing timeouts, or canceling outdated searches. It prevents memory leaks and unnecessary network usage.",
+      "topic": "Web APIs - Fetch",
+      "difficulty": "medium"
+    },
+    {
+      "id": 158,
+      "question": "What does fetch() return?",
+      "options": {
+        "A": "Response data directly",
+        "B": "Promise resolving to Response object",
+        "C": "JSON data automatically",
+        "D": "String of response"
+      },
+      "correctAnswer": "B",
+      "explanation": "fetch() returns a Promise that resolves to a Response object. The Response contains the status, headers, and methods to read the body (.json(), .text(), .blob()). Note: the Promise resolves on any response, even errors (404, 500) - it only rejects on network failures. Check response.ok or response.status to handle HTTP errors.",
+      "topic": "Web APIs - Fetch",
+      "difficulty": "medium"
+    },
+    {
+      "id": 159,
+      "question": "What HTTP status code means 'Not Found'?",
+      "options": {
+        "A": "400 Bad Request",
+        "B": "404 Not Found",
+        "C": "500 Server Error",
+        "D": "403 Forbidden"
+      },
+      "correctAnswer": "B",
+      "explanation": "404 Not Found indicates the server can't find the requested resource. It's a client error (4xx) meaning the URL doesn't exist or is incorrect. Common causes: typos in URL, resource deleted, wrong path. It's different from 403 (Forbidden - resource exists but you lack permission) and 410 (Gone - resource permanently removed).",
+      "topic": "HTTP - Status Codes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 160,
+      "question": "What does HTTP 201 status code mean?",
+      "options": {
+        "A": "Request was successful",
+        "B": "Resource was created successfully",
+        "C": "Moved permanently",
+        "D": "Bad request error"
+      },
+      "correctAnswer": "B",
+      "explanation": "201 Created indicates a new resource was successfully created (typically from POST or PUT). The response usually includes a Location header with the new resource's URL. It's more specific than 200 (generic success) - use 201 for resource creation to communicate exactly what happened, following RESTful conventions.",
+      "topic": "HTTP - Status Codes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 161,
+      "question": "What does HTTP 304 status mean?",
+      "options": {
+        "A": "Redirect to new URL",
+        "B": "Not Modified, use cached version",
+        "C": "Multiple choices available",
+        "D": "Temporary redirect"
+      },
+      "correctAnswer": "B",
+      "explanation": "304 Not Modified means the resource hasn't changed since the last request (based on If-Modified-Since or ETag headers), so use your cached version. The server sends no body, saving bandwidth. This improves performance by avoiding unnecessary data transfer. Browsers automatically handle this when caching is configured properly.",
+      "topic": "HTTP - Status Codes",
+      "difficulty": "medium"
+    },
+    {
+      "id": 162,
+      "question": "What's the difference between PUT and PATCH?",
+      "options": {
+        "A": "No difference, same operation",
+        "B": "PUT replaces entire resource, PATCH partial update",
+        "C": "PATCH is deprecated",
+        "D": "PUT for create, PATCH for delete"
+      },
+      "correctAnswer": "B",
+      "explanation": "PUT replaces the entire resource - you send the complete new representation. PATCH applies partial modifications - you send only the fields to change. Use PUT for full updates (even unchanged fields must be included) and PATCH for partial updates (change specific fields). PATCH is more bandwidth-efficient for small changes.",
+      "topic": "HTTP - Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 163,
+      "question": "What is CORS in web development?",
+      "options": {
+        "A": "Code Organization and Reusability System",
+        "B": "Cross-Origin Resource Sharing security mechanism",
+        "C": "Core Object Runtime System",
+        "D": "Component Organization and Routing System"
+      },
+      "correctAnswer": "B",
+      "explanation": "CORS is a security mechanism that allows servers to specify which origins can access their resources. By default, browsers block cross-origin requests (different domain/protocol/port). Servers must send Access-Control-Allow-Origin headers to permit cross-origin access. This prevents malicious sites from stealing data while allowing legitimate API access.",
+      "topic": "Security - CORS",
+      "difficulty": "medium"
+    },
+    {
+      "id": 164,
+      "question": "What is XSS (Cross-Site Scripting)?",
+      "options": {
+        "A": "Extra Server Security",
+        "B": "Injection of malicious scripts into websites",
+        "C": "Cross-Site Style Sheets",
+        "D": "External Script Sharing"
+      },
+      "correctAnswer": "B",
+      "explanation": "XSS attacks inject malicious JavaScript into websites that execute in other users' browsers. Attackers steal cookies, session tokens, or sensitive data, or perform actions as the victim. Types include stored XSS (saved in database), reflected XSS (in URL), and DOM-based XSS. It's one of the most common web vulnerabilities.",
+      "topic": "Security - XSS",
+      "difficulty": "medium"
+    },
+    {
+      "id": 165,
+      "question": "How can you prevent XSS attacks?",
+      "options": {
+        "A": "Disable JavaScript completely",
+        "B": "Sanitize user input, escape output",
+        "C": "Use only HTTPS",
+        "D": "Block all external scripts"
+      },
+      "correctAnswer": "B",
+      "explanation": "Prevent XSS by: (1) sanitizing/validating user input, (2) escaping output when rendering (HTML entity encoding), (3) using Content Security Policy headers, (4) avoiding innerHTML/dangerouslySetInnerHTML with user data, (5) using frameworks that auto-escape (React). Never trust user input - always validate and escape.",
+      "topic": "Security - XSS",
+      "difficulty": "medium"
+    },
+    {
+      "id": 166,
+      "question": "What is CSRF attack?",
+      "options": {
+        "A": "Client-Side Request Failure",
+        "B": "Cross-Site Request Forgery, unauthorized requests",
+        "C": "Code Security and Risk Framework",
+        "D": "Component State Refresh Failure"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSRF tricks users into executing unwanted actions on sites where they're authenticated. An attacker creates a malicious link/form that triggers actions (money transfer, password change) using the victim's credentials. It exploits that browsers automatically send cookies, so the server thinks the request is legitimate.",
+      "topic": "Security - CSRF",
+      "difficulty": "medium"
+    },
+    {
+      "id": 167,
+      "question": "What is Content Security Policy (CSP)?",
+      "options": {
+        "A": "Code Style Policy for developers",
+        "B": "HTTP header preventing XSS/injection attacks",
+        "C": "Content Sharing Protocol",
+        "D": "Component Security Package"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSP is an HTTP header that specifies which sources of content (scripts, styles, images) are allowed to load. It's a strong defense against XSS by blocking inline scripts and unauthorized external resources. You whitelist trusted sources: 'Content-Security-Policy: script-src 'self' https://trusted.com'. It significantly reduces XSS attack surface.",
+      "topic": "Security - CSP",
+      "difficulty": "medium"
+    },
+    {
+      "id": 168,
+      "question": "What is Jest primarily used for?",
+      "options": {
+        "A": "Building user interfaces",
+        "B": "JavaScript testing framework",
+        "C": "State management library",
+        "D": "HTTP client library"
+      },
+      "correctAnswer": "B",
+      "explanation": "Jest is a comprehensive JavaScript testing framework developed by Facebook. It provides test runners, assertions, mocking, code coverage, and snapshot testing out of the box. Zero config for React projects, fast parallel test execution, and excellent error messages make it the most popular choice for testing React applications.",
+      "topic": "Testing - Jest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 169,
+      "question": "What does 'describe' block do in Jest?",
+      "options": {
+        "A": "Describes variable types",
+        "B": "Groups related test cases together",
+        "C": "Describes component props",
+        "D": "Creates test descriptions only"
+      },
+      "correctAnswer": "B",
+      "explanation": "describe() creates a test suite - a block that groups related tests together. This organizes tests logically, makes output clearer, and allows shared setup/teardown (beforeEach, afterEach) for the group. You can nest describe blocks for hierarchical organization. It improves test maintainability and readability.",
+      "topic": "Testing - Jest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 170,
+      "question": "What is the difference between 'it' and 'test' in Jest?",
+      "options": {
+        "A": "'test' is deprecated",
+        "B": "No difference, just aliases",
+        "C": "'it' for async, 'test' for sync",
+        "D": "'it' is faster"
+      },
+      "correctAnswer": "B",
+      "explanation": "it() and test() are aliases - they work identically. it() reads more naturally in BDD (Behavior-Driven Development) style: 'it should do something'. test() is more explicit: 'test: addition works'. Choose based on team preference or coding style. Most projects use it() for better readability.",
+      "topic": "Testing - Jest",
+      "difficulty": "medium"
+    },
+    {
+      "id": 171,
+      "question": "What does React Testing Library encourage?",
+      "options": {
+        "A": "Testing implementation details",
+        "B": "Testing user behavior and accessibility",
+        "C": "Testing only props",
+        "D": "Testing state directly"
+      },
+      "correctAnswer": "B",
+      "explanation": "React Testing Library promotes testing from the user's perspective - how they interact with your app, not implementation details. Query by accessible labels/text, not class names or IDs. Simulate user interactions, not direct state manipulation. This makes tests more resilient to refactoring and ensures accessibility.",
+      "topic": "Testing - React Testing Library",
+      "difficulty": "medium"
+    },
+    {
+      "id": 172,
+      "question": "What is 'render' function used for in RTL?",
+      "options": {
+        "A": "Rendering to production",
+        "B": "Rendering components into virtual DOM for testing",
+        "C": "Creating snapshots only",
+        "D": "Rendering server-side"
+      },
+      "correctAnswer": "B",
+      "explanation": "render() from React Testing Library renders a component into a container appended to document.body for testing. It returns utilities for querying (getBy, findBy, queryBy) and interacting with the component. After rendering, you query elements and assert on their behavior, just like users would interact with your app.",
+      "topic": "Testing - React Testing Library",
+      "difficulty": "medium"
+    },
+    {
+      "id": 173,
+      "question": "What is a unit test?",
+      "options": {
+        "A": "Testing entire application",
+        "B": "Testing individual functions/components in isolation",
+        "C": "Testing user interface only",
+        "D": "Testing multiple units together"
+      },
+      "correctAnswer": "B",
+      "explanation": "Unit tests test individual units (functions, components) in isolation, mocking dependencies. They're fast, focused, and catch bugs early. Example: test a pure function with various inputs, or a component with mocked props. They form the foundation of your test pyramid - many unit tests, fewer integration tests, fewest E2E tests.",
+      "topic": "Testing - Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 174,
+      "question": "What is an integration test?",
+      "options": {
+        "A": "Testing single functions only",
+        "B": "Testing how multiple units work together",
+        "C": "Testing external integrations only",
+        "D": "Testing entire application end-to-end"
+      },
+      "correctAnswer": "B",
+      "explanation": "Integration tests verify that multiple units work together correctly. Test component interactions, data flow between components, or integration with real (or realistic) dependencies like APIs or databases. They catch issues unit tests miss (like incorrect wiring) but are slower and more complex than unit tests.",
+      "topic": "Testing - Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 175,
+      "question": "What is E2E (End-to-End) testing?",
+      "options": {
+        "A": "Testing from Europe to Europe",
+        "B": "Testing complete user workflows in real environment",
+        "C": "Testing only endpoints",
+        "D": "Testing edge cases only"
+      },
+      "correctAnswer": "B",
+      "explanation": "E2E tests simulate real user scenarios in a browser-like environment, testing the entire application stack from UI to database. Tools like Cypress or Playwright automate user interactions. E2E tests are slow and fragile but catch issues other tests miss. Use them for critical user journeys, complementing faster unit/integration tests.",
+      "topic": "Testing - Types",
+      "difficulty": "medium"
+    },
+    {
+      "id": 176,
+      "question": "What is tree shaking in bundlers?",
+      "options": {
+        "A": "Organizing file tree structure",
+        "B": "Removing unused code from bundle",
+        "C": "Shaking dependency tree",
+        "D": "Testing tree data structures"
+      },
+      "correctAnswer": "B",
+      "explanation": "Tree shaking eliminates dead code (unused exports) from the final bundle. Bundlers analyze ES Module imports/exports - because they're static, tools can determine what's used. Only used code is included, reducing bundle size. It works best with ES Modules, side-effect-free code, and proper package.json configuration (sideEffects: false).",
+      "topic": "Build Tools",
+      "difficulty": "medium"
+    },
+    {
+      "id": 177,
+      "question": "What is Webpack primarily used for?",
+      "options": {
+        "A": "Web page testing",
+        "B": "Module bundling and asset transformation",
+        "C": "Web server hosting",
+        "D": "Web socket connections"
+      },
+      "correctAnswer": "B",
+      "explanation": "Webpack is a module bundler that processes your JavaScript, CSS, images, and other assets into optimized bundles for the browser. It handles code splitting, tree shaking, loaders (transform files), plugins (optimize bundles), and dev server. While powerful, it requires significant configuration, making newer tools like Vite popular alternatives.",
+      "topic": "Build Tools - Webpack",
+      "difficulty": "medium"
+    },
+    {
+      "id": 178,
+      "question": "How does Vite differ from Webpack?",
+      "options": {
+        "A": "Vite is slower",
+        "B": "Vite uses native ESM, faster dev server",
+        "C": "Webpack is newer technology",
+        "D": "No significant difference"
+      },
+      "correctAnswer": "B",
+      "explanation": "Vite uses native ES Modules during development - no bundling needed, instant server start and HMR. Webpack bundles everything upfront. For production, Vite uses Rollup. Vite is significantly faster for development, especially in large projects. Webpack is more mature with broader ecosystem but slower dev experience.",
+      "topic": "Build Tools - Vite",
+      "difficulty": "medium"
+    },
+    {
+      "id": 179,
+      "question": "What is Babel used for?",
+      "options": {
+        "A": "Language translation service",
+        "B": "Transpiling modern JS to older versions",
+        "C": "Backend API framework",
+        "D": "Database management"
+      },
+      "correctAnswer": "B",
+      "explanation": "Babel transpiles modern JavaScript (ES6+, JSX, TypeScript) to older versions that work in older browsers. It transforms syntax (arrow functions → regular functions), adds polyfills for new features (Promise, async/await), and enables experimental features. Essential for supporting older browsers while writing modern code.",
+      "topic": "Build Tools - Babel",
+      "difficulty": "medium"
+    },
+    {
+      "id": 180,
+      "question": "What is git rebase used for?",
+      "options": {
+        "A": "Creating new repository",
+        "B": "Rewriting commit history, moving commits",
+        "C": "Deleting all branches",
+        "D": "Resetting to base state"
+      },
+      "correctAnswer": "B",
+      "explanation": "Rebase moves or combines commits, rewriting history. It replays your commits on top of another branch, creating a linear history. Use it to keep feature branches up-to-date with main, clean up commit history before merging, or squash commits. Warning: never rebase commits pushed to shared branches - it rewrites history others depend on.",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 181,
+      "question": "What's the difference between merge and rebase?",
+      "options": {
+        "A": "No difference at all",
+        "B": "Merge creates merge commit, rebase rewrites history",
+        "C": "Rebase is deprecated",
+        "D": "Merge is slower"
+      },
+      "correctAnswer": "B",
+      "explanation": "Merge combines branches with a merge commit, preserving both branches' history (creates a fork). Rebase replays commits from one branch onto another, creating a linear history without merge commits. Use merge for shared branches (preserves history), rebase for local cleanup (cleaner history). Rebase rewrites history, so don't use on public branches.",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 182,
+      "question": "What does git stash do?",
+      "options": {
+        "A": "Permanently deletes changes",
+        "B": "Temporarily saves uncommitted changes",
+        "C": "Creates backup repository",
+        "D": "Stashes files for production"
+      },
+      "correctAnswer": "B",
+      "explanation": "git stash temporarily stores uncommitted changes, reverting your working directory to a clean state. It's useful when you need to switch branches but aren't ready to commit. Later, use git stash pop to reapply changes or git stash apply to apply without removing from stash. You can stash multiple times and name stashes.",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 183,
+      "question": "What is the Proxy object in JavaScript?",
+      "options": {
+        "A": "HTTP proxy for requests",
+        "B": "Object wrapping another, intercepting operations",
+        "C": "Design pattern for proxies",
+        "D": "Server proxy configuration"
+      },
+      "correctAnswer": "B",
+      "explanation": "Proxy wraps an object and intercepts operations (get, set, delete, etc.) through 'traps', allowing custom behavior. Use cases: validation (validate before setting), logging (track property access), reactivity (Vue 3 uses Proxies), default values, or hiding properties. It's powerful for metaprogramming - code that manipulates code.",
+      "topic": "JavaScript - Advanced",
+      "difficulty": "medium"
+    },
+    {
+      "id": 184,
+      "question": "What is Symbol in JavaScript?",
+      "options": {
+        "A": "Special character in strings",
+        "B": "Primitive type for unique identifiers",
+        "C": "Symbol for mathematical operations",
+        "D": "Debugging symbol"
+      },
+      "correctAnswer": "B",
+      "explanation": "Symbol is a primitive type that creates unique, immutable identifiers. Each Symbol() call creates a new unique symbol. Use them for: (1) private object properties (won't appear in for...in), (2) avoiding property name collisions, (3) well-known symbols (Symbol.iterator) for metaprogramming. Symbols are never equal, even with same description.",
+      "topic": "JavaScript - Primitives",
+      "difficulty": "medium"
+    },
+    {
+      "id": 185,
+      "question": "What is React StrictMode used for?",
+      "options": {
+        "A": "Enforcing TypeScript strict mode",
+        "B": "Highlighting potential problems in development",
+        "C": "Making code run in strict mode",
+        "D": "Strict prop validation"
+      },
+      "correctAnswer": "B",
+      "explanation": "StrictMode is a development tool that doesn't render any UI but activates checks and warnings for its descendants: detects unsafe lifecycle methods, warns about legacy APIs, detects unexpected side effects (by double-invoking functions), and warns about deprecated findDOMNode. It only runs in development, helping you write better React code.",
+      "topic": "React - Development Tools",
+      "difficulty": "medium"
+    },
+    {
+      "id": 186,
+      "question": "What are React Fragments used for?",
+      "options": {
+        "A": "Breaking components into fragments",
+        "B": "Grouping children without extra DOM nodes",
+        "C": "Code splitting fragments",
+        "D": "Fragment loading optimization"
+      },
+      "correctAnswer": "B",
+      "explanation": "Fragments let you group multiple children without adding extra nodes to the DOM. Instead of wrapping in a <div>, use <Fragment> or <>. This keeps the DOM cleaner, avoids styling issues from wrapper divs, and slightly improves performance. Fragments can have keys (for lists) but no other props.",
+      "topic": "React - JSX",
+      "difficulty": "medium"
+    },
+    {
+      "id": 187,
+      "question": "What is the short syntax for React Fragment?",
+      "options": {
+        "A": "<frag></frag>",
+        "B": "<></> empty tags",
+        "C": "<Fragment />",
+        "D": "<div hidden>"
+      },
+      "correctAnswer": "B",
+      "explanation": "<></> is the short syntax for <React.Fragment>. It's cleaner and more concise. The downside: you can't add attributes. If you need to add a key (in lists), use the full <Fragment key={id}> syntax. The short syntax is perfect for simple grouping without needing props.",
+      "topic": "React - JSX",
+      "difficulty": "medium"
+    },
+    {
+      "id": 188,
+      "question": "What is CSS specificity?",
+      "options": {
+        "A": "How specific CSS rules are",
+        "B": "Weight determining which style rule applies",
+        "C": "Speed of CSS rendering",
+        "D": "CSS performance metric"
+      },
+      "correctAnswer": "B",
+      "explanation": "Specificity determines which CSS rule applies when multiple rules target the same element. It's calculated based on selector types: inline styles (1000), IDs (100), classes/attributes/pseudo-classes (10), elements/pseudo-elements (1). More specific selectors override less specific ones. Understanding specificity prevents !important overuse and makes CSS more maintainable.",
+      "topic": "CSS",
+      "difficulty": "medium"
+    },
+    {
+      "id": 189,
+      "question": "Which selector has highest specificity?",
+      "options": {
+        "A": "Element selector (div)",
+        "B": "Inline styles",
+        "C": "Class selector (.class)",
+        "D": "ID selector (#id)"
+      },
+      "correctAnswer": "B",
+      "explanation": "Specificity order: (1) inline styles (highest), (2) IDs, (3) classes/attributes/pseudo-classes, (4) elements/pseudo-elements (lowest). !important overrides everything but makes CSS hard to maintain. The rule: be as specific as necessary but no more. Prefer classes over IDs for styling flexibility.",
+      "topic": "CSS - Specificity",
+      "difficulty": "medium"
+    },
+    {
+      "id": 190,
+      "question": "What is BEM methodology in CSS?",
+      "options": {
+        "A": "Browser Extension Manager",
+        "B": "Block Element Modifier naming convention",
+        "C": "Basic Element Management",
+        "D": "Backend Email Module"
+      },
+      "correctAnswer": "B",
+      "explanation": "BEM is a naming methodology: Block__Element--Modifier. Block is a component (menu), Element is part of the block (menu__item), Modifier is a variation (menu__item--active). It creates predictable, readable class names that avoid specificity issues. While verbose, it scales well and makes CSS self-documenting.",
+      "topic": "CSS - Methodology",
+      "difficulty": "medium"
+    },
+    {
+      "id": 191,
+      "question": "What is CSS-in-JS?",
+      "options": {
+        "A": "Injecting JS into CSS files",
+        "B": "Writing CSS styles in JavaScript",
+        "C": "CSS JavaScript framework",
+        "D": "CSS parser in JavaScript"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSS-in-JS writes styles in JavaScript (styled-components, Emotion). Benefits: scoped styles, dynamic styling based on props/state, no class name conflicts, co-location with components. Drawbacks: runtime overhead, larger bundle, no static analysis. It's popular in React for component-based styling but has trade-offs versus traditional CSS.",
+      "topic": "CSS - Styling Approaches",
+      "difficulty": "medium"
+    },
+    {
+      "id": 192,
+      "question": "What are CSS Modules?",
+      "options": {
+        "A": "NPM modules for CSS",
+        "B": "CSS files with locally scoped class names",
+        "C": "CSS import modules",
+        "D": "Modular CSS framework"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSS Modules automatically scope CSS class names to the component, preventing global conflicts. You import CSS as an object and use classes as properties: import styles from './Button.module.css'; <div className={styles.button}>. Build tools generate unique class names. You get scoping benefits without JavaScript runtime overhead.",
+      "topic": "CSS - Styling Approaches",
+      "difficulty": "medium"
+    },
+    {
+      "id": 193,
+      "question": "What is the main benefit of Flexbox?",
+      "options": {
+        "A": "Faster page loading",
+        "B": "One-dimensional layout system, flexible alignment",
+        "C": "Better browser compatibility",
+        "D": "Automatic responsive design"
+      },
+      "correctAnswer": "B",
+      "explanation": "Flexbox is a one-dimensional layout system (row or column) that makes alignment, distribution, and spacing easy. It excels at: aligning items vertically, distributing space, reordering elements, and making responsive layouts. flex-grow, flex-shrink, and flex-basis control item sizing. It's perfect for navigation bars, cards, or components where you need flexible alignment.",
+      "topic": "CSS - Layout",
+      "difficulty": "medium"
+    },
+    {
+      "id": 194,
+      "question": "How does CSS Grid differ from Flexbox?",
+      "options": {
+        "A": "Grid is deprecated",
+        "B": "Grid is two-dimensional, Flexbox one-dimensional",
+        "C": "Flexbox is newer technology",
+        "D": "No difference"
+      },
+      "correctAnswer": "B",
+      "explanation": "Grid is two-dimensional (rows AND columns), Flexbox is one-dimensional (row OR column). Use Grid for overall page layout, complex structures with rows and columns. Use Flexbox for component layout, aligning items in one direction. They complement each other - Grid for macro layout, Flexbox for micro layout within grid items.",
+      "topic": "CSS - Layout",
+      "difficulty": "medium"
+    },
+    {
+      "id": 195,
+      "question": "What is REST API?",
+      "options": {
+        "A": "Database resting protocol",
+        "B": "Representational State Transfer architecture style",
+        "C": "Request State Technology",
+        "D": "Remote Execution Service Tool"
+      },
+      "correctAnswer": "B",
+      "explanation": "REST is an architectural style for APIs using HTTP methods (GET, POST, PUT, DELETE) on resources (URLs). Principles: stateless requests, resource-based URLs (/users/123), standard HTTP methods, JSON responses. RESTful APIs are predictable, scalable, and cacheable. They're the most common API style for web services.",
+      "topic": "APIs - REST",
+      "difficulty": "medium"
+    },
+    {
+      "id": 196,
+      "question": "What is idempotency in REST APIs?",
+      "options": {
+        "A": "API is always identical",
+        "B": "Same request produces same result repeatedly",
+        "C": "API needs authentication",
+        "D": "Automatic retry mechanism"
+      },
+      "correctAnswer": "B",
+      "explanation": "An idempotent operation produces the same result no matter how many times it's executed. GET, PUT, DELETE are idempotent (same request = same result/state). POST is not (creates new resource each time). Idempotency enables safe retries on network failures without duplicating effects, making APIs more robust.",
+      "topic": "APIs - REST",
+      "difficulty": "medium"
+    },
+    {
+      "id": 197,
+      "question": "How does GraphQL differ from REST?",
+      "options": {
+        "A": "GraphQL is slower",
+        "B": "GraphQL lets client specify exact data needed",
+        "C": "REST is newer technology",
+        "D": "No practical difference"
+      },
+      "correctAnswer": "B",
+      "explanation": "GraphQL uses a single endpoint where clients query exactly what they need, avoiding over-fetching/under-fetching. REST uses multiple endpoints, often returning fixed data structures. GraphQL benefits: flexible queries, fewer requests, strong typing. REST benefits: simpler, better caching, familiar. Choose based on your API complexity and client needs.",
+      "topic": "APIs - GraphQL",
+      "difficulty": "medium"
+    },
+    {
+      "id": 198,
+      "question": "What is memoization in programming?",
+      "options": {
+        "A": "Writing memory notes",
+        "B": "Caching function results for same inputs",
+        "C": "Memory allocation technique",
+        "D": "Memorizing code patterns"
+      },
+      "correctAnswer": "B",
+      "explanation": "Memoization caches function results based on inputs. When called with the same arguments, it returns the cached result instead of recalculating. It trades memory for speed, optimizing expensive pure functions. React's useMemo and useCallback use memoization. Only memoize expensive operations - the overhead isn't worth it for cheap computations.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 199,
+      "question": "What is code splitting?",
+      "options": {
+        "A": "Dividing code into teams",
+        "B": "Breaking bundle into smaller chunks loaded on demand",
+        "C": "Splitting code across servers",
+        "D": "Separating HTML/CSS/JS"
+      },
+      "correctAnswer": "B",
+      "explanation": "Code splitting breaks your bundle into smaller chunks loaded on-demand, reducing initial load time. Users only download code they need. Implement via dynamic imports (import()), React.lazy(), or route-based splitting. This is crucial for large apps - don't force users to download admin pages they'll never see. It significantly improves Time to Interactive.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 200,
+      "question": "What is virtual scrolling?",
+      "options": {
+        "A": "Scrolling in virtual reality",
+        "B": "Rendering only visible items in long lists",
+        "C": "Scroll animation technique",
+        "D": "Virtual scroll bar"
+      },
+      "correctAnswer": "B",
+      "explanation": "Virtual scrolling (windowing) only renders items currently visible in the viewport, not the entire list. As you scroll, items are dynamically added/removed from the DOM. This makes lists of thousands/millions of items performant. Libraries like react-window and react-virtualized implement this. Essential for large datasets like table virtualization.",
+      "topic": "Performance - Optimization",
+      "difficulty": "medium"
+    },
+    {
+      "id": 201,
+      "question": "What is Mutation Observer API?",
+      "options": {
+        "A": "Observing state mutations",
+        "B": "Watching DOM changes and mutations",
+        "C": "Monitoring data mutations",
+        "D": "Genetic mutation observer"
+      },
+      "correctAnswer": "B",
+      "explanation": "MutationObserver asynchronously watches for DOM changes (added/removed nodes, attribute changes, text changes). It replaces deprecated mutation events with better performance. Use cases: reacting to DOM changes from third-party scripts, implementing responsive behaviors, or tracking dynamic content. It's essential when you don't control the DOM mutations directly.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 202,
+      "question": "What is ResizeObserver used for?",
+      "options": {
+        "A": "Resizing browser windows",
+        "B": "Detecting element size changes",
+        "C": "Image resize optimization",
+        "D": "Font size observation"
+      },
+      "correctAnswer": "B",
+      "explanation": "ResizeObserver detects when element dimensions change, more efficient than resize events or polling. It fires when observed elements resize due to CSS, content changes, or layout shifts. Use cases: responsive components, container queries, charts that adapt to container size, or implementing custom responsive behaviors without media queries.",
+      "topic": "Web APIs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 203,
+      "question": "What is the 'dangerouslySetInnerHTML' prop in React?",
+      "options": {
+        "A": "Sets dangerous content",
+        "B": "Sets HTML content directly, bypassing sanitization",
+        "C": "Dangerous styling prop",
+        "D": "Development warning prop"
+      },
+      "correctAnswer": "B",
+      "explanation": "dangerouslySetInnerHTML bypasses React's XSS protection, directly setting HTML (like innerHTML). It's dangerous because unsanitized user input can inject malicious scripts. Only use it with trusted, sanitized content. The long name is intentionally scary to make you think twice. Prefer rendering content normally - React auto-escapes for safety.",
+      "topic": "React - Security",
+      "difficulty": "medium"
+    },
+    {
+      "id": 204,
+      "question": "Why is dangerouslySetInnerHTML dangerous?",
+      "options": {
+        "A": "Slows down performance",
+        "B": "Can expose to XSS attacks if not sanitized",
+        "C": "Breaks React rendering",
+        "D": "Deprecated in React 18"
+      },
+      "correctAnswer": "B",
+      "explanation": "It's dangerous because it can enable XSS attacks if you inject unsanitized user input. Attackers can inject <script> tags or event handlers stealing data or performing malicious actions. Always sanitize HTML (use libraries like DOMPurify) before using dangerouslySetInnerHTML. Better yet, avoid it - let React handle rendering safely.",
+      "topic": "React - Security",
+      "difficulty": "medium"
+    },
+    {
+      "id": 205,
+      "question": "What is the Virtual DOM in React?",
+      "options": {
+        "A": "Virtual reality DOM",
+        "B": "Lightweight copy of real DOM for efficient updates",
+        "C": "Simulated DOM for testing",
+        "D": "DOM in virtual memory"
+      },
+      "correctAnswer": "B",
+      "explanation": "The Virtual DOM is React's lightweight representation of the actual DOM. React updates the Virtual DOM first, compares it to the previous version (diffing), calculates minimal changes needed, then applies only those changes to the real DOM (reconciliation). This batching and optimization makes React fast despite re-rendering components frequently.",
+      "topic": "React - Internals",
+      "difficulty": "medium"
+    }
+  ]
+}
