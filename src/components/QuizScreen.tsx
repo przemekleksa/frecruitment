@@ -98,6 +98,12 @@ export default function QuizScreen({
             : "Finish Quiz"}
         </button>
 
+        {showExplanation && (
+          <div className="correct-answer-hint">
+            <strong>Correct Answer:</strong> {currentQuestion.options[currentQuestion.correctAnswer]}
+          </div>
+        )}
+
         <button
           className="show-explanation-button"
           onClick={() => setShowExplanation(!showExplanation)}
