@@ -21,6 +21,33 @@ export default function ResultsScreen({
     return "📚 Keep studying! Practice makes perfect!";
   };
 
+  const exportWrongAnswers = () => {
+    let text = `Frontend Engineer Quiz - Review Sheet\n`;
+    text += `Score: ${correctAnswers}/${totalQuestions} (${percentage}%)\n`;
+    text += `Incorrect Answers: ${wrongAnswers.length}\n`;
+    text += `Date: ${new Date().toLocaleDateString()}\n`;
+    text += `\n${'='.repeat(80)}\n\n`;
+
+    wrongAnswers.forEach((answer, index) => {
+      text += `Question ${index + 1}:\n`;
+      text += `${answer.question}\n\n`;
+      text += `Your Answer (${answer.selectedAnswer}): ${answer.options[answer.selectedAnswer]}\n`;
+      text += `Correct Answer (${answer.correctAnswer}): ${answer.options[answer.correctAnswer]}\n\n`;
+      text += `Explanation:\n${answer.explanation}\n`;
+      text += `\n${'-'.repeat(80)}\n\n`;
+    });
+
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `quiz-review-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="results-screen">
       <div className="results-summary">
@@ -36,7 +63,12 @@ export default function ResultsScreen({
 
       {wrongAnswers.length > 0 && (
         <div className="wrong-answers-section">
-          <h2>Review Incorrect Answers ({wrongAnswers.length})</h2>
+          <div className="wrong-answers-header">
+            <h2>Review Incorrect Answers ({wrongAnswers.length})</h2>
+            <button className="export-button" onClick={exportWrongAnswers}>
+              📄 Export to Text File
+            </button>
+          </div>
           <div className="wrong-answers-list">
             {wrongAnswers.map((answer, index) => (
               <div key={answer.questionId} className="wrong-answer-item">
