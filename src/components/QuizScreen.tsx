@@ -15,6 +15,7 @@ export default function QuizScreen({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<OptionKey | null>(null);
   const [answers, setAnswers] = useState<UserAnswer[]>([]);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -49,6 +50,7 @@ export default function QuizScreen({
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
+      setShowExplanation(false);
     } else {
       onQuizComplete(updatedAnswers);
     }
@@ -95,6 +97,19 @@ export default function QuizScreen({
             ? "Next Question"
             : "Finish Quiz"}
         </button>
+
+        <button
+          className="show-explanation-button"
+          onClick={() => setShowExplanation(!showExplanation)}
+        >
+          {showExplanation ? "Hide Explanation" : "Show Explanation"}
+        </button>
+
+        {showExplanation && (
+          <div className="explanation-box">
+            <p className="explanation-text">{currentQuestion.explanation}</p>
+          </div>
+        )}
       </div>
     </div>
   );

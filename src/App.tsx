@@ -12,12 +12,13 @@ function App() {
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
   const quizQuestions = useMemo(() => {
+    // eslint-disable-next-line react-hooks/purity
+    const shuffled = [...quizData.quiz].sort(() => Math.random() - 0.5);
+
     if (quizMode === "random") {
-      // eslint-disable-next-line react-hooks/purity
-      const shuffled = [...quizData.quiz].sort(() => Math.random() - 0.5);
       return shuffled.slice(0, 25);
     }
-    return quizData.quiz;
+    return shuffled;
   }, [quizMode]);
 
   const handleStartQuiz = (mode: QuizMode) => {
