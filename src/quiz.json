@@ -2869,6 +2869,426 @@
       "explanation": "The Virtual DOM is React's lightweight representation of the actual DOM. React updates the Virtual DOM first, compares it to the previous version (diffing), calculates minimal changes needed, then applies only those changes to the real DOM (reconciliation). This batching and optimization makes React fast despite re-rendering components frequently.",
       "topic": "React - Internals",
       "difficulty": "medium"
+    },
+    {
+      "id": 206,
+      "question": "What does the tabindex attribute do in HTML?",
+      "options": {
+        "A": "Sets tab width for indentation",
+        "B": "Controls keyboard navigation order and focusability",
+        "C": "Creates tabbed navigation automatically",
+        "D": "Defines table index for databases"
+      },
+      "correctAnswer": "B",
+      "explanation": "tabindex controls the keyboard navigation order of elements. tabindex='0' makes an element focusable in natural tab order, tabindex='-1' makes it programmatically focusable but removes it from tab order, and positive values (avoid!) set specific tab order. It's crucial for accessibility.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 207,
+      "question": "How do you prevent a specific page from being indexed by search engines?",
+      "options": {
+        "A": "Add noindex.txt file to page directory",
+        "B": "Use meta tag: <meta name='robots' content='noindex'>",
+        "C": "Set robots='false' in HTML tag",
+        "D": "Use CSS: visibility: hidden"
+      },
+      "correctAnswer": "B",
+      "explanation": "The <meta name='robots' content='noindex'> tag in the <head> tells search engines not to index that specific page. This is different from robots.txt which controls crawling of entire directories. You can also combine with 'nofollow': content='noindex, nofollow'.",
+      "topic": "HTML - SEO",
+      "difficulty": "medium"
+    },
+    {
+      "id": 208,
+      "question": "When is using !important in CSS justified?",
+      "options": {
+        "A": "Whenever you want styles to win",
+        "B": "Overriding third-party library styles (last resort)",
+        "C": "In all production code for reliability",
+        "D": "Never, it should be completely avoided"
+      },
+      "correctAnswer": "B",
+      "explanation": "!important should be a last resort, mainly for overriding styles from third-party libraries you can't modify. Overusing it creates specificity wars and makes CSS unmaintainable. Better solutions: increase specificity, use CSS Modules, or restructure your CSS. Only use when you've exhausted other options.",
+      "topic": "CSS - Best Practices",
+      "difficulty": "medium"
+    },
+    {
+      "id": 209,
+      "question": "What are CSS preprocessors like Sass/SCSS used for?",
+      "options": {
+        "A": "Faster CSS parsing in browsers",
+        "B": "Variables, nesting, mixins before compilation to CSS",
+        "C": "Automatic cross-browser compatibility",
+        "D": "Server-side CSS rendering"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSS preprocessors extend CSS with features like variables ($color), nesting rules, mixins (reusable style blocks), functions, and imports. They compile to standard CSS that browsers understand. While native CSS now has variables (custom properties), preprocessors still offer powerful features for organizing and maintaining large stylesheets.",
+      "topic": "CSS - Preprocessors",
+      "difficulty": "medium"
+    },
+    {
+      "id": 210,
+      "question": "What is the :has() pseudo-class in CSS?",
+      "options": {
+        "A": "Checks if element has specific class",
+        "B": "Parent selector - styles element if it contains selector",
+        "C": "Checks if CSS property has value",
+        "D": "Validates form has all fields"
+      },
+      "correctAnswer": "B",
+      "explanation": ":has() is the 'parent selector' - it selects an element if it contains a matching descendant. For example, 'div:has(img)' selects divs that contain images. This was long-requested and finally added to CSS. It enables powerful conditional styling without JavaScript.",
+      "topic": "CSS - Modern Features",
+      "difficulty": "medium"
+    },
+    {
+      "id": 211,
+      "question": "What are CSS container queries (@container)?",
+      "options": {
+        "A": "Queries for container elements only",
+        "B": "Responsive styles based on parent container size",
+        "C": "Docker container configuration",
+        "D": "Storage container for CSS variables"
+      },
+      "correctAnswer": "B",
+      "explanation": "Container queries let components respond to their parent container's size instead of viewport size. This enables truly modular responsive components - a sidebar widget can adapt differently than a main content widget, even at the same viewport size. Use 'container-type: inline-size' on parent, then '@container (min-width: 400px)' for queries.",
+      "topic": "CSS - Modern Features",
+      "difficulty": "medium"
+    },
+    {
+      "id": 212,
+      "question": "What is an IIFE in JavaScript?",
+      "options": {
+        "A": "Inherited Instance Function Expression",
+        "B": "Immediately Invoked Function Expression",
+        "C": "Interactive Interface Function Event",
+        "D": "Integrated Import File Extension"
+      },
+      "correctAnswer": "B",
+      "explanation": "IIFE (Immediately Invoked Function Expression) is a function that runs as soon as it's defined: (function() { /* code */ })(); or (() => { /* code */ })();. Used before ES6 modules to create private scopes, avoid polluting global namespace, and execute initialization code. Still useful for isolating code in legacy codebases.",
+      "topic": "JavaScript - Functions",
+      "difficulty": "medium"
+    },
+    {
+      "id": 213,
+      "question": "What does Array.sort() do to the original array?",
+      "options": {
+        "A": "Returns new sorted array, original unchanged",
+        "B": "Mutates original array in-place",
+        "C": "Creates sorted copy and deletes original",
+        "D": "Sorts only if you assign result"
+      },
+      "correctAnswer": "B",
+      "explanation": "sort() mutates the original array in-place and returns the sorted array (which is the same reference). To avoid mutation, create a copy first: [...arr].sort() or use the new toSorted() method which returns a new sorted array without mutating the original.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 214,
+      "question": "How does toSorted() differ from sort()?",
+      "options": {
+        "A": "toSorted() is faster",
+        "B": "toSorted() returns new array, doesn't mutate",
+        "C": "toSorted() only works with numbers",
+        "D": "No difference, just aliases"
+      },
+      "correctAnswer": "B",
+      "explanation": "toSorted() is a new non-mutating alternative to sort(). It returns a new sorted array and leaves the original unchanged. Part of the 'change array by copy' proposal along with toReversed(), toSpliced(), and with(). Use toSorted() when you don't want to modify the original array.",
+      "topic": "JavaScript - Array Methods",
+      "difficulty": "medium"
+    },
+    {
+      "id": 215,
+      "question": "What is Optional Chaining (?.) in JavaScript?",
+      "options": {
+        "A": "Makes function parameters optional",
+        "B": "Safely accesses nested properties, returns undefined if null/undefined",
+        "C": "Chains promises optionally",
+        "D": "Optional ternary operator"
+      },
+      "correctAnswer": "B",
+      "explanation": "Optional chaining (?.) safely accesses nested object properties. If any part is null/undefined, it short-circuits and returns undefined instead of throwing an error. Example: user?.address?.street instead of user && user.address && user.address.street. Also works with functions: obj.method?.() and arrays: arr?.[0].",
+      "topic": "JavaScript - Modern Features",
+      "difficulty": "medium"
+    },
+    {
+      "id": 216,
+      "question": "What's the key difference between getBy, queryBy, and findBy in React Testing Library?",
+      "options": {
+        "A": "They select different types of elements",
+        "B": "getBy throws error, queryBy returns null, findBy is async",
+        "C": "Only naming convention differences",
+        "D": "getBy for production, others for testing"
+      },
+      "correctAnswer": "B",
+      "explanation": "getBy* throws error if element not found (use for elements that should exist), queryBy* returns null if not found (use to assert non-existence), findBy* returns Promise and waits for element (use for async elements). Example: getByRole('button') throws, queryByRole('button') returns null, findByRole('button') awaits appearance.",
+      "topic": "Testing - React Testing Library",
+      "difficulty": "medium"
+    },
+    {
+      "id": 217,
+      "question": "What is Mock Service Worker (MSW) used for?",
+      "options": {
+        "A": "Mocking React components",
+        "B": "Intercepting and mocking API requests in tests",
+        "C": "Service worker for offline functionality",
+        "D": "Mocking user interactions"
+      },
+      "correctAnswer": "B",
+      "explanation": "MSW intercepts network requests at the network level using Service Workers API. It mocks API responses in both tests and browser development without changing your app code. Define handlers once, use everywhere. More realistic than mocking fetch/axios directly since requests actually go through the network layer.",
+      "topic": "Testing - API Mocking",
+      "difficulty": "medium"
+    },
+    {
+      "id": 218,
+      "question": "What is TypeScript Enum used for?",
+      "options": {
+        "A": "Enumerate object properties",
+        "B": "Define set of named constants",
+        "C": "Enumerate array elements",
+        "D": "Count enum properties"
+      },
+      "correctAnswer": "B",
+      "explanation": "Enums define a set of named constants: enum Direction { Up, Down, Left, Right }. By default, numeric enums start at 0. String enums require explicit values: enum Color { Red = 'RED', Blue = 'BLUE' }. They provide type safety and better readability than magic strings/numbers. However, const objects with 'as const' are often preferred for tree-shaking.",
+      "topic": "TypeScript - Enums",
+      "difficulty": "medium"
+    },
+    {
+      "id": 219,
+      "question": "What's the difference between package.json and package-lock.json?",
+      "options": {
+        "A": "No difference, package-lock is backup",
+        "B": "package.json has ranges, package-lock has exact versions",
+        "C": "package-lock.json only for production",
+        "D": "package.json for npm, package-lock for yarn"
+      },
+      "correctAnswer": "B",
+      "explanation": "package.json specifies dependency version ranges (^1.2.3 means >=1.2.3 <2.0.0). package-lock.json locks exact versions installed, including nested dependencies, ensuring deterministic installs. When you run 'npm install', it uses package-lock.json if present. Commit both files - package-lock prevents 'works on my machine' issues.",
+      "topic": "Node.js - Dependencies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 220,
+      "question": "What problems does GraphQL solve compared to REST?",
+      "options": {
+        "A": "Faster query execution",
+        "B": "Eliminates over-fetching and under-fetching",
+        "C": "Better security than REST",
+        "D": "Simpler implementation"
+      },
+      "correctAnswer": "B",
+      "explanation": "GraphQL solves over-fetching (getting unnecessary data) and under-fetching (multiple requests for related data). With REST, /users/1 might return 20 fields when you need 3 (over-fetching), or require /users/1 then /posts?userId=1 (under-fetching). GraphQL lets clients request exactly what they need in one query, reducing bandwidth and round trips.",
+      "topic": "APIs - GraphQL",
+      "difficulty": "medium"
+    },
+    {
+      "id": 221,
+      "question": "What are WebSockets primarily used for?",
+      "options": {
+        "A": "Faster HTTP requests",
+        "B": "Real-time bidirectional communication",
+        "C": "Secure socket connections",
+        "D": "Web-based socket programming"
+      },
+      "correctAnswer": "B",
+      "explanation": "WebSockets provide full-duplex, bidirectional communication between client and server over a single TCP connection. Unlike HTTP (request-response), both sides can send messages anytime. Perfect for real-time features: chat, live updates, gaming, collaborative editing. After initial HTTP handshake, connection stays open for low-latency communication.",
+      "topic": "Web APIs - WebSockets",
+      "difficulty": "medium"
+    },
+    {
+      "id": 222,
+      "question": "What is hydration in Next.js/React SSR?",
+      "options": {
+        "A": "Adding water to code (joke answer)",
+        "B": "Attaching JS event handlers to server-rendered HTML",
+        "C": "Loading data into components",
+        "D": "CSS-in-JS injection process"
+      },
+      "correctAnswer": "B",
+      "explanation": "Hydration is when React takes server-rendered HTML (non-interactive) and 'hydrates' it by attaching event listeners and making it interactive. Server sends plain HTML for fast initial paint, then client-side React takes over. If server and client HTML don't match, you get hydration errors. Keep rendering logic deterministic to avoid mismatches.",
+      "topic": "Next.js - SSR",
+      "difficulty": "medium"
+    },
+    {
+      "id": 223,
+      "question": "What causes hydration mismatches in Next.js?",
+      "options": {
+        "A": "Slow server response",
+        "B": "Server and client rendering different HTML",
+        "C": "Missing CSS files",
+        "D": "Incorrect React version"
+      },
+      "correctAnswer": "B",
+      "explanation": "Hydration mismatches occur when server-rendered HTML differs from client initial render. Common causes: using Date.now() (different on server/client), localStorage (not available on server), userAgent detection, random values. Solution: use useEffect for client-only code, or ensure server and client use same data/logic.",
+      "topic": "Next.js - SSR",
+      "difficulty": "medium"
+    },
+    {
+      "id": 224,
+      "question": "What does 'use client' directive do in Next.js?",
+      "options": {
+        "A": "Marks component for client-only rendering",
+        "B": "Optimizes client-side performance",
+        "C": "Enables client-side routing",
+        "D": "Loads component on client only"
+      },
+      "correctAnswer": "A",
+      "explanation": "'use client' marks a component and its imports as Client Components in Next.js App Router. By default, components are Server Components. Use 'use client' when you need browser APIs, hooks, event handlers, or state. Place it at the top of the file. It creates a boundary - descendants can be Server Components if they don't need client features.",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium"
+    },
+    {
+      "id": 225,
+      "question": "What does JSX transform into?",
+      "options": {
+        "A": "HTML string",
+        "B": "React.createElement() calls",
+        "C": "Direct DOM manipulation",
+        "D": "JSON objects"
+      },
+      "correctAnswer": "B",
+      "explanation": "JSX is syntactic sugar that transforms into React.createElement() calls (or the new JSX runtime). <div className='box'>Hello</div> becomes React.createElement('div', {className: 'box'}, 'Hello'). You can write React without JSX by using createElement directly, but JSX is more readable and HTML-like.",
+      "topic": "React - JSX",
+      "difficulty": "medium"
+    },
+    {
+      "id": 226,
+      "question": "Why can't you use async/await directly in React component render?",
+      "options": {
+        "A": "React doesn't support promises",
+        "B": "Render must be synchronous; Promise isn't valid React element",
+        "C": "async/await only works in useEffect",
+        "D": "Performance reasons only"
+      },
+      "correctAnswer": "B",
+      "explanation": "React rendering must be synchronous and deterministic - it expects React elements (JSX), not Promises. An async function returns a Promise, which can't be rendered in the component tree. Use useEffect for async operations, or in React 18+ use Suspense with libraries that support it. The render function itself must return valid JSX synchronously.",
+      "topic": "React - Async Rendering",
+      "difficulty": "medium"
+    },
+    {
+      "id": 227,
+      "question": "What is react-window used for?",
+      "options": {
+        "A": "Window management in React apps",
+        "B": "Virtualizing large lists by rendering only visible items",
+        "C": "Browser window API wrapper",
+        "D": "Windowing system for modals"
+      },
+      "correctAnswer": "B",
+      "explanation": "react-window (and react-virtualized) implements virtualization/windowing - rendering only the visible portion of a large list. Instead of rendering 10,000 items (slow), it renders ~20 visible items plus a small buffer. As you scroll, items are dynamically added/removed. Essential for performance with large datasets.",
+      "topic": "React - Performance",
+      "difficulty": "medium"
+    },
+    {
+      "id": 228,
+      "question": "What are the benefits of React Query over manual useEffect data fetching?",
+      "options": {
+        "A": "Faster API calls",
+        "B": "Automatic caching, loading states, refetching, error handling",
+        "C": "Simpler API syntax",
+        "D": "Works only with GraphQL"
+      },
+      "correctAnswer": "B",
+      "explanation": "React Query provides automatic caching, background refetching, loading/error states, request deduplication, pagination, infinite scroll, optimistic updates, and more - all out of the box. Manual useEffect requires managing all this yourself. It treats server state as a cache, not component state, which is the correct mental model.",
+      "topic": "React - Data Fetching",
+      "difficulty": "medium"
+    },
+    {
+      "id": 229,
+      "question": "What are optimistic UI updates?",
+      "options": {
+        "A": "Assuming updates will always succeed",
+        "B": "Updating UI immediately before server confirmation",
+        "C": "Optimizing UI for performance",
+        "D": "Positive error messages"
+      },
+      "correctAnswer": "B",
+      "explanation": "Optimistic updates immediately update the UI assuming the server request will succeed, then rollback if it fails. Example: clicking 'like' instantly shows liked state before API responds. This makes apps feel faster and more responsive. Implement with React Query's onMutate/onError, or manually save previous state for rollback.",
+      "topic": "React - UX Patterns",
+      "difficulty": "medium"
+    },
+    {
+      "id": 230,
+      "question": "What is Redux-Saga used for?",
+      "options": {
+        "A": "State management alternative to Redux",
+        "B": "Managing side effects in Redux with generator functions",
+        "C": "Saga pattern for microservices",
+        "D": "Story-based state management"
+      },
+      "correctAnswer": "B",
+      "explanation": "Redux-Saga handles side effects (API calls, async operations) in Redux using generator functions (function*). Sagas listen for actions, perform async work, and dispatch new actions. Benefits: testable without mocking, cancellable, sequential/parallel control with yield. Alternative to Redux Thunk. Uses ES6 generators for more powerful async flow control.",
+      "topic": "Redux - Middleware",
+      "difficulty": "medium"
+    },
+    {
+      "id": 231,
+      "question": "What are generator functions in JavaScript?",
+      "options": {
+        "A": "Functions that generate random numbers",
+        "B": "Functions that can pause/resume with yield",
+        "C": "Functions that generate other functions",
+        "D": "Code generators for scaffolding"
+      },
+      "correctAnswer": "B",
+      "explanation": "Generator functions (function*) can pause execution with yield and resume later. Calling a generator returns an iterator. Use .next() to resume execution until the next yield. They enable lazy evaluation, custom iterators, and powerful async patterns (used by Redux-Saga). Example: function* gen() { yield 1; yield 2; }",
+      "topic": "JavaScript - Generators",
+      "difficulty": "medium"
+    },
+    {
+      "id": 232,
+      "question": "What is Lighthouse used for?",
+      "options": {
+        "A": "Backend server monitoring",
+        "B": "Auditing web page performance, accessibility, SEO",
+        "C": "Lighthouse pattern implementation",
+        "D": "CSS framework for styling"
+      },
+      "correctAnswer": "B",
+      "explanation": "Lighthouse is Google's open-source tool for auditing web pages. It measures performance (Core Web Vitals), accessibility, SEO, best practices, and PWA readiness. Generates scores and actionable recommendations. Available in Chrome DevTools, CLI, or as a library. Essential for optimizing user experience and search rankings.",
+      "topic": "SEO - Performance Tools",
+      "difficulty": "medium"
+    },
+    {
+      "id": 233,
+      "question": "What is First Contentful Paint (FCP)?",
+      "options": {
+        "A": "First CSS paint on page",
+        "B": "Time when first content renders on screen",
+        "C": "First component painted in React",
+        "D": "Initial canvas drawing time"
+      },
+      "correctAnswer": "B",
+      "explanation": "FCP measures when the browser first renders any text, image, or canvas. It indicates when the user sees something happening, even if it's not useful content yet. Good FCP is under 1.8s. Different from LCP (Largest Contentful Paint) which measures the largest element. FCP is part of Core Web Vitals for measuring perceived load speed.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 234,
+      "question": "What is ARIA in web accessibility?",
+      "options": {
+        "A": "Accessible Rich Internet Applications",
+        "B": "Array Interface Accessibility",
+        "C": "Automated Readability Integration API",
+        "D": "Application Routing Interface Adapter"
+      },
+      "correctAnswer": "A",
+      "explanation": "ARIA (Accessible Rich Internet Applications) adds semantic information to HTML for assistive technologies. Attributes like role='button', aria-label='Close', aria-expanded='true' help screen readers understand interactive components. Use semantic HTML first (button, nav, etc.), ARIA when HTML isn't enough. Remember: first rule of ARIA is don't use ARIA if HTML works.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 235,
+      "question": "How do Styled Components differ from CSS Modules?",
+      "options": {
+        "A": "No practical difference",
+        "B": "Styled: CSS-in-JS runtime; Modules: scoped CSS files",
+        "C": "Styled for React, Modules for Vue",
+        "D": "CSS Modules are deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "Styled Components is CSS-in-JS - styles in JavaScript with runtime generation, dynamic styling from props, no class name conflicts. CSS Modules are regular CSS files with locally-scoped class names, compiled at build time, no runtime cost. Trade-offs: Styled Components are more powerful/flexible but have runtime overhead; CSS Modules are faster but less dynamic.",
+      "topic": "CSS - Styling Approaches",
+      "difficulty": "medium"
     }
   ]
 }

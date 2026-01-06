@@ -13,7 +13,7 @@ export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
       <div className="quiz-modes">
         <button className="mode-button" onClick={() => onStartQuiz("all")}>
           All Questions
-          <span className="mode-description">205 questions</span>
+          <span className="mode-description">All questions</span>
         </button>
 
         <button className="mode-button" onClick={() => onStartQuiz("random")}>
