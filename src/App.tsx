@@ -35,22 +35,32 @@ function App() {
   const [quizMode, setQuizMode] = useState<QuizMode | null>(
     savedState?.quizMode || null
   );
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>(
     savedState?.userAnswers || []
   );
 
   const quizQuestions = useMemo(() => {
+    // For "random" mode, always use all questions (ignore topic filter)
+    // For "all" mode, filter by topic if selected
+    let filtered = quizMode === "random"
+      ? quizData.quiz
+      : selectedTopic
+        ? quizData.quiz.filter((q) => q.topic === selectedTopic)
+        : quizData.quiz;
+
     // eslint-disable-next-line react-hooks/purity
-    const shuffled = [...quizData.quiz].sort(() => Math.random() - 0.5);
+    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
 
     if (quizMode === "random") {
       return shuffled.slice(0, 25);
     }
     return shuffled;
-  }, [quizMode]);
+  }, [quizMode, selectedTopic]);
 
-  const handleStartQuiz = (mode: QuizMode) => {
+  const handleStartQuiz = (mode: QuizMode, topic?: string) => {
     setQuizMode(mode);
+    setSelectedTopic(topic || null);
     setCurrentScreen("quiz");
     setUserAnswers([]);
     // Clear any previous quiz progress
@@ -65,6 +75,7 @@ function App() {
   const handleRestart = () => {
     setCurrentScreen("welcome");
     setQuizMode(null);
+    setSelectedTopic(null);
     setUserAnswers([]);
     localStorage.removeItem(STORAGE_KEY);
   };
@@ -91,11 +102,16 @@ function App() {
         <QuizScreen
           questions={quizQuestions as Question[]}
           onQuizComplete={handleQuizComplete}
+          onReset={handleRestart}
         />
       )}
 
       {currentScreen === "results" && (
-        <ResultsScreen answers={userAnswers} onRestart={handleRestart} />
+        <ResultsScreen
+          answers={userAnswers}
+          onRestart={handleRestart}
+          isRandomMode={quizMode === "random"}
+        />
       )}
     </div>
   );

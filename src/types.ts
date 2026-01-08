@@ -30,6 +30,7 @@ export interface UserAnswer {
   correctAnswer: 'A' | 'B' | 'C' | 'D';
   explanation: string;
   isCorrect: boolean;
+  topic: string;
 }
 
 export type QuizMode = 'all' | 'random';

@@ -3,16 +3,41 @@ import type { UserAnswer } from "../types";
 interface ResultsScreenProps {
   answers: UserAnswer[];
   onRestart: () => void;
+  isRandomMode?: boolean;
 }
 
 export default function ResultsScreen({
   answers,
   onRestart,
+  isRandomMode = false,
 }: ResultsScreenProps) {
   const correctAnswers = answers.filter((a) => a.isCorrect).length;
   const totalQuestions = answers.length;
   const percentage = Math.round((correctAnswers / totalQuestions) * 100);
   const wrongAnswers = answers.filter((a) => !a.isCorrect);
+
+  // Calculate topics needing review (>20% wrong)
+  const topicStats = answers.reduce((acc, answer) => {
+    const topic = answer.topic;
+    if (!acc[topic]) {
+      acc[topic] = { total: 0, wrong: 0 };
+    }
+    acc[topic].total += 1;
+    if (!answer.isCorrect) {
+      acc[topic].wrong += 1;
+    }
+    return acc;
+  }, {} as Record<string, { total: number; wrong: number }>);
+
+  const topicsNeedingReview = Object.entries(topicStats)
+    .filter(([_, stats]) => (stats.wrong / stats.total) > 0.2)
+    .map(([topic, stats]) => ({
+      topic,
+      wrongPercentage: Math.round((stats.wrong / stats.total) * 100),
+      wrongCount: stats.wrong,
+      totalCount: stats.total,
+    }))
+    .sort((a, b) => b.wrongPercentage - a.wrongPercentage);
 
   const getScoreMessage = () => {
     if (percentage >= 90) return "🎉 Excellent! You really know your stuff!";
@@ -60,6 +85,33 @@ export default function ResultsScreen({
         </div>
         <p className="score-message">{getScoreMessage()}</p>
       </div>
+
+      {!isRandomMode && topicsNeedingReview.length > 0 && (
+        <div className="topics-review-section">
+          <h2>Topics Needing Review</h2>
+          <p className="topics-review-description">
+            Topics where you got more than 20% of questions wrong:
+          </p>
+          <div className="topics-review-list">
+            {topicsNeedingReview.map((topic) => (
+              <div key={topic.topic} className="topic-review-item">
+                <div className="topic-review-header">
+                  <span className="topic-name">{topic.topic}</span>
+                  <span className="topic-stats">
+                    {topic.wrongCount}/{topic.totalCount} wrong ({topic.wrongPercentage}%)
+                  </span>
+                </div>
+                <div className="topic-progress-bar">
+                  <div
+                    className="topic-progress-fill"
+                    style={{ width: `${topic.wrongPercentage}%` }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {wrongAnswers.length > 0 && (
         <div className="wrong-answers-section">

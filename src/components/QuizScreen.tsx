@@ -4,6 +4,7 @@ import type { Question, UserAnswer } from "../types";
 interface QuizScreenProps {
   questions: Question[];
   onQuizComplete: (answers: UserAnswer[]) => void;
+  onReset: () => void;
 }
 
 const QUIZ_PROGRESS_KEY = "quiz-progress";
@@ -19,6 +20,7 @@ type OptionKey = "A" | "B" | "C" | "D";
 export default function QuizScreen({
   questions,
   onQuizComplete,
+  onReset,
 }: QuizScreenProps) {
   // Load saved progress
   const loadProgress = (): QuizProgress | null => {
@@ -47,12 +49,13 @@ export default function QuizScreen({
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   // Shuffle options for current question
+  // We want to re-shuffle every time the question changes
   const shuffledOptions = useMemo(() => {
     const optionKeys: OptionKey[] = ["A", "B", "C", "D"];
-    // eslint-disable-next-line react-hooks/purity
     const shuffled = [...optionKeys].sort(() => Math.random() - 0.5);
     return shuffled;
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuestionIndex]);
 
   const handleAnswerSelect = (answer: "A" | "B" | "C" | "D") => {
     setSelectedAnswer(answer);
@@ -69,6 +72,7 @@ export default function QuizScreen({
       correctAnswer: currentQuestion.correctAnswer,
       explanation: currentQuestion.explanation,
       isCorrect: selectedAnswer === currentQuestion.correctAnswer,
+      topic: currentQuestion.topic,
     };
 
     setAnswers((prevAnswers) => {
@@ -185,6 +189,13 @@ export default function QuizScreen({
               style={{ width: `${progress}%` }}
             ></div>
           </div>
+          <button
+            className="reset-button-small"
+            onClick={onReset}
+            title="Reset quiz"
+          >
+            ↺
+          </button>
         </div>
         <p className="question-counter">
           Question {currentQuestionIndex + 1} of {questions.length}
