@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { QuizMode } from "../types";
 import quizData from "../quiz.json";
+import type { QuizMode } from "../types";
 
 interface WelcomeScreenProps {
   onStartQuiz: (mode: QuizMode, topic?: string) => void;
@@ -10,9 +10,7 @@ export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
   const [selectedTopic, setSelectedTopic] = useState<string>("all");
 
   // Get unique topics from quiz data
-  const topics = Array.from(
-    new Set(quizData.quiz.map((q) => q.topic))
-  ).sort();
+  const topics = Array.from(new Set(quizData.quiz.map((q) => q.topic))).sort();
 
   return (
     <div className="welcome-screen">
@@ -40,7 +38,10 @@ export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
         <button
           className="mode-button"
           onClick={() =>
-            onStartQuiz("all", selectedTopic === "all" ? undefined : selectedTopic)
+            onStartQuiz(
+              "all",
+              selectedTopic === "all" ? undefined : selectedTopic
+            )
           }
         >
           All Questions
@@ -51,10 +52,7 @@ export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
           </span>
         </button>
 
-        <button
-          className="mode-button"
-          onClick={() => onStartQuiz("random")}
-        >
+        <button className="mode-button" onClick={() => onStartQuiz("random")}>
           Random Questions
           <span className="mode-description">25 random questions</span>
         </button>
