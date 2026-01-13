@@ -3289,6 +3289,216 @@
       "explanation": "Styled Components is CSS-in-JS - styles in JavaScript with runtime generation, dynamic styling from props, no class name conflicts. CSS Modules are regular CSS files with locally-scoped class names, compiled at build time, no runtime cost. Trade-offs: Styled Components are more powerful/flexible but have runtime overhead; CSS Modules are faster but less dynamic.",
       "topic": "CSS - Styling Approaches",
       "difficulty": "medium"
+    },
+    {
+      "id": 236,
+      "question": "What is TTFB (Time to First Byte)?",
+      "options": {
+        "A": "Time from when the browser starts parsing HTML until the first pixel renders on screen",
+        "B": "Time from request until first byte of response arrives",
+        "C": "Time for JavaScript bundle to download and execute, making the page interactive",
+        "D": "Time for largest content element to render (same as LCP metric)"
+      },
+      "correctAnswer": "B",
+      "explanation": "TTFB measures the time from when a user makes an HTTP request until the first byte of the response reaches their browser. It includes DNS lookup, connection time, and server processing. Good TTFB is under 600ms. It's different from FCP (when content renders) - TTFB is purely about network and server response time.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 237,
+      "question": "Which rendering strategy typically has the BEST (lowest) TTFB?",
+      "options": {
+        "A": "SSR because server-rendered HTML is optimized for speed and caching",
+        "B": "CSR because the initial HTML shell is minimal and served instantly",
+        "C": "SSG (Static Site Generation)",
+        "D": "All have identical TTFB when properly configured with CDN"
+      },
+      "correctAnswer": "C",
+      "explanation": "SSG has the best TTFB because pre-built HTML files are served directly from a CDN with no server processing needed. SSR has slower TTFB since the server must generate HTML for each request. CSR has fast TTFB for the initial HTML shell, but that HTML is nearly empty. ISR combines both - cached pages have SSG-like TTFB, while regenerating pages have SSR-like delays.",
+      "topic": "Performance - Rendering Strategies",
+      "difficulty": "hard"
+    },
+    {
+      "id": 238,
+      "question": "What's the relationship between TTFB and FCP?",
+      "options": {
+        "A": "TTFB always happens after FCP because the server needs rendered content first",
+        "B": "TTFB always happens before FCP",
+        "C": "TTFB and FCP measure the same metric with different names (legacy vs modern)",
+        "D": "They measure completely unrelated aspects - TTFB is server-side, FCP is client-side"
+      },
+      "correctAnswer": "B",
+      "explanation": "TTFB (Time to First Byte) always occurs before FCP (First Contentful Paint). TTFB measures when the server response starts arriving, while FCP measures when the browser actually renders the first content. The time between TTFB and FCP includes downloading the rest of the HTML, parsing it, downloading CSS/JS, and rendering. For SSG, this gap is small; for CSR, it's larger.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "medium"
+    },
+    {
+      "id": 239,
+      "question": "Which approach does NOT improve TTFB?",
+      "options": {
+        "A": "Using a CDN to serve static files from edge locations closer to users",
+        "B": "Code splitting your JavaScript bundle",
+        "C": "Optimizing database queries and adding indexes to reduce server processing time",
+        "D": "Implementing Redis caching to avoid redundant database calls on each request"
+      },
+      "correctAnswer": "B",
+      "explanation": "Code splitting improves load time and FCP by reducing the amount of JavaScript to download, but doesn't affect TTFB. TTFB only measures time until the FIRST byte arrives - it's about network and server speed, not bundle size. To improve TTFB: use CDN, optimize server code, cache responses, use HTTP/2, reduce DNS lookup time, or switch from SSR to SSG.",
+      "topic": "Performance - Web Vitals",
+      "difficulty": "hard"
+    },
+    {
+      "id": 240,
+      "question": "Why does CSR typically have fast TTFB but slow FCP?",
+      "options": {
+        "A": "Server must generate complex HTML slowly, but once received it displays immediately",
+        "B": "Initial HTML is minimal, but browser must download and execute JS to render content",
+        "C": "CSR requires multiple server round trips to authenticate and fetch user-specific data",
+        "D": "CDN can't cache client-rendered pages effectively, causing delays in content delivery"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSR sends a nearly empty HTML shell quickly (fast TTFB), but the page remains blank until JavaScript downloads, parses, and executes to render content (slow FCP). The browser must fetch data via API calls, process it, and then render - all client-side. This creates a \"loading spinner\" experience. SSR/SSG avoid this by sending ready-to-display HTML.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "hard"
+    },
+    {
+      "id": 241,
+      "question": "When is CSR (Client-Side Rendering) the BEST choice?",
+      "options": {
+        "A": "Public marketing pages that need excellent SEO for organic search traffic",
+        "B": "Admin dashboards behind authentication with frequent data updates",
+        "C": "Blog posts and documentation sites with mostly static, SEO-critical content",
+        "D": "E-commerce product pages that need to rank well in Google Shopping results"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSR excels for authenticated apps where SEO doesn't matter and data changes frequently. Admin dashboards, internal tools, and apps like Gmail benefit from CSR's simplicity - no server rendering complexity, easy to deploy to static hosting, and interactive once loaded. For public pages needing SEO, SSR/SSG are better choices.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 242,
+      "question": "Where does the actual HTML generation happen in CSR?",
+      "options": {
+        "A": "On the server during build time, then cached for instant delivery",
+        "B": "On the server for each request, ensuring fresh data on every page load",
+        "C": "In the user's browser using JavaScript",
+        "D": "On a CDN edge server using edge computing to reduce latency"
+      },
+      "correctAnswer": "C",
+      "explanation": "In CSR, the server sends minimal HTML with a JavaScript bundle. The user's browser downloads and executes this JavaScript, which then generates the HTML (DOM elements), fetches data from APIs, and renders the UI. Everything happens client-side. This is why CSR apps show a blank page or loading spinner initially - the browser is doing all the work.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "easy"
+    },
+    {
+      "id": 243,
+      "question": "What's the TTFB vs FCP tradeoff with SSR?",
+      "options": {
+        "A": "Slower TTFB (server processing), but faster FCP (HTML ready to display)",
+        "B": "Faster TTFB and faster FCP than all other methods, making it the best choice",
+        "C": "Slower TTFB and slower FCP than CSR because of server round-trip overhead",
+        "D": "TTFB and FCP are identical in SSR since rendering and delivery happen simultaneously"
+      },
+      "correctAnswer": "A",
+      "explanation": "SSR has slower TTFB because the server must process the request, fetch data, and generate complete HTML before responding. However, once that HTML arrives, FCP is fast - the browser can immediately display content. Compare to CSR: fast TTFB (empty HTML shell), slow FCP (must download/execute JS). SSR prioritizes getting visible content to users quickly, even if first byte takes longer.",
+      "topic": "Performance - Rendering Strategies",
+      "difficulty": "hard"
+    },
+    {
+      "id": 244,
+      "question": "Why does SSR typically cost more to run than SSG?",
+      "options": {
+        "A": "SSR requires more expensive programming languages like Java instead of JavaScript",
+        "B": "SSR needs server resources for EVERY request; SSG pre-builds and serves static files",
+        "C": "SSR can't use CDN caching effectively, requiring expensive origin servers for all traffic",
+        "D": "SSR requires specialized database software licenses and high-performance infrastructure"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSR generates HTML on-demand for each request, requiring constant server compute resources (CPU, memory). SSG builds pages once at build time and serves them as static files from cheap CDN storage - no server needed per request. For high-traffic sites, SSR means paying for servers to handle millions of render operations, while SSG pays pennies for CDN bandwidth.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 245,
+      "question": "What's SSR's main advantage over SSG for dynamic content?",
+      "options": {
+        "A": "SSR is significantly faster than SSG for all use cases due to optimized rendering",
+        "B": "SSR fetches latest data on every request; SSG shows stale data until rebuild",
+        "C": "SSR has better SEO than SSG because search engines prefer dynamically rendered pages",
+        "D": "SSR works offline using service workers; SSG requires constant internet connection"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSR's killer feature is data freshness - every request fetches current data from the database and generates updated HTML. SSG shows whatever data existed at build time until you rebuild. For rapidly changing content (live sports scores, stock prices, user-specific data), SSR ensures users always see the latest. ISR bridges this gap with periodic regeneration.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 246,
+      "question": "Why does SSG provide the best TTFB AND FCP?",
+      "options": {
+        "A": "SSG uses special browser APIs like Service Workers for instant loading",
+        "B": "Pre-built HTML served from CDN = instant TTFB, complete HTML = instant FCP",
+        "C": "SSG compresses files better than other methods using advanced algorithms",
+        "D": "SSG only works with small websites, making optimization easier than large apps"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSG pre-generates all HTML at build time and serves it from a CDN. TTFB is minimal - just the time to get a file from the nearest CDN server (often <100ms). FCP is also fast because the HTML is complete and ready to display. No server processing (unlike SSR), no waiting for JavaScript execution (unlike CSR). The tradeoff is stale data - you need to rebuild to update content.",
+      "topic": "Performance - Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 247,
+      "question": "What's a limitation of SSG for large websites?",
+      "options": {
+        "A": "SSG can't handle more than 100 pages due to browser caching limitations",
+        "B": "Build time grows with page count - 10,000 pages might take hours to rebuild",
+        "C": "SSG files are too large for CDN storage, requiring expensive origin servers",
+        "D": "SSG doesn't work with modern frameworks like Next.js, Gatsby, or Astro"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSG must generate every page at build time. A blog with 10 posts builds in seconds, but an e-commerce site with 100,000 products could take hours. Any content change requires a full rebuild. This is why large sites use ISR (incremental updates) or hybrid approaches (SSG for marketing pages, SSR for product pages). Build-time scales linearly with page count.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 248,
+      "question": "How does ISR's TTFB behave when a page needs regeneration?",
+      "options": {
+        "A": "Always instant like SSG regardless of revalidation status",
+        "B": "First user after revalidation gets slower TTFB (SSR-like), subsequent users get fast cached version",
+        "C": "Always slow like SSR because every request triggers server-side processing",
+        "D": "TTFB is random and unpredictable depending on server load"
+      },
+      "correctAnswer": "B",
+      "explanation": "ISR serves cached (static) pages with SSG-like TTFB most of the time. After the revalidation period expires, the next user still gets the stale cached version quickly (good UX), but triggers background regeneration. Once regeneration completes, future users get the updated cached version. This \"stale-while-revalidate\" pattern gives you SSG speed with SSR freshness.",
+      "topic": "Performance - Rendering Strategies",
+      "difficulty": "hard"
+    },
+    {
+      "id": 249,
+      "question": "What's ISR's advantage over SSG for frequently updated content?",
+      "options": {
+        "A": "ISR is significantly faster than SSG at rendering pages due to optimized algorithms",
+        "B": "ISR updates individual pages without rebuilding entire site",
+        "C": "ISR has better SEO than SSG because Google rewards frequently regenerated content",
+        "D": "ISR works offline using service workers while SSG requires constant connectivity"
+      },
+      "correctAnswer": "B",
+      "explanation": "SSG requires rebuilding the entire site to update any page - impractical for frequent updates. ISR lets you set a revalidation time (e.g., 60 seconds) per page. After that time, the page regenerates in the background when requested, without touching other pages. Update a product price every minute without rebuilding 100,000 pages. Best of both worlds: SSG speed + fresh content.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
+    },
+    {
+      "id": 250,
+      "question": "Which statement about ISR is TRUE?",
+      "options": {
+        "A": "ISR is a standard web feature available in all modern frameworks and browsers",
+        "B": "ISR is primarily a Next.js feature, not available in vanilla React",
+        "C": "ISR requires special CDN support like Cloudflare or Fastly with edge computing",
+        "D": "ISR only works with serverless functions like AWS Lambda or Vercel Functions"
+      },
+      "correctAnswer": "B",
+      "explanation": "ISR is a Next.js-specific feature introduced in Next.js 9.5. Vanilla React doesn't have ISR - you'd need to build similar functionality yourself. Other frameworks like Remix, Astro, or Gatsby have their own approaches to incremental updates, but ISR with revalidation periods is Next.js's innovation. It requires server-side capability to regenerate pages on-demand.",
+      "topic": "React - Web Rendering Strategies",
+      "difficulty": "medium"
     }
   ]
 }

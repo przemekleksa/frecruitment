@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import QuizScreen from "./components/QuizScreen";
 import ResultsScreen from "./components/ResultsScreen";
@@ -42,11 +42,12 @@ function App() {
 
   const quizQuestions = useMemo(() => {
     // For "random" mode, always use all questions (ignore topic filter)
-    // For "all" mode, filter by topic if selected
-    let filtered = quizMode === "random"
-      ? quizData.quiz
-      : selectedTopic
-        ? quizData.quiz.filter((q) => q.topic === selectedTopic)
+    // For "all" mode, filter by topic prefix if selected
+    const filtered =
+      quizMode === "random"
+        ? quizData.quiz
+        : selectedTopic
+        ? quizData.quiz.filter((q) => q.topic.startsWith(selectedTopic))
         : quizData.quiz;
 
     // eslint-disable-next-line react-hooks/purity

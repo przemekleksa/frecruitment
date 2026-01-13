@@ -9,8 +9,15 @@ interface WelcomeScreenProps {
 export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
   const [selectedTopic, setSelectedTopic] = useState<string>("all");
 
-  // Get unique topics from quiz data
-  const topics = Array.from(new Set(quizData.quiz.map((q) => q.topic))).sort();
+  // Get unique topic prefixes (part before " - " or full name if no dash)
+  const topicPrefixes = Array.from(
+    new Set(
+      quizData.quiz.map((q) => {
+        const dashIndex = q.topic.indexOf(" - ");
+        return dashIndex !== -1 ? q.topic.substring(0, dashIndex) : q.topic;
+      })
+    )
+  ).sort();
 
   return (
     <div className="welcome-screen">
@@ -26,9 +33,9 @@ export default function WelcomeScreen({ onStartQuiz }: WelcomeScreenProps) {
           className="topic-dropdown"
         >
           <option value="all">All Topics</option>
-          {topics.map((topic) => (
-            <option key={topic} value={topic}>
-              {topic}
+          {topicPrefixes.map((prefix) => (
+            <option key={prefix} value={prefix}>
+              {prefix}
             </option>
           ))}
         </select>
