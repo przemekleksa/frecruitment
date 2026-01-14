@@ -3499,6 +3499,384 @@
       "explanation": "ISR is a Next.js-specific feature introduced in Next.js 9.5. Vanilla React doesn't have ISR - you'd need to build similar functionality yourself. Other frameworks like Remix, Astro, or Gatsby have their own approaches to incremental updates, but ISR with revalidation periods is Next.js's innovation. It requires server-side capability to regenerate pages on-demand.",
       "topic": "React - Web Rendering Strategies",
       "difficulty": "medium"
+    },
+    {
+      "id": 251,
+      "question": "What are the three WCAG conformance levels?",
+      "options": {
+        "A": "Basic, Intermediate, Advanced",
+        "B": "A (minimum), AA (mid-range), AAA (highest)",
+        "C": "Level 1, Level 2, Level 3",
+        "D": "Bronze, Silver, Gold"
+      },
+      "correctAnswer": "B",
+      "explanation": "WCAG defines three conformance levels: A (minimum), AA (mid-range, most common legal requirement), and AAA (highest, hardest to achieve). Most organizations aim for AA compliance. Level A covers basic accessibility, AA addresses major barriers, AAA is the gold standard but often impractical for all content.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 252,
+      "question": "What's the minimum color contrast ratio for normal text under WCAG AA?",
+      "options": {
+        "A": "3:1 for all text sizes",
+        "B": "4.5:1 for normal text, 3:1 for large text",
+        "C": "7:1 for normal text, 4.5:1 for large text",
+        "D": "2:1 for normal text, no requirement for large text"
+      },
+      "correctAnswer": "B",
+      "explanation": "WCAG AA requires 4.5:1 contrast ratio for normal text (under 18pt or 14pt bold) and 3:1 for large text. AAA is stricter: 7:1 for normal, 4.5:1 for large. This ensures text is readable for people with visual impairments. Use tools like WebAIM's contrast checker to verify your colors meet these requirements.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "hard"
+    },
+    {
+      "id": 253,
+      "question": "Which WCAG principle requires all functionality be keyboard accessible?",
+      "options": {
+        "A": "Perceivable - users must perceive information",
+        "B": "Operable - users must operate the interface",
+        "C": "Understandable - users must understand the information",
+        "D": "Robust - content works with assistive technologies"
+      },
+      "correctAnswer": "B",
+      "explanation": "WCAG has 4 principles (POUR): Perceivable, Operable, Understandable, Robust. \"Operable\" requires all functionality be available from keyboard, no keyboard traps, and sufficient time to interact. Many users can't use a mouse due to motor disabilities, so keyboard access is critical for accessibility.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 254,
+      "question": "When should an image have an empty alt attribute (alt=\"\")?",
+      "options": {
+        "A": "Never - all images need descriptive alt text for screen readers",
+        "B": "When the image is decorative or its meaning is conveyed in surrounding text",
+        "C": "Only for images smaller than 100x100 pixels",
+        "D": "When the image is loaded from external CDN sources"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use alt=\"\" for decorative images (borders, spacers) or when the image meaning is already in text nearby. This tells screen readers to skip it, avoiding redundant announcements. Informative images need descriptive alt text. Missing alt entirely (no attribute) causes screen readers to announce the filename, which is worse than alt=\"\".",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 255,
+      "question": "Why is removing CSS focus outlines (outline: none) problematic for accessibility?",
+      "options": {
+        "A": "It causes browser performance issues and slower page rendering",
+        "B": "Keyboard users can't see which element is focused, breaking navigation",
+        "C": "Screen readers can't detect focused elements without visual outlines",
+        "D": "It's actually fine - focus outlines are optional for accessibility"
+      },
+      "correctAnswer": "B",
+      "explanation": "Focus indicators (outline) show keyboard users where they are on the page. Removing them with outline: none makes navigation impossible for keyboard-only users. If you don't like the default outline, replace it with a custom one (outline: 2px solid blue), never just remove it. This is a WCAG Level A requirement.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 256,
+      "question": "Why is semantic HTML important for accessibility?",
+      "options": {
+        "A": "It makes the website load faster by reducing JavaScript dependencies",
+        "B": "Screen readers rely on semantic tags to understand page structure and navigation",
+        "C": "Semantic HTML is only important for SEO, not accessibility",
+        "D": "It prevents XSS attacks by validating user input automatically"
+      },
+      "correctAnswer": "B",
+      "explanation": "Semantic HTML (header, nav, main, article, button) provides meaning to assistive technologies. Screen readers use these tags to build a page outline, jump between sections, and understand interactive elements. A div with onClick isn't announced as clickable, but a button element is. Always use the right tag for the job.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "easy"
+    },
+    {
+      "id": 257,
+      "question": "When should you use aria-label vs aria-labelledby?",
+      "options": {
+        "A": "aria-label for visible labels, aria-labelledby for hidden labels",
+        "B": "aria-label adds custom text; aria-labelledby references existing element's text",
+        "C": "They're identical - use whichever you prefer for consistency",
+        "D": "aria-label for buttons, aria-labelledby for form inputs only"
+      },
+      "correctAnswer": "B",
+      "explanation": "aria-label directly provides label text (aria-label=\"Close menu\"), while aria-labelledby references another element's ID (aria-labelledby=\"dialog-title\"). Use aria-labelledby when the label text already exists on screen. Use aria-label when you need to add accessible text that isn't visible. Prefer visible labels when possible.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "hard"
+    },
+    {
+      "id": 258,
+      "question": "What is a \"skip to main content\" link and why is it important?",
+      "options": {
+        "A": "A hidden link that skips loading images for faster page performance",
+        "B": "A link (usually first in tab order) that lets keyboard users bypass navigation",
+        "C": "An SEO technique to help search engines find primary content faster",
+        "D": "A debugging tool that skips CSS loading during development"
+      },
+      "correctAnswer": "B",
+      "explanation": "Skip links let keyboard users jump directly to main content, bypassing repetitive navigation. Without it, users must tab through dozens of nav links on every page. It's often visually hidden but appears on focus. This is a WCAG Level A requirement. Implementation: <a href=\"#main\">Skip to main content</a> at the top, with <main id=\"main\"> around your content.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 259,
+      "question": "Which is a common screen reader used for accessibility testing?",
+      "options": {
+        "A": "Chrome DevTools Lighthouse only covers all screen reader testing needs",
+        "B": "NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS)",
+        "C": "Automated tools like axe-core eliminate the need for manual testing",
+        "D": "Screen reader testing is optional if you use semantic HTML"
+      },
+      "correctAnswer": "B",
+      "explanation": "Real screen reader testing is essential. Popular screen readers: NVDA (free, Windows), JAWS (paid, Windows), VoiceOver (free, macOS/iOS), TalkBack (Android). Automated tools catch ~30% of issues; manual testing finds the rest. Test your site with at least one screen reader to understand the actual user experience.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "medium"
+    },
+    {
+      "id": 260,
+      "question": "What's the correct way to associate a label with an input for accessibility?",
+      "options": {
+        "A": "Place label text in placeholder attribute: <input placeholder=\"Email\">",
+        "B": "Use <label for=\"email\">Email</label> with <input id=\"email\">",
+        "C": "Put label text in aria-label: <input aria-label=\"Email\">",
+        "D": "Place text before input: <div>Email</div><input>"
+      },
+      "correctAnswer": "B",
+      "explanation": "Proper label association uses for/id matching: <label for=\"email\">Email</label><input id=\"email\">. This lets screen readers announce the label, increases click area (clicking label focuses input), and is WCAG Level A. Placeholders disappear when typing and aren't replacements for labels. Aria-label works but visible labels are better.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "easy"
+    },
+    {
+      "id": 261,
+      "question": "What does WCAG Success Criterion 2.4.7 (Focus Visible) require?",
+      "options": {
+        "A": "All focusable elements must have visible focus indicators when focused",
+        "B": "All images must be visible and not hidden with CSS display: none",
+        "C": "Focus must automatically move to error messages when forms fail",
+        "D": "All text must be visible without requiring horizontal scrolling"
+      },
+      "correctAnswer": "A",
+      "explanation": "SC 2.4.7 (Level AA) requires a visible focus indicator when any UI component receives keyboard focus. This is critical for keyboard navigation - users need to see where they are. Default browser outlines satisfy this, but custom focus styles must be clearly visible. Don't just remove focus indicators.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "hard"
+    },
+    {
+      "id": 262,
+      "question": "What is aria-live used for in accessibility?",
+      "options": {
+        "A": "To indicate elements that are currently visible on screen vs hidden",
+        "B": "To announce dynamic content changes to screen readers without moving focus",
+        "C": "To mark elements that update in real-time via WebSocket connections",
+        "D": "To improve performance by lazy-loading content only when visible"
+      },
+      "correctAnswer": "B",
+      "explanation": "aria-live creates \"live regions\" that announce dynamic changes to screen readers. Values: polite (wait for pause), assertive (interrupt immediately), off (default). Use for status messages, alerts, or dynamic content updates. Example: <div aria-live=\"polite\">5 items added to cart</div>. Without it, screen reader users miss dynamic updates.",
+      "topic": "HTML - Accessibility",
+      "difficulty": "hard"
+    },
+    {
+      "id": 263,
+      "question": "What's the main difference between Next.js App Router and Pages Router?",
+      "options": {
+        "A": "App Router uses app/ directory with React Server Components by default",
+        "B": "Pages Router is faster and recommended for production applications",
+        "C": "App Router only works with TypeScript, Pages Router supports both JS and TS",
+        "D": "They're identical features - just different naming conventions for the same routing"
+      },
+      "correctAnswer": "A",
+      "explanation": "App Router (Next.js 13+) uses the app/ directory and React Server Components by default, enabling better performance and new patterns. Pages Router uses pages/ directory with traditional React components. App Router is the future but Pages Router is still fully supported. Both can coexist in the same project.",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium"
+    },
+    {
+      "id": 264,
+      "question": "What's the default behavior of components in Next.js App Router?",
+      "options": {
+        "A": "All components are Client Components by default, add 'use server' for server rendering",
+        "B": "All components are Server Components by default, requiring 'use client' for client",
+        "C": "Next.js automatically detects based on hooks usage and browser API calls",
+        "D": "Components run universally on both server and client (isomorphic rendering)"
+      },
+      "correctAnswer": "B",
+      "explanation": "In App Router, all components are Server Components by default. They run only on the server, can't use hooks/browser APIs, but can directly access databases. Add 'use client' at the top to make a component a Client Component (for interactivity, hooks, browser APIs). This shift improves performance by reducing client JS.",
+      "topic": "Next.js - Server Components",
+      "difficulty": "medium"
+    },
+    {
+      "id": 265,
+      "question": "How do you fetch data in Next.js Server Components?",
+      "options": {
+        "A": "Use useEffect with fetch API like traditional React components",
+        "B": "Use async/await directly in the component function",
+        "C": "Only getServerSideProps and getStaticProps methods are supported",
+        "D": "Data fetching requires separate API routes in app/api directory"
+      },
+      "correctAnswer": "B",
+      "explanation": "Server Components can be async functions! Just use async/await directly: async function Page() { const data = await fetch(...); return <div>{data}</div> }. No useEffect, no special functions. This is simpler than getServerSideProps. Client Components can't be async - they still need useEffect or libraries like SWR/React Query.",
+      "topic": "Next.js - Server Components",
+      "difficulty": "medium"
+    },
+    {
+      "id": 266,
+      "question": "In Next.js App Router, what file creates a route?",
+      "options": {
+        "A": "Any .tsx/.jsx file in the app/ directory becomes a route automatically",
+        "B": "Only page.tsx/page.jsx files create accessible routes",
+        "C": "Files named index.tsx are required for every route in the application",
+        "D": "Routes must be registered manually in app/routes.config.js configuration"
+      },
+      "correctAnswer": "B",
+      "explanation": "Only page.tsx (or page.jsx) files create routes. Other files like layout.tsx, loading.tsx, error.tsx have special meanings but don't create routes. This lets you colocate components/utilities in the same folder. Example: app/blog/page.tsx → /blog route, but app/blog/PostCard.tsx isn't a route.",
+      "topic": "Next.js - App Router",
+      "difficulty": "easy"
+    },
+    {
+      "id": 267,
+      "question": "What's special about layout.tsx in Next.js App Router?",
+      "options": {
+        "A": "It wraps pages in that folder and nested folders, persisting between navigations",
+        "B": "It's just a regular component file with no special framework behavior",
+        "C": "It only applies to the immediate page.tsx in the exact same folder",
+        "D": "It replaces page.tsx completely and becomes the main route component"
+      },
+      "correctAnswer": "A",
+      "explanation": "layout.tsx wraps pages in that folder and all nested folders, creating a UI shell that persists during navigation. Layout state is preserved when navigating between pages, avoiding re-renders. Perfect for nav bars, sidebars. Root layout.tsx is required and wraps the entire app. Layouts can't use useState (Server Components) but nested Client Component layouts can.",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium"
+    },
+    {
+      "id": 268,
+      "question": "How do you show loading UI in Next.js App Router?",
+      "options": {
+        "A": "Use useEffect with loading state variable in each component manually",
+        "B": "Create loading.tsx file - automatically shown while page loads",
+        "C": "Configure loading behavior in getServerSideProps with loading prop",
+        "D": "Loading states require custom Suspense boundaries in every component"
+      },
+      "correctAnswer": "B",
+      "explanation": "Create loading.tsx next to page.tsx - Next.js automatically shows it while the page loads, then swaps to the page when ready. Built on React Suspense. You can have loading.tsx at any level - it applies to that page and nested pages. Simple pattern: loading.tsx shows spinner, page.tsx fetches data async.",
+      "topic": "Next.js - App Router",
+      "difficulty": "easy"
+    },
+    {
+      "id": 269,
+      "question": "How does error.tsx work in Next.js App Router?",
+      "options": {
+        "A": "It's a global 404 page for all missing routes in the application",
+        "B": "It's an Error Boundary that catches errors in that route segment",
+        "C": "It only catches build-time TypeScript errors, not runtime failures",
+        "D": "It's deprecated in App Router - use try/catch in page.tsx instead"
+      },
+      "correctAnswer": "B",
+      "explanation": "error.tsx is an Error Boundary that catches runtime errors in the route segment (page and children). It must be a Client Component ('use client') and receives error and reset props. It doesn't catch errors in layout.tsx in the same folder (use parent's error.tsx). For root layout errors, use global-error.tsx.",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium"
+    },
+    {
+      "id": 270,
+      "question": "How do you create API endpoints in Next.js App Router?",
+      "options": {
+        "A": "Create files in pages/api/ directory using the legacy Pages Router pattern",
+        "B": "Create route.ts files with exported HTTP method functions (GET, POST, etc.)",
+        "C": "Define all API endpoints centrally in api.config.ts at project root",
+        "D": "API routes aren't supported - App Router is for UI rendering only"
+      },
+      "correctAnswer": "B",
+      "explanation": "Create route.ts (or route.js) in app/ directory and export functions named GET, POST, PUT, DELETE, etc. Example: app/api/users/route.ts with export async function GET() { return Response.json({users: []}) }. These replace pages/api routes. They run on the server and can access databases directly.",
+      "topic": "Next.js - Route Handlers",
+      "difficulty": "medium"
+    },
+    {
+      "id": 271,
+      "question": "How do you create a dynamic route like /blog/[slug] in App Router?",
+      "options": {
+        "A": "Create app/blog/[slug]/page.tsx - slug available in params prop",
+        "B": "Use URL query strings: app/blog/page.tsx?slug=post-title pattern",
+        "C": "Create app/blog/:slug/page.tsx using Express-style colon syntax",
+        "D": "Dynamic routes require manual configuration in next.config.js routes"
+      },
+      "correctAnswer": "A",
+      "explanation": "Use [folderName] for dynamic segments: app/blog/[slug]/page.tsx. The slug is available in params: async function Page({ params }: { params: { slug: string } }). Catch-all routes use [...slug], optional catch-all use [[...slug]]. This file-based routing is Next.js's killer feature.",
+      "topic": "Next.js - App Router",
+      "difficulty": "easy"
+    },
+    {
+      "id": 272,
+      "question": "How do you set page metadata (title, description) in App Router?",
+      "options": {
+        "A": "Use <Head> component from next/head like in Pages Router pattern",
+        "B": "Export a metadata object or generateMetadata function from page.tsx",
+        "C": "Configure all metadata centrally in next.config.js for entire site",
+        "D": "Install and configure react-helmet library for metadata management"
+      },
+      "correctAnswer": "B",
+      "explanation": "Export metadata object: export const metadata = { title: 'Home', description: '...' } or use generateMetadata function for dynamic metadata: export async function generateMetadata({ params }) { return { title: params.slug } }. This is type-safe and works with Server Components. next/head is for Pages Router.",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium"
+    },
+    {
+      "id": 273,
+      "question": "What can Next.js middleware do?",
+      "options": {
+        "A": "Run code before requests - auth checks, redirects, rewrites, headers",
+        "B": "Only handle server-side logging and analytics tracking functionality",
+        "C": "Replace all API routes with single centralized middleware function",
+        "D": "Middleware is deprecated - use Route Handlers or Server Actions instead"
+      },
+      "correctAnswer": "A",
+      "explanation": "Middleware runs before every request in middleware.ts at project root. Use it for: authentication checks, redirects, setting headers, rewriting URLs, A/B testing. It runs on Edge Runtime (fast, globally distributed). Example: check auth token, redirect to /login if missing. Runs before pages/routes/static files.",
+      "topic": "Next.js - Middleware",
+      "difficulty": "medium"
+    },
+    {
+      "id": 274,
+      "question": "When does Next.js use Static Rendering vs Dynamic Rendering in App Router?",
+      "options": {
+        "A": "All routes are dynamic - static requires export const dynamic = 'force-static'",
+        "B": "Routes are static by default, become dynamic if using cookies, headers, searchParams",
+        "C": "You must manually configure rendering mode in next.config.js for each route",
+        "D": "App Router only supports dynamic rendering - static was removed completely"
+      },
+      "correctAnswer": "B",
+      "explanation": "Next.js tries static rendering by default (build-time). Routes become dynamic if you use: cookies(), headers(), searchParams, or uncached data fetching. You can force: export const dynamic = 'force-dynamic' (always SSR) or 'force-static' (always SSG). This automatic detection is smarter than Pages Router's getServerSideProps/getStaticProps.",
+      "topic": "Next.js - Rendering",
+      "difficulty": "hard"
+    },
+    {
+      "id": 275,
+      "question": "What are Parallel Routes in Next.js App Router?",
+      "options": {
+        "A": "Loading multiple pages simultaneously in different browser tabs for better UX",
+        "B": "Rendering multiple route segments in same layout using @folder slots",
+        "C": "Performance optimization that preloads all routes on initial page load",
+        "D": "Running multiple API routes in parallel for faster data fetching operations"
+      },
+      "correctAnswer": "B",
+      "explanation": "Parallel Routes let you render multiple pages in the same layout using slots. Create @folderName folders, reference in layout: function Layout({ children, @analytics, @team }) { return <div>{children}{analytics}{team}</div> }. Useful for dashboards with multiple sections, modals, or conditional rendering. Advanced feature for complex UIs.",
+      "topic": "Next.js - Advanced Routing",
+      "difficulty": "hard"
+    },
+    {
+      "id": 276,
+      "question": "What do Intercepting Routes (.) in Next.js allow?",
+      "options": {
+        "A": "Show route in modal on navigation, but full page on direct visit/refresh",
+        "B": "Intercept and modify API calls to add authentication or logging",
+        "C": "Block users from accessing routes based on permission levels",
+        "D": "Automatically redirect unauthenticated users to login page"
+      },
+      "correctAnswer": "A",
+      "explanation": "Intercepting Routes use (.) convention to show a route in a modal when navigating from within the app, but load full page on direct visit/refresh. Example: show photo in modal when clicking from feed, but full page when sharing URL. Patterns: (.) same level, (..) parent, (...) root. Great for modals, overlays.",
+      "topic": "Next.js - Advanced Routing",
+      "difficulty": "hard"
+    },
+    {
+      "id": 277,
+      "question": "What are Server Actions in Next.js?",
+      "options": {
+        "A": "Functions marked 'use server' that run on server, callable from Client Components",
+        "B": "Deprecated API pattern - replaced entirely by Route Handlers in App Router",
+        "C": "Server-side analytics and performance tracking functionality only",
+        "D": "Automatic optimizations that improve server response times globally"
+      },
+      "correctAnswer": "A",
+      "explanation": "Server Actions are async functions with 'use server' at the top, running on the server but callable from Client Components. Perfect for mutations (form submissions, database updates) without API routes. Example: async function createUser(formData) { 'use server'; await db.insert(...) }. Use in forms with action prop. Simpler than Route Handlers for mutations.",
+      "topic": "Next.js - Server Actions",
+      "difficulty": "medium"
     }
   ]
 }
