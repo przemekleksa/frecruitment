@@ -3877,6 +3877,580 @@
       "explanation": "Server Actions are async functions with 'use server' at the top, running on the server but callable from Client Components. Perfect for mutations (form submissions, database updates) without API routes. Example: async function createUser(formData) { 'use server'; await db.insert(...) }. Use in forms with action prop. Simpler than Route Handlers for mutations.",
       "topic": "Next.js - Server Actions",
       "difficulty": "medium"
+    },
+    {
+      "id": 278,
+      "question": "What's the main difference between git rebase and git merge?",
+      "options": {
+        "A": "Rebase is faster than merge for large repositories with many commits",
+        "B": "Rebase rewrites history by moving commits; merge creates a merge commit",
+        "C": "Merge is deprecated - modern Git workflows only use rebase",
+        "D": "They're identical - just different commands for the same operation"
+      },
+      "correctAnswer": "B",
+      "explanation": "Rebase replays your commits on top of another branch, rewriting history with new commit SHAs. Merge combines branches with a merge commit, preserving original history. Rebase creates linear history (cleaner), merge preserves complete history (safer). Never rebase commits that have been pushed to shared branches - it breaks collaboration.",
+      "topic": "Git",
+      "difficulty": "hard"
+    },
+    {
+      "id": 279,
+      "question": "What does git stash do?",
+      "options": {
+        "A": "Permanently deletes uncommitted changes to clean working directory",
+        "B": "Temporarily saves uncommitted changes for later reapplication",
+        "C": "Creates a new branch from uncommitted changes automatically",
+        "D": "Commits changes to a special stash branch in remote repository"
+      },
+      "correctAnswer": "B",
+      "explanation": "git stash temporarily saves uncommitted changes (both staged and unstaged), reverting to a clean working directory. Use git stash pop to reapply changes, or git stash list to see all stashes. Useful when switching branches without committing incomplete work. Changes aren't lost - they're stored in stash stack.",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 280,
+      "question": "What does git cherry-pick do?",
+      "options": {
+        "A": "Selects specific files to commit from working directory changes",
+        "B": "Applies a specific commit from one branch to another branch",
+        "C": "Deletes specific commits from branch history permanently",
+        "D": "Automatically picks the best commit for merging conflicts"
+      },
+      "correctAnswer": "B",
+      "explanation": "git cherry-pick <commit-sha> applies changes from a specific commit to your current branch, creating a new commit. Useful for pulling single bug fixes from one branch to another without merging everything. The new commit has different SHA (not the same commit). Use carefully - can create duplicate commits across branches.",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 281,
+      "question": "What's the key difference between git reset and git revert?",
+      "options": {
+        "A": "Reset moves HEAD backward; revert creates new commit undoing changes",
+        "B": "Reset is safer for shared branches; revert rewrites public history",
+        "C": "Revert is faster for large codebases with extensive change history",
+        "D": "They're identical - both undo commits using the same mechanism"
+      },
+      "correctAnswer": "A",
+      "explanation": "git reset moves HEAD to a previous commit, erasing commits from history (dangerous for pushed commits). git revert creates a NEW commit that undoes changes, preserving history (safe for pushed commits). Reset is for local-only changes, revert is for shared branches. Reset options: --soft (keep changes staged), --mixed (unstage), --hard (delete changes).",
+      "topic": "Git",
+      "difficulty": "hard"
+    },
+    {
+      "id": 282,
+      "question": "What is Git Flow branching strategy?",
+      "options": {
+        "A": "Single main branch - all commits go directly to main/master",
+        "B": "Main, develop, feature/, release/, hotfix/ branches with strict workflow",
+        "C": "Trunk-based development with short-lived feature flags only",
+        "D": "Each developer has their own permanent branch forever"
+      },
+      "correctAnswer": "B",
+      "explanation": "Git Flow uses: main (production), develop (integration), feature/* (new features), release/* (release prep), hotfix/* (urgent fixes). Features branch from develop, merge back after review. Releases branch from develop, merge to main and develop. Good for scheduled releases but complex. Alternative: trunk-based (simpler, frequent merges to main).",
+      "topic": "Git",
+      "difficulty": "medium"
+    },
+    {
+      "id": 283,
+      "question": "How do you resolve a merge conflict in Git?",
+      "options": {
+        "A": "Git automatically resolves conflicts - no manual intervention needed",
+        "B": "Manually edit conflicted files, remove markers, stage and commit",
+        "C": "Use git merge --force to overwrite conflicting changes automatically",
+        "D": "Delete the branch and recreate it to avoid conflict resolution"
+      },
+      "correctAnswer": "B",
+      "explanation": "When conflicts occur, Git marks files with <<<<<<<, =======, >>>>>>> markers showing both versions. Manually edit to choose/combine changes, remove markers, then git add and git commit. Or use git merge --abort to cancel. Tools like VS Code show visual diff. Never commit without resolving - broken code will result.",
+      "topic": "Git",
+      "difficulty": "easy"
+    },
+    {
+      "id": 284,
+      "question": "What can you do with git rebase -i (interactive rebase)?",
+      "options": {
+        "A": "Only view commit history without making any changes to commits",
+        "B": "Reorder, squash, edit, or drop commits in branch history",
+        "C": "Automatically fix merge conflicts during rebase process",
+        "D": "Rebase is read-only - interactive mode just adds colors"
+      },
+      "correctAnswer": "B",
+      "explanation": "git rebase -i lets you: pick (keep commit), squash (combine with previous), reword (change message), edit (modify content), drop (delete), reorder commits. Opens editor showing commits - edit the list, save, and Git applies changes. Great for cleaning up feature branch before merge. NEVER do this on pushed commits.",
+      "topic": "Git",
+      "difficulty": "hard"
+    },
+    {
+      "id": 285,
+      "question": "What's the main purpose of E2E (End-to-End) testing?",
+      "options": {
+        "A": "Test individual functions in isolation with mocked dependencies",
+        "B": "Test entire application flow from user perspective in real browser",
+        "C": "Test only API endpoints without involving frontend components",
+        "D": "E2E testing is deprecated - replaced by unit testing practices"
+      },
+      "correctAnswer": "B",
+      "explanation": "E2E tests simulate real user scenarios in actual browser (or browser-like environment). Tools: Playwright, Cypress, Puppeteer. Tests full stack: frontend, backend, database, APIs. Slower than unit tests but catch integration issues. Example: \"user logs in, adds item to cart, checks out\" - entire flow tested together.",
+      "topic": "Testing - E2E",
+      "difficulty": "medium"
+    },
+    {
+      "id": 286,
+      "question": "What's the difference between TDD and BDD?",
+      "options": {
+        "A": "TDD writes tests first (Red-Green-Refactor); BDD focuses on behavior with Gherkin syntax",
+        "B": "BDD is faster than TDD for large applications with many features",
+        "C": "TDD tests backend only; BDD tests frontend components exclusively",
+        "D": "They're identical methodologies - just different names for same practice"
+      },
+      "correctAnswer": "A",
+      "explanation": "TDD (Test-Driven Development): write failing test, implement code to pass, refactor. BDD (Behavior-Driven Development): describes behavior in Given-When-Then format (Gherkin), focuses on user stories. BDD tests are more readable for non-technical stakeholders. Both write tests first, but BDD emphasizes collaboration and business language.",
+      "topic": "Testing - Methodologies",
+      "difficulty": "hard"
+    },
+    {
+      "id": 287,
+      "question": "Does 100% test coverage guarantee bug-free code?",
+      "options": {
+        "A": "Yes - 100% coverage means every possible bug is caught",
+        "B": "No - coverage measures lines executed, not correctness or edge cases",
+        "C": "Only if combined with E2E tests and manual QA testing",
+        "D": "Coverage above 80% guarantees production-ready quality code"
+      },
+      "correctAnswer": "B",
+      "explanation": "Coverage shows which lines were executed during tests, not if tests are good. You can have 100% coverage with useless tests (expect(true).toBe(true)). It doesn't test: logic correctness, edge cases, integration issues, or user flows. Good coverage is helpful but not sufficient. Focus on meaningful tests over coverage percentage.",
+      "topic": "Testing - Best Practices",
+      "difficulty": "medium"
+    },
+    {
+      "id": 288,
+      "question": "What's the difference between mocks, stubs, and spies?",
+      "options": {
+        "A": "They're identical - just different names in various testing libraries",
+        "B": "Stub returns data; Mock verifies behavior; Spy wraps real function",
+        "C": "Mocks are faster than stubs for testing async operations",
+        "D": "Stubs are deprecated - modern testing only uses mocks"
+      },
+      "correctAnswer": "B",
+      "explanation": "Stub: returns predefined data (const stub = vi.fn().mockReturnValue(42)). Mock: verifies function was called correctly (expect(mock).toHaveBeenCalledWith(...)). Spy: wraps real function to track calls while keeping original behavior. All are \"test doubles\" - use stubs for dependencies, mocks to verify interactions, spies when you need real implementation too.",
+      "topic": "Testing - Mocking",
+      "difficulty": "hard"
+    },
+    {
+      "id": 289,
+      "question": "What do integration tests verify?",
+      "options": {
+        "A": "Individual functions work correctly in complete isolation",
+        "B": "Multiple units work together correctly when combined",
+        "C": "Entire application works from user perspective in browser",
+        "D": "Only database queries return expected results accurately"
+      },
+      "correctAnswer": "B",
+      "explanation": "Integration tests verify multiple units (components, modules, services) work together. Example: test React component + API call + state management together, not in isolation. Sits between unit (isolated) and E2E (full app). Balance: more realistic than unit tests, faster than E2E. Use for critical user flows.",
+      "topic": "Testing - Integration",
+      "difficulty": "medium"
+    },
+    {
+      "id": 290,
+      "question": "What's the main risk of snapshot testing?",
+      "options": {
+        "A": "Snapshots are too slow - they significantly increase test execution time",
+        "B": "Developers blindly update snapshots without reviewing changes (false confidence)",
+        "C": "Snapshot testing only works with React - not usable in other frameworks",
+        "D": "Snapshots can't catch any bugs - they're purely decorative"
+      },
+      "correctAnswer": "B",
+      "explanation": "Snapshot tests save component output, fail when output changes. Risk: developers run jest -u (update snapshots) without reviewing, accepting bugs. Good for: catching unintended changes in stable components. Bad for: complex UI, frequently changing components. Always review snapshot diffs before updating. Not a replacement for proper assertions.",
+      "topic": "Testing - React Testing Library",
+      "difficulty": "medium"
+    },
+    {
+      "id": 291,
+      "question": "What's a key difference between Playwright and Cypress?",
+      "options": {
+        "A": "Playwright supports multiple browsers; Cypress was originally Chrome-only",
+        "B": "Cypress is faster for large test suites with many E2E scenarios",
+        "C": "Playwright only works with React; Cypress supports all frameworks",
+        "D": "They're identical - both use the same underlying WebDriver protocol"
+      },
+      "correctAnswer": "A",
+      "explanation": "Playwright: supports Chromium, Firefox, WebKit out of the box, developed by Microsoft, faster execution, better for cross-browser testing. Cypress: originally Chrome-only (now supports Firefox, Edge), better DX, great debugging, automatic waiting. Both are excellent - Playwright for multi-browser, Cypress for developer experience. Choose based on needs.",
+      "topic": "Testing - E2E",
+      "difficulty": "medium"
+    },
+    {
+      "id": 292,
+      "question": "Where should you store JWT tokens in a web application?",
+      "options": {
+        "A": "localStorage is perfectly safe and recommended for JWT storage",
+        "B": "HttpOnly cookies are most secure; avoid localStorage (XSS risk)",
+        "C": "Session storage is always more secure than cookies for tokens",
+        "D": "Store in Redux state - it's automatically encrypted"
+      },
+      "correctAnswer": "B",
+      "explanation": "HttpOnly cookies prevent JavaScript access (XSS can't steal tokens). localStorage is vulnerable to XSS - any script can read it. Session storage has same XSS risk. Best practice: HttpOnly cookie for refresh token, short-lived access token in memory. Also use Secure flag (HTTPS only) and SameSite attribute (CSRF protection).",
+      "topic": "Security - Authentication",
+      "difficulty": "hard"
+    },
+    {
+      "id": 293,
+      "question": "What is OAuth 2.0 used for?",
+      "options": {
+        "A": "Encrypting data in transit between client and server",
+        "B": "Authorization - granting access to resources without sharing passwords",
+        "C": "Password hashing and secure storage in databases",
+        "D": "OAuth is deprecated - replaced by JWT authentication"
+      },
+      "correctAnswer": "B",
+      "explanation": "OAuth 2.0 is authorization framework: allows third-party apps to access resources without sharing passwords. Example: \"Login with Google\" - app gets access token to fetch your profile, not your password. Flows: Authorization Code (web apps), Implicit (deprecated), Client Credentials (server-to-server). Often confused with authentication - that's OpenID Connect (built on OAuth).",
+      "topic": "Security - Authentication",
+      "difficulty": "medium"
+    },
+    {
+      "id": 294,
+      "question": "What does HTTPS protect against?",
+      "options": {
+        "A": "Man-in-the-middle attacks by encrypting data between client and server",
+        "B": "SQL injection attacks on backend database queries",
+        "C": "XSS attacks by sanitizing user input automatically",
+        "D": "HTTPS only changes URL appearance - no security benefit"
+      },
+      "correctAnswer": "A",
+      "explanation": "HTTPS (HTTP + TLS/SSL) encrypts data in transit, preventing man-in-the-middle attacks where attackers intercept/modify traffic. Without HTTPS, passwords, credit cards, personal data sent in plain text. Modern browsers mark HTTP sites as \"Not Secure\". HTTPS doesn't protect against XSS, SQL injection, or other code vulnerabilities - those need separate defenses.",
+      "topic": "Security - Network",
+      "difficulty": "easy"
+    },
+    {
+      "id": 295,
+      "question": "How does Content Security Policy (CSP) prevent XSS attacks?",
+      "options": {
+        "A": "CSP automatically sanitizes all user input before rendering",
+        "B": "Restricts which sources can load scripts, styles, images via whitelist",
+        "C": "CSP encrypts all JavaScript code to prevent tampering",
+        "D": "Content Security Policy only works with HTTPS enabled"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSP header specifies allowed sources for scripts, styles, images, fonts, etc. Example: Content-Security-Policy: script-src 'self' https://trusted.com. Blocks inline scripts and eval() by default (XSS vectors). Won't execute injected scripts from untrusted sources. Not perfect - still sanitize inputs, but adds strong defense layer.",
+      "topic": "Security - CSP",
+      "difficulty": "medium"
+    },
+    {
+      "id": 296,
+      "question": "Why is rate limiting important for API security?",
+      "options": {
+        "A": "Prevents brute force attacks and DoS by limiting requests per time period",
+        "B": "Rate limiting speeds up API responses for legitimate users",
+        "C": "It's only needed for public APIs - internal APIs don't need it",
+        "D": "Rate limiting automatically encrypts sensitive data in responses"
+      },
+      "correctAnswer": "A",
+      "explanation": "Rate limiting restricts requests per user/IP in time window (e.g., 100 req/min). Prevents: brute force password attacks, API abuse, DoS attacks, scraping. Implementation: token bucket, sliding window. Return 429 (Too Many Requests) when exceeded. Apply to login, signup, expensive endpoints. Even internal APIs benefit (prevents runaway loops).",
+      "topic": "Security - API",
+      "difficulty": "medium"
+    },
+    {
+      "id": 297,
+      "question": "Which approach is best for input validation security?",
+      "options": {
+        "A": "Client-side validation only - server trusts client-validated data",
+        "B": "Validate on server AND client; sanitize before using in queries/rendering",
+        "C": "Validation is unnecessary if using TypeScript for type safety",
+        "D": "Only validate inputs from unauthenticated users"
+      },
+      "correctAnswer": "B",
+      "explanation": "Always validate on server (client validation can be bypassed). Client validation improves UX but isn't security. Sanitize inputs before: database queries (SQL injection), HTML rendering (XSS), OS commands (command injection). TypeScript helps but doesn't prevent malicious inputs. Validate all inputs regardless of authentication - compromised accounts exist.",
+      "topic": "Security - Best Practices",
+      "difficulty": "medium"
+    },
+    {
+      "id": 298,
+      "question": "How does OpenID Connect differ from OAuth 2.0?",
+      "options": {
+        "A": "OpenID Connect adds authentication layer on top of OAuth 2.0 authorization",
+        "B": "OAuth 2.0 is newer and replaces OpenID Connect completely",
+        "C": "OpenID Connect is only for mobile apps; OAuth is web only",
+        "D": "They're identical protocols - just different names"
+      },
+      "correctAnswer": "A",
+      "explanation": "OAuth 2.0 = authorization (what you can access). OpenID Connect (OIDC) = authentication (who you are) built on OAuth. OIDC adds ID token (JWT with user info) to OAuth flows. Use OAuth for \"app wants to access your Google Drive\", OIDC for \"sign in with Google\". Most \"Login with X\" uses OIDC, not pure OAuth.",
+      "topic": "Security - Authentication",
+      "difficulty": "hard"
+    },
+    {
+      "id": 299,
+      "question": "What's the difference between grid-template-areas and grid-template-columns/rows?",
+      "options": {
+        "A": "template-areas uses named regions; template-columns/rows uses size definitions",
+        "B": "template-areas is deprecated - only use template-columns/rows in modern CSS",
+        "C": "They're identical - just different syntax for same layout definition",
+        "D": "template-areas only works in Firefox - not cross-browser compatible"
+      },
+      "correctAnswer": "A",
+      "explanation": "grid-template-areas creates named grid regions for semantic layouts: grid-template-areas: \"header header\" \"sidebar main\" \"footer footer\". Then place items: grid-area: header. grid-template-columns/rows defines sizes: grid-template-columns: 200px 1fr. Often used together - template-columns/rows for sizes, template-areas for layout semantics. Both are modern and well-supported.",
+      "topic": "CSS - Grid",
+      "difficulty": "hard"
+    },
+    {
+      "id": 300,
+      "question": "When should you use CSS animations instead of transitions?",
+      "options": {
+        "A": "Animations are always faster - use them for all effects",
+        "B": "Animations for multi-step/looping effects; transitions for simple state changes",
+        "C": "Transitions are deprecated - modern CSS only uses @keyframes",
+        "D": "They're identical - animations just have more verbose syntax"
+      },
+      "correctAnswer": "B",
+      "explanation": "Transitions: simple A→B changes on state change (hover, focus). Animations (@keyframes): complex multi-step sequences, loops, auto-start without trigger. Transition: transition: all 0.3s ease. Animation: @keyframes spin { from { rotate: 0deg } to { rotate: 360deg } }. Use transitions for interactive feedback, animations for complex sequences or loading spinners.",
+      "topic": "CSS - Animations",
+      "difficulty": "medium"
+    },
+    {
+      "id": 301,
+      "question": "What's an advantage of CSS custom properties over Sass variables?",
+      "options": {
+        "A": "Sass variables are faster and more performant than CSS variables",
+        "B": "CSS custom properties can be changed at runtime with JavaScript",
+        "C": "Sass variables work in all browsers; CSS variables need polyfills",
+        "D": "There's no advantage - Sass variables are superior in every way"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSS custom properties (--color: blue) are live in the browser, changeable with JS: element.style.setProperty('--color', 'red'). Sass variables compile to static values - can't change at runtime. CSS vars can cascade, inherit, change in media queries. Sass vars offer calculations and functions at build time. Use both: Sass for build-time logic, CSS vars for runtime theming.",
+      "topic": "CSS - Custom Properties",
+      "difficulty": "medium"
+    },
+    {
+      "id": 302,
+      "question": "What does the CSS contain property do?",
+      "options": {
+        "A": "Limits element width/height to parent container boundaries",
+        "B": "Tells browser which properties affect element, enabling rendering optimizations",
+        "C": "Contains CSS styles to prevent global style leaks automatically",
+        "D": "CSS containment is experimental - not usable in production"
+      },
+      "correctAnswer": "B",
+      "explanation": "contain property hints to browser what changes affect element: contain: layout (layout isolated), contain: paint (paint isolated), contain: size (size doesn't depend on children). Browser can optimize rendering by not recalculating unaffected parts. Use for independent components: contain: layout style paint. Performance benefit for large apps with many components.",
+      "topic": "CSS - Performance",
+      "difficulty": "hard"
+    },
+    {
+      "id": 303,
+      "question": "What problem do CSS @layer rules solve?",
+      "options": {
+        "A": "@layer creates 3D layered effects like z-index for backgrounds",
+        "B": "Controls specificity and cascade order explicitly with named layers",
+        "C": "Layers are deprecated - modern CSS uses shadow DOM instead",
+        "D": "@layer only works for animations - not for general styles"
+      },
+      "correctAnswer": "B",
+      "explanation": "@layer lets you control cascade order independently of specificity: @layer reset, base, components, utilities. Layers cascade in declaration order, overriding specificity within. Solves: framework styles vs custom styles conflicts, managing large codebases, preventing !important abuse. Example: utilities layer always wins even with low specificity. Modern feature, good browser support.",
+      "topic": "CSS - Cascade Layers",
+      "difficulty": "hard"
+    },
+    {
+      "id": 304,
+      "question": "What does the aspect-ratio property do?",
+      "options": {
+        "A": "Sets preferred width-to-height ratio for element sizing",
+        "B": "Only controls image aspect ratios - doesn't work on divs",
+        "C": "aspect-ratio is deprecated - use padding-bottom hack instead",
+        "D": "Controls screen aspect ratio for responsive design breakpoints"
+      },
+      "correctAnswer": "A",
+      "explanation": "aspect-ratio: 16/9 maintains width-to-height ratio. Browser calculates height from width (or vice versa). Replaces padding-bottom hack: .old { padding-bottom: 56.25% } vs .new { aspect-ratio: 16/9 }. Works on any element, not just images. Great for responsive video embeds, card layouts, maintaining proportions. Modern CSS, good support.",
+      "topic": "CSS - Modern Features",
+      "difficulty": "medium"
+    },
+    {
+      "id": 305,
+      "question": "What's the main benefit of Redux Toolkit over classic Redux?",
+      "options": {
+        "A": "Redux Toolkit is 10x faster for large state trees",
+        "B": "Reduces boilerplate with createSlice, includes Immer for immutable updates",
+        "C": "Classic Redux is deprecated - Toolkit is only supported version",
+        "D": "Redux Toolkit only works with TypeScript projects"
+      },
+      "correctAnswer": "B",
+      "explanation": "Redux Toolkit (RTK) is official, opinionated Redux setup. Benefits: createSlice generates actions/reducers, Immer allows \"mutating\" code (state.count++ instead of {...state, count: state.count+1}), includes Redux Thunk, DevTools. Reduces boilerplate by ~70%. Classic Redux still works but RTK is recommended for new projects.",
+      "topic": "Redux - Redux Toolkit",
+      "difficulty": "medium"
+    },
+    {
+      "id": 306,
+      "question": "Why use selector functions instead of accessing state directly?",
+      "options": {
+        "A": "Selectors are required - direct access throws runtime errors",
+        "B": "Encapsulate state shape, enable memoization with reselect for performance",
+        "C": "Selectors automatically update components faster than direct access",
+        "D": "Direct state access is actually faster - selectors add overhead"
+      },
+      "correctAnswer": "B",
+      "explanation": "Selectors encapsulate state shape: const getUser = state => state.user.profile (if structure changes, update one place). With reselect library, create memoized selectors that only recalculate when inputs change, preventing unnecessary renders. Example: const getExpensiveComputation = createSelector([getUsers], users => users.filter(...)) - only runs when users change.",
+      "topic": "Redux - Selectors",
+      "difficulty": "hard"
+    },
+    {
+      "id": 307,
+      "question": "What does Redux Thunk middleware enable?",
+      "options": {
+        "A": "Type checking for Redux actions and reducers automatically",
+        "B": "Dispatching functions (async logic) instead of plain action objects",
+        "C": "Time-travel debugging in Redux DevTools only",
+        "D": "Thunk is deprecated - use Redux Saga for all async logic"
+      },
+      "correctAnswer": "B",
+      "explanation": "Redux actions must be plain objects. Thunk middleware lets you dispatch functions: dispatch((dispatch, getState) => { fetch(...).then(data => dispatch(action)) }). Enables async logic (API calls, timers) in action creators. Included in Redux Toolkit by default. Alternative: Redux Saga (more complex, for complex async flows).",
+      "topic": "Redux - Middleware",
+      "difficulty": "medium"
+    },
+    {
+      "id": 308,
+      "question": "When should you use Redux in a React application?",
+      "options": {
+        "A": "Always - every React app needs Redux for state management",
+        "B": "When state is shared across many components, complex updates, or time-travel debugging needed",
+        "C": "Redux is deprecated - use Context API for all state management",
+        "D": "Only for apps with more than 100 components"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use Redux when: global state shared by many components, complex state logic, need middleware (logging, async), time-travel debugging. Don't use if: local component state suffices, Context API is enough, small app. Redux adds complexity - only use when benefits outweigh costs. Modern alternatives: Zustand (simpler), Jotai, Recoil.",
+      "topic": "Redux - Best Practices",
+      "difficulty": "medium"
+    },
+    {
+      "id": 309,
+      "question": "Why does Redux middleware order matter?",
+      "options": {
+        "A": "Order doesn't matter - all middleware run in parallel",
+        "B": "Middleware executes in order - earlier middleware sees actions first",
+        "C": "Middleware order only affects DevTools - no production impact",
+        "D": "Redux automatically sorts middleware by priority"
+      },
+      "correctAnswer": "B",
+      "explanation": "Middleware chain processes actions in order: applyMiddleware(logger, thunk) means logger runs first, then thunk. Logger sees action before thunk processes it. Common order: logger first (log all), thunk/saga for async, then error handling. Changing order can break functionality - put transforming middleware before consuming middleware.",
+      "topic": "Redux - Middleware",
+      "difficulty": "hard"
+    },
+    {
+      "id": 310,
+      "question": "What can Redux DevTools do?",
+      "options": {
+        "A": "Only view current state - no action history or time-travel",
+        "B": "Inspect actions, time-travel debugging, import/export state, action replay",
+        "C": "DevTools are deprecated - only work with Redux versions below 4.0",
+        "D": "Redux DevTools automatically fix bugs in reducers"
+      },
+      "correctAnswer": "B",
+      "explanation": "Redux DevTools: view action history, inspect state after each action, time-travel (jump to any previous state), manually dispatch actions, import/export state (bug reproduction), action filtering. Essential for debugging. Setup: add devtools enhancer to store. Works in browser extension + standalone app.",
+      "topic": "Redux - DevTools",
+      "difficulty": "easy"
+    },
+    {
+      "id": 311,
+      "question": "What problem does RTK Query solve?",
+      "options": {
+        "A": "Type-safe routing for React applications with Redux",
+        "B": "Data fetching and caching - eliminates need for manual fetch logic and state",
+        "C": "RTK Query only queries databases - doesn't work with REST APIs",
+        "D": "Query is deprecated - Redux Toolkit removed it in version 2.0"
+      },
+      "correctAnswer": "B",
+      "explanation": "RTK Query is data fetching/caching built into Redux Toolkit. Auto-generates hooks: useGetUsersQuery(). Handles: loading states, caching, deduplication, refetching, optimistic updates. Eliminates boilerplate: no manual fetch, loading, error states. Similar to React Query but integrated with Redux. Great for apps already using Redux.",
+      "topic": "Redux - RTK Query",
+      "difficulty": "medium"
+    },
+    {
+      "id": 312,
+      "question": "What's the main purpose of Sass mixins?",
+      "options": {
+        "A": "Mixins are deprecated - use CSS custom properties instead",
+        "B": "Reusable blocks of styles with parameters, included with @include",
+        "C": "Mixins only work for colors - not for layout properties",
+        "D": "Automatically mix vendor prefixes into CSS output"
+      },
+      "correctAnswer": "B",
+      "explanation": "Mixins are reusable style blocks: @mixin button($color) { background: $color; padding: 10px; }. Use: @include button(blue). Supports parameters, default values, @content for nested styles. Great for: responsive breakpoints, vendor prefixes, common patterns. Different from functions - mixins output CSS, functions return values.",
+      "topic": "SCSS - Mixins",
+      "difficulty": "medium"
+    },
+    {
+      "id": 313,
+      "question": "What's a potential problem with deep SCSS nesting?",
+      "options": {
+        "A": "Nesting is required - flat SCSS doesn't compile correctly",
+        "B": "Deep nesting creates overly specific selectors, hard to override and maintain",
+        "C": "SCSS nesting is faster than flat CSS for browser rendering",
+        "D": "Nesting only works 2 levels deep - compiler errors beyond that"
+      },
+      "correctAnswer": "B",
+      "explanation": "SCSS nesting: .parent { .child { .grandchild {} } } compiles to .parent .child .grandchild (high specificity). Deep nesting (4+ levels) creates: hard-to-override styles, large CSS output, maintenance issues. Best practice: limit to 3 levels, use BEM methodology, consider if nesting adds value. Nesting is convenient but can become anti-pattern.",
+      "topic": "SCSS - Best Practices",
+      "difficulty": "medium"
+    },
+    {
+      "id": 314,
+      "question": "What can SCSS variables do that CSS custom properties can't?",
+      "options": {
+        "A": "SCSS variables can be changed with JavaScript at runtime",
+        "B": "Used in calculations and functions at compile time, before CSS output",
+        "C": "SCSS variables have better browser support than CSS variables",
+        "D": "CSS custom properties are superior - no advantages for SCSS variables"
+      },
+      "correctAnswer": "B",
+      "explanation": "SCSS variables ($color: blue) compile to static values, usable in: color functions (darken($color, 10%)), calculations, conditionals (@if), loops. CSS custom properties work at runtime, changeable with JS. SCSS variables compile away (no runtime cost). Use both: SCSS for compile-time logic, CSS vars for runtime theming.",
+      "topic": "SCSS - Variables",
+      "difficulty": "hard"
+    },
+    {
+      "id": 315,
+      "question": "When should you use @extend instead of mixins?",
+      "options": {
+        "A": "@extend is always better - more performant than mixins",
+        "B": "@extend for shared selectors without params; mixins for parameterized reuse",
+        "C": "Mixins are deprecated - modern SCSS only uses @extend",
+        "D": "They're identical - @extend is just shorter mixin syntax"
+      },
+      "correctAnswer": "B",
+      "explanation": "@extend shares selectors: .error { color: red; } .serious-error { @extend .error; } outputs .error, .serious-error { color: red }. Mixins duplicate code at each @include. Use @extend for: simple shared styles, no parameters. Use mixins for: parameters, @content, complex logic. Warning: @extend can create unexpected selector chains, many prefer mixins or utility classes.",
+      "topic": "SCSS - @extend",
+      "difficulty": "hard"
+    },
+    {
+      "id": 316,
+      "question": "What's the benefit of media query mixins in SCSS?",
+      "options": {
+        "A": "Media queries don't work in regular CSS - require SCSS",
+        "B": "Centralize breakpoints, avoid hardcoding values throughout codebase",
+        "C": "SCSS media queries are faster than CSS media queries",
+        "D": "Mixins automatically generate all responsive breakpoints"
+      },
+      "correctAnswer": "B",
+      "explanation": "Define breakpoint mixin: @mixin tablet { @media (min-width: 768px) { @content; } }. Use: .box { width: 100%; @include tablet { width: 50%; } }. Benefits: centralized breakpoint values, easy updates, consistent naming. Can use variables: @mixin above($bp) { @media (min-width: $bp) { @content; } }. DRY principle for responsive design.",
+      "topic": "SCSS - Media Queries",
+      "difficulty": "medium"
+    },
+    {
+      "id": 317,
+      "question": "How do SCSS functions differ from mixins?",
+      "options": {
+        "A": "Functions return values for use in properties; mixins output CSS blocks",
+        "B": "Functions are deprecated - only use mixins in modern SCSS",
+        "C": "Mixins are faster - functions add compilation overhead",
+        "D": "They're identical - functions just use different syntax"
+      },
+      "correctAnswer": "A",
+      "explanation": "Functions return values: @function double($n) { @return $n * 2; }. Use: width: double(10px). Mixins output CSS: @mixin center { display: flex; justify-content: center; }. Functions for: calculations, color manipulation (lighten, darken), string operations. Mixins for: reusable style blocks. Can't use functions where CSS blocks expected.",
+      "topic": "SCSS - Functions",
+      "difficulty": "medium"
+    },
+    {
+      "id": 318,
+      "question": "Why is @use recommended over @import in modern SCSS?",
+      "options": {
+        "A": "@import is faster and has better browser compatibility",
+        "B": "@use creates namespaces, avoids global pollution, clearer dependencies",
+        "C": "@use is deprecated - Sass team recommends @import only",
+        "D": "They're identical - @use is just newer syntax for same behavior"
+      },
+      "correctAnswer": "B",
+      "explanation": "@import: loads globally, no namespacing, can cause conflicts, deprecated. @use: creates namespace, explicit dependencies, loads once. Example: @use 'colors' as c; background: c.$primary. Benefits: no naming conflicts, clear where variables/mixins come from, better performance (load once). @import removed in Dart Sass 3.0 - migrate to @use/@forward.",
+      "topic": "SCSS - Modules",
+      "difficulty": "hard"
     }
   ]
 }
