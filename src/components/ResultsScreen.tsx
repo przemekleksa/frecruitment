@@ -30,7 +30,7 @@ export default function ResultsScreen({
   }, {} as Record<string, { total: number; wrong: number }>);
 
   const topicsNeedingReview = Object.entries(topicStats)
-    .filter(([_, stats]) => (stats.wrong / stats.total) > 0.2)
+    .filter(([, stats]) => (stats.wrong / stats.total) > 0.2)
     .map(([topic, stats]) => ({
       topic,
       wrongPercentage: Math.round((stats.wrong / stats.total) * 100),

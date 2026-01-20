@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import QuizScreen from "./components/QuizScreen";
 import ResultsScreen from "./components/ResultsScreen";
@@ -14,6 +14,7 @@ interface SavedState {
   userAnswers: UserAnswer[];
   currentQuestionIndex: number;
   answers: UserAnswer[];
+  shuffledQuestions?: Question[];
 }
 
 function App() {
@@ -35,35 +36,39 @@ function App() {
   const [quizMode, setQuizMode] = useState<QuizMode | null>(
     savedState?.quizMode || null
   );
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>(
     savedState?.userAnswers || []
   );
+  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>(
+    savedState?.shuffledQuestions || []
+  );
 
-  const quizQuestions = useMemo(() => {
-    // For "random" mode, always use all questions (ignore topic filter)
-    // For "all" mode, filter by topic prefix if selected
-    const filtered =
-      quizMode === "random"
-        ? quizData.quiz
-        : selectedTopic
-        ? quizData.quiz.filter((q) => q.topic.startsWith(selectedTopic))
-        : quizData.quiz;
-
-    // eslint-disable-next-line react-hooks/purity
-    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-
-    if (quizMode === "random") {
-      return shuffled.slice(0, 25);
-    }
-    return shuffled;
-  }, [quizMode, selectedTopic]);
+  const quizQuestions = shuffledQuestions;
 
   const handleStartQuiz = (mode: QuizMode, topic?: string) => {
     setQuizMode(mode);
-    setSelectedTopic(topic || null);
     setCurrentScreen("quiz");
     setUserAnswers([]);
+
+    // Filter questions based on mode and topic
+    const filtered =
+      mode === "random"
+        ? quizData.quiz
+        : topic
+        ? quizData.quiz.filter((q) => q.topic.startsWith(topic))
+        : quizData.quiz;
+
+    // Fisher-Yates shuffle algorithm - stable and unbiased
+    const shuffled = [...filtered];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    // Set shuffled questions (only happens once when quiz starts)
+    const finalQuestions = mode === "random" ? shuffled.slice(0, 25) : shuffled;
+    setShuffledQuestions(finalQuestions as Question[]);
+
     // Clear any previous quiz progress
     localStorage.removeItem("quiz-progress");
   };
@@ -76,7 +81,6 @@ function App() {
   const handleRestart = () => {
     setCurrentScreen("welcome");
     setQuizMode(null);
-    setSelectedTopic(null);
     setUserAnswers([]);
     localStorage.removeItem(STORAGE_KEY);
   };
@@ -88,10 +92,11 @@ function App() {
         currentScreen,
         quizMode,
         userAnswers,
+        shuffledQuestions,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
     }
-  }, [currentScreen, quizMode, userAnswers]);
+  }, [currentScreen, quizMode, userAnswers, shuffledQuestions]);
 
   return (
     <div className="app">
