@@ -4451,6 +4451,306 @@
       "explanation": "@import: loads globally, no namespacing, can cause conflicts, deprecated. @use: creates namespace, explicit dependencies, loads once. Example: @use 'colors' as c; background: c.$primary. Benefits: no naming conflicts, clear where variables/mixins come from, better performance (load once). @import removed in Dart Sass 3.0 - migrate to @use/@forward.",
       "topic": "SCSS - Modules",
       "difficulty": "hard"
+    },
+    {
+      "id": 319,
+      "question": "What is the purpose of generateStaticParams in Next.js App Router?",
+      "options": {
+        "A": "Generate dynamic routes at runtime",
+        "B": "Pre-render dynamic routes at build time",
+        "C": "Fetch data on the client side",
+        "D": "Handle API route parameters"
+      },
+      "correctAnswer": "B",
+      "explanation": "generateStaticParams is used to define a list of route segment parameters that should be statically generated at build time. It replaces getStaticPaths from Pages Router and enables static generation of dynamic routes like /products/[id].",
+      "topic": "Next.js - App Router",
+      "difficulty": "medium",
+      "whyImportant": "You used this in your project for category/[slug] and products/[productId]"
+    },
+    {
+      "id": 320,
+      "question": "How does Next.js Image component optimize images?",
+      "options": {
+        "A": "Only compresses file size",
+        "B": "Lazy loading, format optimization, responsive sizing",
+        "C": "Converts all images to WebP only",
+        "D": "Reduces image resolution automatically"
+      },
+      "correctAnswer": "B",
+      "explanation": "Next.js Image component provides automatic lazy loading, serves modern formats (WebP, AVIF) to supporting browsers, generates responsive sizes based on device, and optimizes on-demand rather than at build time. It significantly improves LCP and reduces bandwidth usage.",
+      "topic": "Next.js - Image Optimization",
+      "difficulty": "medium",
+      "whyImportant": "You used this extensively in ProductCard and Product components"
+    },
+    {
+      "id": 321,
+      "question": "What does the 'sizes' prop in Next.js Image component do?",
+      "options": {
+        "A": "Sets the actual image dimensions",
+        "B": "Tells browser which image size to load for different viewports",
+        "C": "Compresses image to specified size",
+        "D": "Creates multiple image copies"
+      },
+      "correctAnswer": "B",
+      "explanation": "The sizes prop is a media query string that tells the browser which image size to request based on viewport width. For example: '(max-width: 768px) 100vw, 400px' means use full viewport width on mobile, 400px on larger screens. This enables responsive images and reduces bandwidth on mobile.",
+      "topic": "Next.js - Image Optimization",
+      "difficulty": "hard",
+      "whyImportant": "You used sizes='(max-width: 768px) 100vw, 400px' in your ProductCard"
+    },
+    {
+      "id": 322,
+      "question": "How do you properly persist cart data using localStorage in React?",
+      "options": {
+        "A": "useEffect with empty deps to save on mount",
+        "B": "useEffect with state deps to save on changes",
+        "C": "useState initializer function only",
+        "D": "Save synchronously in event handlers"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use useEffect with state dependencies to save to localStorage whenever state changes, and use lazy initialization in useState to load initial state from localStorage. This pattern ensures data persists across sessions while avoiding unnecessary writes and race conditions.",
+      "topic": "Browser Storage - localStorage",
+      "difficulty": "medium",
+      "whyImportant": "This is exactly how your CartContext works"
+    },
+    {
+      "id": 323,
+      "question": "Why use JSON.parse with try-catch when loading from localStorage?",
+      "options": {
+        "A": "localStorage always returns strings",
+        "B": "Corrupted data could break JSON.parse",
+        "C": "To improve performance",
+        "D": "Required by TypeScript"
+      },
+      "correctAnswer": "B",
+      "explanation": "localStorage stores only strings, so JSON.parse is needed to convert back to objects. However, if data is corrupted, manually edited, or from an old app version, JSON.parse will throw. Using try-catch with fallback to initial value prevents app crashes and handles edge cases gracefully.",
+      "topic": "Browser Storage - localStorage",
+      "difficulty": "medium",
+      "whyImportant": "You implemented this exact pattern in CartContext initialization"
+    },
+    {
+      "id": 324,
+      "question": "What are CSS Modules and how do they prevent style conflicts?",
+      "options": {
+        "A": "Global CSS with better organization",
+        "B": "Automatically scoped classes via unique hashing",
+        "C": "CSS-in-JS alternative",
+        "D": "Inline styles generator"
+      },
+      "correctAnswer": "B",
+      "explanation": "CSS Modules automatically scope CSS by generating unique class names (e.g., .button becomes .Button_button__abc123). This prevents style conflicts between components, enables local reasoning about styles, and works with standard CSS/SCSS syntax. It's the default in Next.js.",
+      "topic": "CSS - Modules",
+      "difficulty": "easy",
+      "whyImportant": "Your entire project uses SCSS Modules (*.module.scss)"
+    },
+    {
+      "id": 325,
+      "question": "Why use @use instead of @import in modern Sass?",
+      "options": {
+        "A": "@import is deprecated and will be removed",
+        "B": "@use is faster",
+        "C": "@import has more features",
+        "D": "No practical difference"
+      },
+      "correctAnswer": "A",
+      "explanation": "@import is deprecated and will be removed in Dart Sass 3.0. @use provides better namespace management, avoids duplicate CSS output, and makes dependencies explicit. It's the modern way to load Sass modules and is required for using Sass built-in modules like sass:color.",
+      "topic": "SCSS - Modules",
+      "difficulty": "medium",
+      "whyImportant": "You migrated from darken() to @use 'sass:color' in your project"
+    },
+    {
+      "id": 326,
+      "question": "What is the modern alternative to Sass darken() function?",
+      "options": {
+        "A": "Use darken() as-is",
+        "B": "color.adjust() with negative lightness",
+        "C": "lighten() with negative value",
+        "D": "Use CSS filter: brightness()"
+      },
+      "correctAnswer": "B",
+      "explanation": "darken() is deprecated. Use color.adjust($color, $lightness: -10%) instead. This is part of the sass:color module and provides more consistent color manipulation. You must @use 'sass:color' first to access these functions.",
+      "topic": "SCSS - Modern Functions",
+      "difficulty": "hard",
+      "whyImportant": "You literally fixed this in your project! Changed darken() to darken-color() using color.adjust()"
+    },
+    {
+      "id": 327,
+      "question": "How do you test localStorage in Jest/React Testing Library?",
+      "options": {
+        "A": "Mock entire window.localStorage object",
+        "B": "Use jest.spyOn(Storage.prototype, 'getItem')",
+        "C": "Use real localStorage in tests",
+        "D": "localStorage cannot be tested"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use jest.spyOn(Storage.prototype, 'getItem') and jest.spyOn(Storage.prototype, 'setItem') to spy on localStorage methods. This allows you to verify calls while using the real implementation. Avoid mocking the entire localStorage object as it can cause issues with test isolation.",
+      "topic": "Testing - localStorage",
+      "difficulty": "hard",
+      "whyImportant": "This is EXACTLY how you test localStorage in CartContext.test.tsx"
+    },
+    {
+      "id": 328,
+      "question": "What is the purpose of Metadata API in Next.js App Router?",
+      "options": {
+        "A": "Store user session data",
+        "B": "Define SEO metadata for pages",
+        "C": "Track analytics events",
+        "D": "Configure API routes"
+      },
+      "correctAnswer": "B",
+      "explanation": "Metadata API allows you to define metadata (title, description, Open Graph tags, etc.) for each route. You can export a metadata object or generateMetadata function from page/layout components. This improves SEO and social sharing without manual <head> manipulation.",
+      "topic": "Next.js - Metadata API",
+      "difficulty": "easy",
+      "whyImportant": "You used generateMetadata in category/[slug]/page.tsx"
+    },
+    {
+      "id": 329,
+      "question": "When should you use 'use client' directive in Next.js App Router?",
+      "options": {
+        "A": "In every component with state or effects",
+        "B": "Only when using hooks, event handlers, or browser APIs",
+        "C": "Never, always use server components",
+        "D": "In all files for better performance"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use 'use client' only when you need: React hooks (useState, useEffect), event handlers (onClick, onChange), browser APIs (window, localStorage), or Context providers. Server Components are the default and preferred for better performance. Use Client Components as leaves of your component tree when possible.",
+      "topic": "Next.js - Server vs Client Components",
+      "difficulty": "medium",
+      "whyImportant": "Your CartContext and components that use it need 'use client'"
+    },
+    {
+      "id": 330,
+      "question": "How does Context API handle re-renders of consuming components?",
+      "options": {
+        "A": "Only re-renders components that use changed values",
+        "B": "Re-renders ALL consuming components when any context value changes",
+        "C": "Never re-renders, needs manual subscription",
+        "D": "Only top-level consumers re-render"
+      },
+      "correctAnswer": "B",
+      "explanation": "ALL components that use useContext will re-render whenever the context value changes, even if they only use a small part of it. This is why splitting contexts or using optimization techniques (useMemo, React.memo) is important for large apps. Consider alternative state management for frequently-changing global state.",
+      "topic": "React - Context API Performance",
+      "difficulty": "hard",
+      "whyImportant": "Critical for understanding your CartContext performance implications"
+    },
+    {
+      "id": 331,
+      "question": "What is the correct pattern for Context Provider value optimization?",
+      "options": {
+        "A": "Always use useMemo for provider value",
+        "B": "useMemo only when value contains objects/arrays",
+        "C": "Never use useMemo, React optimizes automatically",
+        "D": "Use useCallback instead of useMemo"
+      },
+      "correctAnswer": "B",
+      "explanation": "Wrap the provider value in useMemo when it's an object or array to prevent unnecessary re-renders. On each render, a new object/array reference is created, triggering re-renders of all consumers even if values haven't changed. Primitives don't need memoization as they compare by value.",
+      "topic": "React - Context API Optimization",
+      "difficulty": "medium",
+      "whyImportant": "Your CartContext passes an object with items, addToCart, etc."
+    },
+    {
+      "id": 332,
+      "question": "What happens if you call localStorage.getItem during SSR in Next.js?",
+      "options": {
+        "A": "Works normally, returns stored value",
+        "B": "Returns null without error",
+        "C": "Throws 'localStorage is not defined' error",
+        "D": "Automatically falls back to cookies"
+      },
+      "correctAnswer": "C",
+      "explanation": "localStorage is a browser API and doesn't exist during SSR. Accessing it will throw 'localStorage is not defined' error. Always check typeof window !== 'undefined' before using browser APIs, or use 'use client' directive to ensure component only runs on client.",
+      "topic": "Next.js - SSR Gotchas",
+      "difficulty": "medium",
+      "whyImportant": "Your CartContext uses 'use client' to avoid this exact issue"
+    },
+    {
+      "id": 333,
+      "question": "Why use aria-hidden='true' on decorative images?",
+      "options": {
+        "A": "Hides image from all users",
+        "B": "Removes image from screen reader accessibility tree",
+        "C": "Improves page load performance",
+        "D": "Required for SEO"
+      },
+      "correctAnswer": "B",
+      "explanation": "aria-hidden='true' removes decorative elements from the accessibility tree so screen readers skip them. Use it with empty alt='' for images that don't convey information. This prevents screen readers from announcing useless content like 'image' or the filename, improving UX for screen reader users.",
+      "topic": "HTML - Accessibility ARIA",
+      "difficulty": "medium",
+      "whyImportant": "You used this pattern: <Image src={bin} alt='' aria-hidden='true' />"
+    },
+    {
+      "id": 334,
+      "question": "When should you use aria-label vs aria-labelledby?",
+      "options": {
+        "A": "aria-label for visible text, aria-labelledby for hidden",
+        "B": "aria-label for string labels, aria-labelledby to reference existing element",
+        "C": "They are interchangeable",
+        "D": "aria-labelledby is deprecated"
+      },
+      "correctAnswer": "B",
+      "explanation": "Use aria-label when the accessible name is a simple string not visible in DOM. Use aria-labelledby when you want to reference an existing element's text as the label. aria-labelledby is preferred when possible as it keeps labels visible and maintainable.",
+      "topic": "HTML - Accessibility ARIA",
+      "difficulty": "medium",
+      "whyImportant": "You used aria-label='Remove item from cart' on your RemoveItem button"
+    },
+    {
+      "id": 335,
+      "question": "What is a skip link and why is it important for accessibility?",
+      "options": {
+        "A": "Button to skip to next page",
+        "B": "Link to bypass navigation and jump to main content",
+        "C": "Feature to skip loading states",
+        "D": "SEO optimization technique"
+      },
+      "correctAnswer": "B",
+      "explanation": "A skip link (typically hidden until focused) allows keyboard users to bypass repetitive navigation and jump directly to main content. This is crucial for keyboard and screen reader users who would otherwise have to tab through entire navigation on every page. It's a WCAG 2.1 Level A requirement.",
+      "topic": "HTML - Accessibility Navigation",
+      "difficulty": "easy",
+      "whyImportant": "You implemented <a href='#main-content' className='skip-link'> in your layout"
+    },
+    {
+      "id": 336,
+      "question": "How should you handle form submissions with React?",
+      "options": {
+        "A": "Always use preventDefault() in onSubmit",
+        "B": "Use type='button' on submit buttons",
+        "C": "Let native form submission happen",
+        "D": "Depends on whether you need client-side handling"
+      },
+      "correctAnswer": "D",
+      "explanation": "If you need client-side validation or state updates, use event.preventDefault() in onSubmit. If using Server Actions in Next.js, let native submission happen. Always use type='submit' for submit buttons (default) or type='button' for non-submitting buttons to prevent accidental form submission.",
+      "topic": "React - Forms Best Practices",
+      "difficulty": "medium",
+      "whyImportant": "Your Pay button uses type='button' to prevent form submission"
+    },
+    {
+      "id": 337,
+      "question": "What is the purpose of the 'priority' prop in Next.js Image?",
+      "options": {
+        "A": "Sets image quality priority",
+        "B": "Disables lazy loading for above-fold images",
+        "C": "Determines image loading order",
+        "D": "Enables faster CDN delivery"
+      },
+      "correctAnswer": "B",
+      "explanation": "priority={true} disables lazy loading and preloads the image, ensuring it loads immediately. Use it ONLY for above-the-fold images (hero images, logos) to improve LCP. Overusing it can hurt performance by downloading too many images eagerly.",
+      "topic": "Next.js - Image Optimization",
+      "difficulty": "medium",
+      "whyImportant": "You used priority prop in your product detail page images"
+    },
+    {
+      "id": 338,
+      "question": "How does React batch state updates in event handlers?",
+      "options": {
+        "A": "Updates happen immediately and separately",
+        "B": "Updates are batched into single re-render",
+        "C": "Only class components batch updates",
+        "D": "Batching only works in production"
+      },
+      "correctAnswer": "B",
+      "explanation": "React 18+ automatically batches multiple state updates within event handlers, promises, and timeouts into a single re-render for performance. This means calling setState multiple times in an onClick will only trigger one re-render. Use flushSync() if you need synchronous updates (rare).",
+      "topic": "React - State Batching",
+      "difficulty": "hard",
+      "whyImportant": "Important for understanding your addToCart implementation performance"
     }
   ]
 }
